@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageMovieposterWatchlist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:adjustViewBounds="true"
+        android:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Small"
+        app:srcCompat="@drawable/custom_poster_shape" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/textMovietitleWatchlist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textLikecountWatchlist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toTopOf="@+id/imageMovieposterWatchlist"
+        tools:text="movie title" />
+
+    <TextView
+        android:id="@+id/textLikecountWatchlist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:textColor="@color/white"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toTopOf="@+id/textRatingsozleWatchlist"
+        app:layout_constraintEnd_toEndOf="@+id/textMovietitleWatchlist"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView22"
+        app:layout_constraintTop_toBottomOf="@+id/textMovietitleWatchlist"
+        tools:text="12k likes" />
+
+    <TextView
+        android:id="@+id/textReleasedateWatchlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="release date"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/imageMovieposterWatchlist"
+        app:layout_constraintStart_toStartOf="@+id/textMovietitleWatchlist"
+        app:layout_constraintTop_toBottomOf="@+id/textRatingsozleWatchlist" />
+
+    <TextView
+        android:id="@+id/textRatingsozleWatchlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="3.4"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/textReleasedateWatchlist"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/textMovietitleWatchlist"
+        app:layout_constraintTop_toBottomOf="@+id/textLikecountWatchlist" />
+
+    <RatingBar
+        android:id="@+id/ratingBarWatchlist"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-2dp"
+        android:progressBackgroundTint="@color/shimmer_letterboxn"
+        android:progressTint="#FF0000"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        app:layout_constraintBottom_toBottomOf="@+id/textRatingsozleWatchlist"
+        app:layout_constraintStart_toEndOf="@+id/textRatingsozleWatchlist"
+        app:layout_constraintTop_toTopOf="@+id/textRatingsozleWatchlist" />
+
+    <ImageView
+        android:id="@+id/imageView22"
+        android:layout_width="wrap_content"
+        android:layout_height="11dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/textLikecountWatchlist"
+        app:layout_constraintStart_toStartOf="@+id/textMovietitleWatchlist"
+        app:srcCompat="@drawable/round_favorite_unselected_24" />
+</androidx.constraintlayout.widget.ConstraintLayout>

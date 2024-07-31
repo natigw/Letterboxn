@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/darkpurple_letterboxn</item>
+        <item name="colorPrimaryVariant">#111020</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="android:navigationBarColor">@color/bottommenu_navbar</item>
+    </style>
+
+
+    <!-- Custom Date Picker Theme -->
+    <style name="CustomDatePickerTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="materialCalendarStyle">@style/CustomCalendarStyle</item>
+        <item name="materialCalendarFullscreenTheme">@style/CustomFullscreenCalendarStyle</item>
+    </style>
+
+    <!-- Custom Calendar Style -->
+    <style name="CustomCalendarStyle" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="android:background">@drawable/calendar_background
+        </item> <!-- Use the custom drawable here -->
+    </style>
+
+    <!-- Custom Fullscreen Calendar Style -->
+    <style name="CustomFullscreenCalendarStyle" parent="ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="android:background">@drawable/calendar_background
+        </item> <!-- Use the custom drawable here -->
+    </style>
+
+
+    <!--    Custom Alert Dialog-->
+    <style name="CustomAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:background">@color/lightpurple_letterboxn</item>
+    </style>
+    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="MaterialAlertDialog.App.Content.Text" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="Widget.App.Button" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+<!--    &lt;!&ndash;Custom splash screen&ndash;&gt;-->
+<!--    <style name="SplashTheme" parent="Theme.SplashScreen">-->
+<!--        <item name="windowSplashScreenBackground">@drawable/splash_background</item>-->
+<!--&lt;!&ndash;        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_icon</item> &lt;!&ndash; Optional animated icon &ndash;&gt;&ndash;&gt;-->
+<!--        <item name="windowSplashScreenIconBackgroundColor">@android:color/transparent</item> &lt;!&ndash; Optional background color for the icon &ndash;&gt;-->
+<!--    </style>-->
+
+</resources>

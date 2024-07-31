@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageListFourShimmer"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="@+id/imageListThreeShimmer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        android:background="@color/shimmer_letterboxn"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageListThreeShimmer"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="@+id/imageListTwoShimmer"
+        app:layout_constraintTop_toTopOf="@id/imageListFourShimmer"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        android:background="@color/shimmer_letterboxn"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageListTwoShimmer"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="@+id/imageListOneShimmer"
+        app:layout_constraintTop_toTopOf="@id/imageListThreeShimmer"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        android:background="@color/shimmer_letterboxn"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageListOneShimmer"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageListTwoShimmer"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        android:background="@color/shimmer_letterboxn"/>
+
+    <TextView
+        android:id="@+id/textPopularlistNameShimmer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/skincolor_letterboxn"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageListFourShimmer"
+        app:layout_constraintStart_toStartOf="@+id/imageListOneShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/imageListFourShimmer"
+        android:background="@color/shimmer_letterboxn"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imagePopularlistUserpictureShimmer"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="6dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/textPopularlistNameShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/textPopularlistNameShimmer"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        android:background="@color/shimmer_letterboxn"/>
+
+    <TextView
+        android:id="@+id/textPopularlistusernameShimmer"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:maxLength="12"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagePopularlistUserpictureShimmer"
+        app:layout_constraintStart_toEndOf="@+id/imagePopularlistUserpictureShimmer"
+        app:layout_constraintTop_toTopOf="@+id/imagePopularlistUserpictureShimmer"
+        android:background="@color/shimmer_letterboxn" />
+
+    <ImageView
+        android:id="@+id/imageView1621321312Shimmer"
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textPopularlistLikecountShimmer"
+        app:layout_constraintStart_toEndOf="@+id/textPopularlistusernameShimmer"
+        app:srcCompat="@drawable/round_favorite_unselected_24"
+        app:tint="@color/shimmer_letterboxn"/>
+
+    <TextView
+        android:id="@+id/textPopularlistLikecountShimmer"
+        android:layout_width="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:textColor="@color/white"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textPopularlistusernameShimmer"
+        app:layout_constraintStart_toEndOf="@+id/imageView1621321312Shimmer"
+        app:layout_constraintTop_toTopOf="@+id/textPopularlistusernameShimmer"
+        android:background="@color/shimmer_letterboxn" />
+
+    <ImageView
+        android:id="@+id/imageView17123213123Shimmer"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textPopularlistCommentcountShimmer"
+        app:layout_constraintStart_toEndOf="@+id/textPopularlistLikecountShimmer"
+        app:srcCompat="@drawable/round_mode_comment_24"
+        app:tint="@color/shimmer_letterboxn"/>
+
+    <TextView
+        android:id="@+id/textPopularlistCommentcountShimmer"
+        android:layout_width="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:textColor="@color/white"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textPopularlistusernameShimmer"
+        app:layout_constraintStart_toEndOf="@+id/imageView17123213123Shimmer"
+        app:layout_constraintTop_toTopOf="@+id/textPopularlistusernameShimmer"
+        android:background="@color/shimmer_letterboxn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

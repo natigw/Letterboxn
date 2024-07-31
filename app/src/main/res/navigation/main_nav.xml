@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.letterboxn.presentation.ui.fragments.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_popularListsHomeBottomSheetFragment"
+            app:destination="@id/popularListsHomeBottomSheetFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+        <action
+            android:id="@+id/action_homeFragment_to_detailsMovieFragment"
+            app:destination="@id/detailsMovieFragment"
+
+            />
+        <action
+            android:id="@+id/action_homeFragment_to_recentReviewDetailsBottomSheetFragment"
+            app:destination="@id/recentReviewDetailsBottomSheetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.letterboxn.presentation.ui.fragments.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_detailsMovieFragment"
+            app:destination="@id/detailsMovieFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+        <action
+            android:id="@+id/action_profileFragment_to_recentReviewDetailsBottomSheetFragment"
+            app:destination="@id/recentReviewDetailsBottomSheetFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_favMoviesBottomSheetFragment"
+            app:destination="@id/favMoviesBottomSheetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.example.letterboxn.presentation.ui.fragments.explore.ExploreFragment"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_exploreFragment_to_detailsMovieFragment"
+            app:destination="@id/detailsMovieFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+        <action
+            android:id="@+id/action_exploreFragment_to_categoryMoviesExploreBottomSheetFragment"
+            app:destination="@id/categoryMoviesExploreBottomSheetFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_searchExploreFragment"
+            app:destination="@id/searchExploreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/writeReviewFragment"
+        android:name="com.example.letterboxn.presentation.ui.fragments.movieDetails.WriteReviewFragment"
+        android:label="fragment_write_review"
+        tools:layout="@layout/fragment_write_review" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
+    <dialog
+        android:id="@+id/popularListsHomeBottomSheetFragment"
+        android:name="com.example.letterboxn.presentation.ui.bottomsheets.PopularListsHomeBottomSheetFragment"
+        android:label="bottomsheetfragment_popular_lists_home"
+        tools:layout="@layout/bottomsheetfragment_popular_lists_home" >
+        <argument
+            android:name="listitem"
+            app:argType="com.example.letterboxn.domain.model.PopularListItem" />
+        <action
+            android:id="@+id/action_popularListsHomeBottomSheetFragment_to_detailsMovieFragment"
+            app:destination="@id/detailsMovieFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/pinEntryFragment"
+        android:name="com.example.letterboxn.presentation.ui.fragments.auth.PinEntryFragment"
+        android:label="PinEntryFragment"
+        tools:layout="@layout/fragment_pin_entry">
+        <action
+            android:id="@+id/action_pinEntryFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/detailsMovieFragment"
+        android:name="com.example.letterboxn.presentation.ui.fragments.movieDetails.DetailsMovieFragment"
+        android:label="DetailsMovieFragment"
+        tools:layout="@layout/fragment_details_movie">
+
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_detailsMovieFragment_to_watchlistBottomSheetFragment"
+            app:destination="@id/watchlistBottomSheetFragment" />
+        <action
+            android:id="@+id/action_detailsMovieFragment_self"
+            app:destination="@id/detailsMovieFragment" />
+        <action
+            android:id="@+id/action_detailsMovieFragment_to_rateMovieBottomSheetFragment"
+            app:destination="@id/rateMovieBottomSheetFragment" />
+        <action
+            android:id="@+id/action_detailsMovieFragment_to_writeReviewFragment"
+            app:destination="@id/writeReviewFragment" />
+        <action
+            android:id="@+id/action_detailsMovieFragment_to_personDetailsBottomSheetFragment"
+            app:destination="@id/personDetailsBottomSheetFragment" />
+        <action
+            android:id="@+id/action_detailsMovieFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/categoryMoviesExploreBottomSheetFragment"
+        android:name="com.example.letterboxn.presentation.ui.bottomsheets.CategoryMoviesExploreBottomSheetFragment"
+        android:label="bottomsheetfragment_category_movies_explore"
+        tools:layout="@layout/bottomsheetfragment_category_movies_explore" >
+        <argument
+            android:name="categoryItem"
+            app:argType="com.example.letterboxn.domain.model.CategoryItem" />
+        <action
+            android:id="@+id/action_categoryMoviesExploreBottomSheetFragment_to_detailsMovieFragment"
+            app:destination="@id/detailsMovieFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/watchlistBottomSheetFragment"
+        android:name="com.example.letterboxn.presentation.ui.bottomsheets.WatchlistBottomSheetFragment"
+        android:label="bottomsheetfragment_watchlist"
+        tools:layout="@layout/bottomsheetfragment_watchlist" >
+        <action
+            android:id="@+id/action_watchlistBottomSheetFragment_to_detailsMovieFragment"
+            app:destination="@id/detailsMovieFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/recentReviewDetailsBottomSheetFragment"
+        android:name="com.example.letterboxn.presentation.ui.bottomsheets.ReviewDetailsBottomSheetFragment"
+        android:label="RecentReviewDetailsBottomSheetFragment"
+        tools:layout="@layout/bottomsheetfragment_review_details">
+        <argument
+            android:name="reviewItem"
+            app:argType="com.example.letterboxn.domain.model.ReviewWithMovieItem" />
+    </dialog>
+    <fragment
+        android:id="@+id/searchExploreFragment"
+        android:name="com.example.letterboxn.presentation.ui.fragments.explore.SearchExploreFragment"
+        android:label="fragment_search_explore"
+        tools:layout="@layout/fragment_search_explore" >
+        <action
+            android:id="@+id/action_searchExploreFragment_to_detailsMovieFragment"
+            app:destination="@id/detailsMovieFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/favMoviesBottomSheetFragment"
+        android:name="com.example.letterboxn.presentation.ui.bottomsheets.FavPostersBottomSheetFragment"
+        android:label="bottomsheetfragment_fav_movies"
+        tools:layout="@layout/bottomsheetfragment_fav_posters" />
+    <fragment
+        android:id="@+id/shimmerFragment"
+        android:name="com.example.letterboxn.testplayground.ShimmerFragment"
+        android:label="fragment_shimmer"
+        tools:layout="@layout/fragment_shimmer" />
+    <dialog
+        android:id="@+id/rateMovieBottomSheetFragment"
+        android:name="com.example.letterboxn.presentation.ui.bottomsheets.RateMovieBottomSheetFragment"
+        android:label="bottomsheetfragment_rate_movie"
+        tools:layout="@layout/bottomsheetfragment_rate_movie" >
+        <argument
+            android:name="movieTitle"
+            app:argType="string" />
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/personDetailsBottomSheetFragment"
+        android:name="com.example.letterboxn.presentation.ui.bottomsheets.PersonDetailsBottomSheetFragment"
+        android:label="bottomsheetfragment_person_details"
+        tools:layout="@layout/bottomsheetfragment_person_details" >
+        <argument
+            android:name="personId"
+            app:argType="integer" />
+    </dialog>
+</navigation>

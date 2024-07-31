@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkpurple_letterboxn"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".presentation.ui.fragments.movieDetails.DetailsMovieFragment">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9Shimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline10Shimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButtonPosterbackShimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-4dp"
+            android:layout_marginTop="24dp"
+            android:clickable="false"
+            app:fabCustomSize="38dp"
+            app:backgroundTint="@color/shimmer_letterboxn"
+            app:layout_constraintStart_toStartOf="@id/guideline9Shimmer"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator.Medium" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageBackposterDetailsShimmer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/custom_movie_back_poster"
+            android:tint="@color/shimmer_letterboxn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/customShapeim"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imagePosterDetailsShimmer"
+            android:layout_width="140dp"
+            android:layout_height="210dp"
+            android:layout_marginTop="60dp"
+            android:background="#EB999999"
+            app:layout_constraintStart_toStartOf="@+id/guideline9Shimmer"
+            app:layout_constraintTop_toBottomOf="@+id/floatingActionButtonPosterbackShimmer"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+        <TextView
+            android:id="@+id/textMovietitleDetailsShimmer"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="48dp"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/imagePosterDetailsShimmer"
+            app:layout_constraintTop_toTopOf="@+id/imagePosterDetailsShimmer"
+            android:background="@color/shimmer_letterboxn"/>
+
+        <TextView
+            android:id="@+id/textReleasedateShimmer"
+            android:layout_width="28dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textMovietitleDetailsShimmer"
+            app:layout_constraintStart_toEndOf="@+id/textMovietitleDetailsShimmer"
+            android:background="@color/shimmer_letterboxn" />
+
+        <TextView
+            android:id="@+id/textMoviedurationDetailsShimmer"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:textColor="#CCFFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textReleasedateShimmer"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
+            app:layout_constraintTop_toTopOf="@+id/textReleasedateShimmer"
+            android:background="@color/shimmer_letterboxn"/>
+
+        <TextView
+            android:id="@+id/textMoviedirectorDetailsShimmer"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textMovietitleDetailsShimmer"
+            app:layout_constraintTop_toBottomOf="@+id/textMovietitleDetailsShimmer"
+            android:background="@color/shimmer_letterboxn" />
+
+        <TextView
+            android:id="@+id/textMovieoverviewmainDetailsShimmer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="-2dp"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imagePosterDetailsShimmer"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
+            app:layout_constraintStart_toStartOf="@+id/textMoviedirectorDetailsShimmer"
+            app:layout_constraintTop_toBottomOf="@+id/textMoviedirectorDetailsShimmer"
+            android:background="@color/shimmer_letterboxn" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutmainShimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/imagePosterDetailsShimmer"
+            app:layout_constraintStart_toStartOf="@+id/imagePosterDetailsShimmer"
+            app:layout_constraintTop_toBottomOf="@+id/imagePosterDetailsShimmer">
+
+            <GridLayout
+                android:id="@+id/gridlayoutShimmer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:orientation="horizontal"
+                android:rowCount="2">
+
+                <ImageView
+                    android:id="@+id/imageView16Shimmer"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    app:tint="@color/shimmer_letterboxn"
+                    android:src="@drawable/baseline_eye_24" />
+
+                <ImageView
+                    android:id="@+id/imageView17Shimmer"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    app:tint="@color/shimmer_letterboxn"
+                    android:src="@drawable/round_favorite_unselected_24" />
+
+                <ImageView
+                    android:id="@+id/imageView18Shimmer"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    app:tint="@color/shimmer_letterboxn"
+                    android:src="@drawable/round_view_list_24" />
+
+                <TextView
+                    android:id="@+id/textMovieviewcountDetailsShimmer"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:textColor="#BFFFFFFF"
+                    android:textSize="9sp"
+                    android:background="@color/shimmer_letterboxn"/>
+
+                <TextView
+                    android:id="@+id/textMovielikecountDetailsShimmer"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:textColor="#BFFFFFFF"
+                    android:textSize="9sp"
+                    android:background="@color/shimmer_letterboxn"/>
+
+                <TextView
+                    android:id="@+id/textMoviereviewcountDetailsShimmer"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:textColor="#BFFFFFFF"
+                    android:textSize="9sp"
+                    android:background="@color/shimmer_letterboxn"/>
+            </GridLayout>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonRateorReviewDetailsShimmer"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="@color/shimmer_letterboxn"
+            android:paddingLeft="12dp"
+            android:paddingTop="2dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="2dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/imagePosterDetailsShimmer"
+            app:layout_constraintStart_toStartOf="@+id/imagePosterDetailsShimmer"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutmainShimmer" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonAddtoMyListShimmer"
+            android:clickable="false"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="-2dp"
+            android:backgroundTint="@color/shimmer_letterboxn"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/buttonRateorReviewDetailsShimmer"
+            app:layout_constraintStart_toStartOf="@+id/buttonRateorReviewDetailsShimmer"
+            app:layout_constraintTop_toBottomOf="@+id/buttonRateorReviewDetailsShimmer" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonAddtoWatchlistShimmer"
+            android:clickable="false"
+            android:layout_width="0dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="-2dp"
+            android:backgroundTint="@color/shimmer_letterboxn"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/buttonAddtoMyListShimmer"
+            app:layout_constraintStart_toStartOf="@+id/buttonAddtoMyListShimmer"
+            app:layout_constraintTop_toBottomOf="@+id/buttonAddtoMyListShimmer" />
+
+        <TextView
+            android:id="@+id/textView28Shimmer"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView6Shimmer"
+            app:layout_constraintStart_toStartOf="@+id/textMovieoverviewmainDetailsShimmer"
+            app:layout_constraintTop_toBottomOf="@+id/imagePosterDetailsShimmer"
+            android:background="@color/shimmer_letterboxn"/>
+
+        <ImageView
+            android:id="@+id/imageView6Shimmer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="true"
+            app:tint="@color/shimmer_letterboxn"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingBarDetailsMovieShimmer"
+            app:layout_constraintEnd_toStartOf="@+id/ratingBarDetailsMovieShimmer"
+            app:layout_constraintStart_toEndOf="@+id/buttonAddtoMyListShimmer"
+            app:layout_constraintStart_toStartOf="@+id/textView28Shimmer"
+            app:layout_constraintTop_toTopOf="@+id/textRatingvalueDetailsShimmer"
+            app:srcCompat="@drawable/details_rating_statistics" />
+
+        <TextView
+            android:id="@+id/textRatingvalueDetailsShimmer"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="40sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
+            app:layout_constraintTop_toTopOf="@+id/buttonRateorReviewDetailsShimmer"
+            android:background="@color/shimmer_letterboxn" />
+
+        <RatingBar
+            android:id="@+id/ratingBarDetailsMovieShimmer"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:rating="5"
+            android:numStars="5"
+            app:layout_constraintEnd_toEndOf="@+id/textRatingvalueDetailsShimmer"
+            app:layout_constraintStart_toStartOf="@+id/textRatingvalueDetailsShimmer"
+            app:layout_constraintTop_toBottomOf="@+id/textRatingvalueDetailsShimmer"
+            android:progressTint="@color/shimmer_letterboxn"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tablayoutgroupShimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@color/transparent"
+            app:layout_constraintStart_toStartOf="@id/guideline9Shimmer"
+            app:layout_constraintTop_toBottomOf="@+id/buttonAddtoWatchlistShimmer"
+            app:tabIndicator="@drawable/custom_tab_indicator"
+            app:tabIndicatorColor="@color/chippurple_letterboxn"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorHeight="38dp"
+            app:tabMode="auto"
+            app:tabTextColor="#FFFFFF">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Casts" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Crew" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Details" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCastShimmer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
+            app:layout_constraintStart_toStartOf="@+id/guideline9Shimmer"
+            app:layout_constraintTop_toBottomOf="@+id/tablayoutgroupShimmer"
+            tools:listitem="@layout/sample_people_moviedetails" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCrewShimmer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
+            app:layout_constraintStart_toStartOf="@+id/guideline9Shimmer"
+            app:layout_constraintTop_toBottomOf="@+id/tablayoutgroupShimmer"
+            tools:listitem="@layout/sample_people_moviedetails" />
+
+        <TextView
+            android:id="@+id/textView27Shimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="99dp"
+            android:text="Movie Reviews"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guideline9Shimmer"
+            app:layout_constraintTop_toBottomOf="@+id/tablayoutgroupShimmer" />
+
+        <ImageView
+            android:id="@+id/imageView19Shimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/prostaline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView27Shimmer" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvReviewsShimmer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="-8dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
+            app:layout_constraintStart_toStartOf="@+id/guideline9Shimmer"
+            app:layout_constraintTop_toBottomOf="@+id/imageView19Shimmer"
+            tools:listitem="@layout/sample_review_moviedetails" />
+
+        <TextView
+            android:id="@+id/textNoReviewsSentenceMovieDetailsShimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="40dp"
+            android:text="There is no review for this movie."
+            android:textColor="#CCFFFFFF"
+            android:textStyle="italic"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline9Shimmer"
+            app:layout_constraintTop_toBottomOf="@+id/imageView19Shimmer"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

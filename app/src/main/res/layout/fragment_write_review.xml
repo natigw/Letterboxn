@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkpurple_letterboxn"
+    tools:context=".presentation.ui.fragments.movieDetails.WriteReviewFragment">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonReviewback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-4dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:src="@drawable/round_arrow_back_24"
+        app:backgroundTint="#E8A5A5"
+        app:elevation="4dp"
+        app:fabCustomSize="36dp"
+        app:maxImageSize="28dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator.Medium" />
+
+    <TextView
+        android:id="@+id/textMovienameReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButtonReviewback"
+        tools:text="moviename" />
+
+    <TextView
+        android:id="@+id/textMoviedateReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="2dp"
+        android:textColor="#BFFFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textMovienameReview"
+        app:layout_constraintStart_toEndOf="@+id/textMovienameReview"
+        tools:text="moviedate" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Specify the date you watched it:  "
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/textMovienameReview" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imagePosterReview"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/custom_poster_shape"
+        android:elevation="12dp"
+        android:layout_marginTop="-2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonFavReview"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toTopOf="@+id/textMovienameReview"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Write Your Review"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/floatingActionButtonReviewback"
+        app:layout_constraintStart_toEndOf="@+id/floatingActionButtonReviewback"
+        app:layout_constraintTop_toTopOf="@+id/floatingActionButtonReviewback" />
+
+    <Button
+        android:id="@+id/buttonPublishReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/skincolor_letterboxn"
+        android:text="Publish"
+        android:textColor="@color/darkpurple_letterboxn"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8" />
+
+    <RatingBar
+        android:id="@+id/ratingBarDetailsReview"
+        style="@style/Widget.AppCompat.RatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-24dp"
+        android:clickable="true"
+        android:numStars="5"
+        android:progressBackgroundTint="#80FFFFFF"
+        android:progressTint="#EC2626"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:stepSize="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <ImageButton
+        android:id="@+id/imageButtonFavReview"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="2dp"
+        android:backgroundTint="#00C71B1B"
+        android:elevation="12dp"
+        android:focusable="true"
+        android:src="@drawable/round_favorite_24"
+        app:layout_constraintBottom_toBottomOf="@+id/ratingBarDetailsReview"
+        app:layout_constraintEnd_toStartOf="@+id/imagePosterReview"
+        app:layout_constraintStart_toEndOf="@+id/chipDatePicker"
+        app:layout_constraintTop_toTopOf="@+id/ratingBarDetailsReview" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Give your rating:"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDatePicker" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipDatePicker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        app:chipStartPadding="12dp"
+        app:chipBackgroundColor="#343261"
+        app:chipCornerRadius="12dp"
+        app:chipIcon="@drawable/round_edit_calendar_24"
+        app:chipIconTint="#FFFFFF"
+        app:chipStrokeColor="#343261"
+        app:layout_constraintEnd_toEndOf="@+id/buttonDatePicker"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        tools:text="12 Mar 2022" />
+
+    <Button
+        android:id="@+id/buttonDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="90dp"
+        android:backgroundTint="#00DE7171"
+        android:paddingRight="0dp"
+        android:text="Change"
+        android:textColor="#E7A4A4"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/chipDatePicker"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/chipDatePicker"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <EditText
+        android:id="@+id/editTextReview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/custom_review_back"
+        android:gravity="top"
+        android:elevation="8dp"
+        android:hint="Write down your review..."
+        android:inputType="textMultiLine"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#8E8D9A"
+        android:textSize="16sp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPublishReview"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBarDetailsReview" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

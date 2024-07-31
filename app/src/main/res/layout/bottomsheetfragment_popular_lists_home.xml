@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_bottom_sheet_background"
+    tools:context=".presentation.ui.bottomsheets.PopularListsHomeBottomSheetFragment">
+
+    <TextView
+        android:id="@+id/textBShitCategorytitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Category title"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageBShit1"
+        android:layout_width="111dp"
+        android:layout_height="166.5dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:elevation="12dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        app:layout_constraintEnd_toStartOf="@+id/imageBShit2"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textBShitCategorytitle"
+        android:background="@color/lightpurple_letterboxn"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageBShit2"
+        android:layout_width="111dp"
+        android:layout_height="166.5dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:elevation="12dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/imageBShit1"
+        app:layout_constraintTop_toBottomOf="@+id/textBShitCategorytitle"
+        android:background="@color/lightpurple_letterboxn" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageBShit3"
+        android:layout_width="111dp"
+        android:layout_height="166.5dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="20dp"
+        android:adjustViewBounds="true"
+        android:elevation="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageBShit4"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textBshitmovietitle1"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        android:background="@color/lightpurple_letterboxn" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageBShit4"
+        android:layout_width="111dp"
+        android:layout_height="166.5dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="20dp"
+        android:adjustViewBounds="true"
+        android:elevation="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/imageBShit3"
+        app:layout_constraintTop_toBottomOf="@+id/textBshitmovietitle2"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        android:background="@color/lightpurple_letterboxn" />
+
+    <TextView
+        android:id="@+id/textBshitmovietitle1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="-20dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/imageBShit1"
+        app:layout_constraintStart_toStartOf="@+id/imageBShit1"
+        app:layout_constraintTop_toBottomOf="@+id/imageBShit1"
+        tools:text="Movie title" />
+
+    <TextView
+        android:id="@+id/textBshitmovietitle2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="-20dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/imageBShit2"
+        app:layout_constraintStart_toStartOf="@+id/imageBShit2"
+        app:layout_constraintTop_toBottomOf="@+id/imageBShit2"
+        tools:text="Movie title" />
+
+    <TextView
+        android:id="@+id/textBshitmovietitle3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="-20dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/imageBShit3"
+        app:layout_constraintStart_toStartOf="@+id/imageBShit3"
+        app:layout_constraintTop_toBottomOf="@+id/imageBShit3"
+        tools:text="Movie title" />
+
+    <TextView
+        android:id="@+id/textBshitmovietitle4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="-20dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/imageBShit4"
+        app:layout_constraintStart_toStartOf="@+id/imageBShit4"
+        app:layout_constraintTop_toBottomOf="@+id/imageBShit4"
+        tools:text="Movie title" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageBShit4"
+        app:layout_constraintStart_toStartOf="@+id/imageBShit3"
+        app:layout_constraintTop_toBottomOf="@+id/textBshitmovietitle3"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageBShitAuthorprofile"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:background="@color/lightpurple_letterboxn"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipBShitAuthorname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:backgroundTint="#454288"
+            tools:text="Author name"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:chipCornerRadius="12dp"
+            app:chipStrokeWidth="2dp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:elevation="8dp"
+        android:src="@drawable/bottomsheet_drawer_element"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

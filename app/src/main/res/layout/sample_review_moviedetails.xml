@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginHorizontal="8dp"
+        android:backgroundTint="#2C2A4E"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageReviewUserpp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:elevation="10dp"
+                android:background="@color/lightpurple_letterboxn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+            <TextView
+                android:id="@+id/textReviewreadmore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="6dp"
+                android:text="Read more..."
+                android:textColor="@color/chippurple_letterboxn"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textReviewmain"
+                app:layout_constraintTop_toBottomOf="@+id/textReviewmain"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textReviewmain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:textColor="#FFFFFF"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textReviewby"
+                app:layout_constraintTop_toBottomOf="@+id/textReviewby"
+                tools:text="main text" />
+
+            <TextView
+                android:id="@+id/textNoRatingsDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating: N/A"
+                android:textColor="#ABABAB"
+                android:textSize="8sp"
+                android:textStyle="italic"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/textReviewby"
+                app:layout_constraintEnd_toStartOf="@+id/imageView14"
+                app:layout_constraintStart_toEndOf="@+id/textReviewby"
+                app:layout_constraintTop_toTopOf="@+id/textReviewby" />
+
+            <TextView
+                android:id="@+id/textReviewcommentcount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:textColor="#ABABAB"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textReviewby"
+                app:layout_constraintStart_toEndOf="@+id/imageView14"
+                app:layout_constraintTop_toTopOf="@+id/textReviewby"
+                tools:text="comment count" />
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textReviewby"
+                app:layout_constraintStart_toEndOf="@+id/ReviewratingBar"
+                app:layout_constraintTop_toTopOf="@+id/textReviewby"
+                app:srcCompat="@drawable/round_mode_comment_24" />
+
+            <TextView
+                android:id="@+id/textReviewby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:maxLength="36"
+                android:maxLines="1"
+                android:textColor="#ABABAB"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@+id/imageReviewUserpp"
+                app:layout_constraintTop_toTopOf="@+id/imageReviewUserpp"
+                tools:text="review by author" />
+
+            <RatingBar
+                android:id="@+id/ReviewratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-8dp"
+                android:layout_marginTop="1dp"
+                android:numStars="5"
+                android:progressBackgroundTint="#80FFFFFF"
+                android:progressTint="#FF0000"
+                tools:rating="4.2"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:stepSize="0.1"
+                app:layout_constraintBottom_toBottomOf="@+id/textReviewby"
+                app:layout_constraintStart_toEndOf="@+id/textReviewby"
+                app:layout_constraintTop_toTopOf="@+id/textReviewby" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

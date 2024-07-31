@@ -1,0 +1,50 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="500dp"
+    android:height="500dp"
+    android:viewportWidth="500"
+    android:viewportHeight="500">
+  <path
+      android:pathData="M250,250m-250,0a250,250 0,1 1,500 0a250,250 0,1 1,-500 0"
+      android:strokeWidth="1"
+      android:fillColor="@color/exactdarkpurple_letterboxn"
+      android:fillType="evenOdd"
+      android:strokeColor="@color/exactdarkpurple_letterboxn"/>
+  <path
+      android:pathData="M179.92,250a70.08,70 0,1 0,140.16 0a70.08,70 0,1 0,-140.16 0z"
+      android:strokeWidth="1"
+      android:fillColor="#FFFFFF"
+      android:fillType="evenOdd"
+      android:strokeColor="@color/exactdarkpurple_letterboxn"/>
+  <group>
+    <clip-path
+        android:pathData="M309.15,180h129.85v141.44h-129.85z"/>
+    <path
+        android:pathData="M298.84,250a70.08,70 0,1 0,140.16 0a70.08,70 0,1 0,-140.16 0z"
+        android:strokeWidth="1"
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:strokeColor="@color/exactdarkpurple_letterboxn"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M61,180h129.85v141.44h-129.85z"/>
+    <path
+        android:pathData="M61,250a70.08,70 0,1 0,140.16 0a70.08,70 0,1 0,-140.16 0z"
+        android:strokeWidth="1"
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:strokeColor="@color/exactdarkpurple_letterboxn"/>
+  </group>
+  <path
+      android:pathData="M190.54,287.06C183.81,276.31 179.92,263.61 179.92,250C179.92,236.39 183.81,223.69 190.54,212.94C197.27,223.69 201.16,236.39 201.16,250C201.16,263.61 197.27,276.31 190.54,287.06L190.54,287.06Z"
+      android:strokeWidth="1"
+      android:fillColor="@color/exactdarkpurple_letterboxn"
+      android:fillType="evenOdd"
+      android:strokeColor="@color/exactdarkpurple_letterboxn"/>
+  <path
+      android:pathData="M309.46,212.94C316.19,223.69 320.08,236.39 320.08,250C320.08,263.61 316.19,276.31 309.46,287.06C302.73,276.31 298.84,263.61 298.84,250C298.84,236.39 302.73,223.69 309.46,212.94L309.46,212.94Z"
+      android:strokeWidth="1"
+      android:fillColor="@color/exactdarkpurple_letterboxn"
+      android:fillType="evenOdd"
+      android:strokeColor="@color/exactdarkpurple_letterboxn"/>
+</vector>

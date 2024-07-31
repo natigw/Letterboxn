@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageMovieposterWatchedProfileShimmer"
+        android:layout_width="66dp"
+        android:layout_height="99dp"
+        android:adjustViewBounds="true"
+        android:layout_marginStart="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraSmall"
+        android:background="@color/shimmer_letterboxn" />
+
+    <RatingBar
+        android:id="@+id/ratingBarWatchedProfileShimmer"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:numStars="5"
+        android:paddingStart="-2dp"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:stepSize="0.1"
+        app:layout_constraintEnd_toEndOf="@+id/imageMovieposterWatchedProfileShimmer"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="@+id/imageMovieposterWatchedProfileShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/imageMovieposterWatchedProfileShimmer" />
+
+    <TextView
+        android:id="@+id/textReadmoreWatchedProfileShimmer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="9sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageMovieposterWatchedProfileShimmer"
+        app:layout_constraintStart_toStartOf="@+id/imageMovieposterWatchedProfileShimmer"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBarWatchedProfileShimmer"
+        android:background="@color/shimmer_letterboxn"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

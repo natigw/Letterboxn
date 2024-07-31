@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imagePosterCateg"
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
+        android:adjustViewBounds="true"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Small"
+        app:srcCompat="@drawable/custom_poster_shape" />
+
+    <TextView
+        android:id="@+id/textTitleCateg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toTopOf="@+id/imagePosterCateg"
+        tools:text="Movie title" />
+
+    <TextView
+        android:id="@+id/textRatingSozleCateg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/skincolor_letterboxn"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBarCategoryMovie"
+        app:layout_constraintEnd_toEndOf="@+id/ratingBarCategoryMovie"
+        app:layout_constraintStart_toStartOf="@+id/ratingBarCategoryMovie"
+        app:layout_constraintTop_toBottomOf="@+id/textTitleCateg"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="3.4" />
+
+    <RatingBar
+        android:id="@+id/ratingBarCategoryMovie"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:progressBackgroundTint="#80FFFFFF"
+        android:progressTint="#FF0000"
+        android:stepSize="0.1"
+        app:layout_constraintBottom_toTopOf="@+id/textLikecountCateg"
+        app:layout_constraintEnd_toEndOf="@+id/textTitleCateg"
+        app:layout_constraintStart_toStartOf="@+id/textTitleCateg"
+        app:layout_constraintTop_toBottomOf="@+id/textRatingSozleCateg"
+        tools:rating="3.4" />
+
+    <TextView
+        android:id="@+id/textLikecountCateg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagePosterCateg"
+        app:layout_constraintEnd_toEndOf="@+id/textTitleCateg"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView10"
+        tools:text="12k" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="1.5dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/textLikecountCateg"
+        app:layout_constraintEnd_toStartOf="@+id/textLikecountCateg"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/imagePosterCateg"
+        app:layout_constraintStart_toStartOf="@+id/textTitleCateg"
+        app:layout_constraintTop_toTopOf="@+id/textLikecountCateg"
+        app:srcCompat="@drawable/round_favorite_24"
+        app:tint="#FF0000" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

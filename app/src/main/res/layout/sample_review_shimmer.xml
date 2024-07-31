@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#2C2A4E"
+        android:clickable="false"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageRecentUserppShimmer"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:adjustViewBounds="true"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerCrop"
+                android:background="@color/shimmer_letterboxn"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/textRecentreadmoreShimmer"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textRecentReviewmaintextShimmer"
+                android:background="@color/shimmer_letterboxn"/>
+
+            <TextView
+                android:id="@+id/textRecentReviewmaintextShimmer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="6dp"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageRecentposterShimmer"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textRecentreviewbyhomeShimmer"
+                app:layout_constraintTop_toBottomOf="@+id/textRecentreviewbyhomeShimmer"
+                android:background="@color/shimmer_letterboxn"/>
+            <TextView
+                android:id="@+id/textRecentReviewmaintext2Shimmer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="6dp"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageRecentposterShimmer"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textRecentreviewbyhomeShimmer"
+                app:layout_constraintTop_toBottomOf="@+id/textRecentReviewmaintextShimmer"
+                android:background="@color/shimmer_letterboxn"/>
+
+            <TextView
+                android:id="@+id/textRecentcommentcountShimmer"
+                android:layout_width="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textRecentreviewbyhomeShimmer"
+                app:layout_constraintStart_toEndOf="@+id/imageView14Shimmer"
+                app:layout_constraintTop_toTopOf="@+id/textRecentreviewbyhomeShimmer"
+                android:background="@color/shimmer_letterboxn"/>
+
+            <ImageView
+                android:id="@+id/imageView14Shimmer"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="2dp"
+                app:tint="@color/shimmer_letterboxn"
+                app:layout_constraintBottom_toBottomOf="@+id/textRecentreviewbyhomeShimmer"
+                app:layout_constraintStart_toEndOf="@id/textReviewratehomeShimmer"
+                app:layout_constraintTop_toTopOf="@+id/textRecentreviewbyhomeShimmer"
+                app:srcCompat="@drawable/round_mode_comment_24" />
+
+            <TextView
+                android:id="@+id/textRecentreviewbyhomeShimmer"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/textRecentmovietitleShimmer"
+                app:layout_constraintTop_toBottomOf="@+id/textRecentmovietitleShimmer"
+                android:background="@color/shimmer_letterboxn" />
+
+            <TextView
+                android:id="@+id/textRecentmovietitleShimmer"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:textSize="11sp"
+                app:layout_constraintStart_toEndOf="@+id/imageRecentUserppShimmer"
+                app:layout_constraintTop_toTopOf="@+id/imageRecentUserppShimmer"
+                android:background="@color/shimmer_letterboxn" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageRecentposterShimmer"
+                android:layout_width="74dp"
+                android:layout_height="111dp"
+                android:adjustViewBounds="true"
+                android:background="@color/shimmer_letterboxn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Small" />
+
+            <TextView
+                android:id="@+id/textRecentMoviereleasedateShimmer"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textColor="#ABABAB"
+                android:textSize="7sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textRecentmovietitleShimmer"
+                app:layout_constraintStart_toEndOf="@+id/textRecentmovietitleShimmer"
+                android:background="@color/shimmer_letterboxn" />
+
+            <ImageView
+                android:id="@+id/imageView28starShimmer"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="0.5dp"
+                android:adjustViewBounds="true"
+                app:tint="@color/shimmer_letterboxn"
+                app:layout_constraintBottom_toBottomOf="@+id/textRecentreviewbyhomeShimmer"
+                app:layout_constraintStart_toEndOf="@+id/textRecentreviewbyhomeShimmer"
+                app:layout_constraintTop_toTopOf="@+id/textRecentreviewbyhomeShimmer"
+                app:srcCompat="@drawable/round_star_24" />
+
+            <TextView
+                android:id="@+id/textReviewratehomeShimmer"
+                android:layout_width="16dp"
+                android:layout_height="wrap_content"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textRecentreviewbyhomeShimmer"
+                app:layout_constraintStart_toEndOf="@+id/imageView28starShimmer"
+                app:layout_constraintTop_toTopOf="@+id/textRecentreviewbyhomeShimmer"
+                android:background="@color/shimmer_letterboxn"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

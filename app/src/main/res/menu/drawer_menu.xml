@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/rounded_home_242"
+            android:title="Home"/>
+        <item
+            android:id="@+id/nav_films"
+            android:icon="@drawable/round_movie_creation_24"
+            android:title="Films"/>
+        <item
+            android:id="@+id/nav_diary"
+            android:icon="@drawable/round_calendar_month_24"
+            android:title="Diary"/>
+        <item
+            android:id="@+id/nav_reviews"
+            android:icon="@drawable/round_menu_book_24"
+            android:title="Reviews"/>
+        <item
+            android:id="@+id/nav_watchlist"
+            android:icon="@drawable/round_playlist_add_check_24"
+            android:title="Watchlist"/>
+        <item
+            android:id="@+id/nav_lists"
+            android:icon="@drawable/round_view_list_24"
+            android:title="Lists"/>
+        <item
+            android:id="@+id/nav_likes"
+            android:icon="@drawable/round_favorite_border_24"
+            android:title="Likes"/>
+    </group>
+    <item
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/baseline_logout_24"
+                android:title="Logout"/>
+        </menu>
+    </item>
+</menu>

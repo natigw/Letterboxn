@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1061424491954",
+    "project_id": "letterboxn",
+    "storage_bucket": "letterboxn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061424491954:android:ae9c6ca622df81da1208ab",
+        "android_client_info": {
+          "package_name": "com.example.letterboxn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKXk_-rRIapfj-s8rZM_69RWB4jqxtfAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

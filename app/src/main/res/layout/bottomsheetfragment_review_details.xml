@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:background="@drawable/rounded_bottom_sheet_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".presentation.ui.fragments.details.DetailsRecentReviewsFragment">
+
+        <ImageView
+            android:id="@+id/imageView733"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:elevation="8dp"
+            android:src="@drawable/bottomsheet_drawer_element"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textReviewDetailsBSh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Review details"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView733" />
+
+        <TextView
+            android:id="@+id/textAuthorBSh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Author"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textReviewDetailsBSh"
+            app:layout_constraintStart_toStartOf="@+id/textReviewDetailsBSh"
+            app:layout_constraintTop_toBottomOf="@+id/textMoviereleasedateBSh" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageAuthorppBSh"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            android:adjustViewBounds="true"
+            android:background="@color/lightpurple_letterboxn"
+            android:elevation="6dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@+id/textAuthorBSh"
+            app:layout_constraintStart_toStartOf="@+id/textAuthorBSh"
+            app:layout_constraintTop_toBottomOf="@+id/textAuthorBSh"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+        <TextView
+            android:id="@+id/textAuthornameBSh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:maxLength="32"
+            android:maxLines="1"
+            android:text="author name"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/imageAuthorppBSh"
+            app:layout_constraintStart_toStartOf="@+id/imageAuthorppBSh"
+            app:layout_constraintTop_toBottomOf="@+id/imageAuthorppBSh" />
+
+        <TextView
+            android:id="@+id/textMovietitleBSh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="movie name"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textAuthornameBSh"
+            app:layout_constraintStart_toStartOf="@+id/textAuthornameBSh"
+            app:layout_constraintTop_toBottomOf="@+id/imageMovieposterBSh" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageMovieposterBSh"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="12dp"
+            android:adjustViewBounds="true"
+            android:background="@color/lightpurple_letterboxn"
+            android:elevation="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@+id/textMovietitleBSh"
+            app:layout_constraintStart_toStartOf="@+id/textMovietitleBSh"
+            app:layout_constraintTop_toBottomOf="@+id/textReviewDetailsBSh"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Small" />
+
+        <TextView
+            android:id="@+id/textMovieratingBSh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text=" movie rating"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/ratingBarMovieBSh"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/imageMovieposterBSh"
+            app:layout_constraintTop_toBottomOf="@+id/textMovietitleBSh" />
+
+        <RatingBar
+            android:id="@+id/ratingBarMovieBSh"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:numStars="5"
+            android:progressBackgroundTint="#80FFFFFF"
+            android:progressTint="#FF0000"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:stepSize="0.1"
+            app:layout_constraintBottom_toBottomOf="@+id/textMovieratingBSh"
+            app:layout_constraintEnd_toEndOf="@+id/imageMovieposterBSh"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textMovieratingBSh"
+            app:layout_constraintTop_toTopOf="@+id/textMovieratingBSh"
+            tools:rating="3.6" />
+
+        <TextView
+            android:id="@+id/textMoviereleasedateBSh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="release date"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@+id/imageMovieposterBSh"
+            app:layout_constraintStart_toStartOf="@+id/imageMovieposterBSh"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieratingBSh" />
+
+        <TextView
+            android:id="@+id/textReviewmainBSh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Review"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textMoviereleasedateBSh"
+            app:layout_constraintStart_toStartOf="@+id/textMoviereleasedateBSh"
+            app:layout_constraintTop_toBottomOf="@+id/textAuthornameBSh" />
+
+        <TextView
+            android:id="@+id/textReviewdetailsBSh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="review details"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginHorizontal="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textReviewmainBSh" />
+
+        <TextView
+            android:id="@+id/textReviewratingBSh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Review rating:"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/textReviewdetailsBSh"
+            app:layout_constraintStart_toStartOf="@+id/textReviewdetailsBSh"
+            app:layout_constraintTop_toBottomOf="@+id/textReviewdetailsBSh" />
+
+        <RatingBar
+            android:id="@+id/ratingBarReviewBSh"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:rating="3.6"
+            android:stepSize="0.1"
+            android:numStars="4"
+            android:progressBackgroundTint="#80FFFFFF"
+            android:progressTint="#FF0000"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:layout_marginTop="-4dp"
+            app:layout_constraintEnd_toEndOf="@+id/textReviewratingBSh"
+            app:layout_constraintStart_toStartOf="@+id/textReviewratingBSh"
+            app:layout_constraintTop_toBottomOf="@+id/textReviewratingBSh" />
+
+        <TextView
+            android:id="@+id/textCommentcountBSh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="xx comments"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ratingBarReviewBSh"
+            app:layout_constraintStart_toStartOf="@+id/ratingBarReviewBSh"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBarReviewBSh"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

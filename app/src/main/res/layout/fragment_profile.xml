@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkpurple_letterboxn">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".presentation.ui.fragments.profile.ProfileFragment">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.06" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.94" />
+
+        <ImageView
+            android:id="@+id/imageBackProfile"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/custom_poster_shape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageUserppprofile"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="#454288"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/usersample"
+            app:layout_constraintBottom_toBottomOf="@+id/imageBackProfile"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/imageBackProfile"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+        <Button
+            android:id="@+id/buttonlogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Log out"
+            app:cornerRadius="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textUsernameprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/imageUserppprofile"
+            app:layout_constraintStart_toStartOf="@+id/imageUserppprofile"
+            app:layout_constraintTop_toBottomOf="@id/imageUserppprofile"
+            tools:text="username" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipUserBadgeprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:backgroundTint="#EC2626"
+            android:text="Pro"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:clickable="false"
+            app:chipEndPadding="0dp"
+            app:chipStartPadding="0dp"
+            app:chipStrokeWidth="0dp"
+            app:layout_constraintStart_toEndOf="@id/textUsernameprofile"
+            app:layout_constraintTop_toTopOf="@id/textUsernameprofile" />
+
+        <TextView
+            android:id="@+id/textCountnFollowersprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/textCountnFollowingsprofile"
+            app:layout_constraintHorizontal_bias="0.50"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/textUsernameprofile"
+            tools:text="xx Followers" />
+
+        <TextView
+            android:id="@+id/textCountnFollowingsprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toEndOf="@+id/textCountnFollowersprofile"
+            app:layout_constraintTop_toTopOf="@id/textCountnFollowersprofile"
+            tools:text="xx Followings" />
+
+
+        <TextView
+            android:id="@+id/textRatedcountProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/skincolor_letterboxn"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textRatedfilmsProfile"
+            app:layout_constraintEnd_toEndOf="@id/textRatedfilmsProfile"
+            app:layout_constraintStart_toStartOf="@id/textRatedfilmsProfile"
+            tools:text="455" />
+
+        <TextView
+            android:id="@+id/textRatedfilmsProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="Rated Films"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/textFavoritefilmsProfile"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/imageUnderlineFollowers" />
+
+        <TextView
+            android:id="@+id/textFavcountProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/chippurple_letterboxn"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textFavoritefilmsProfile"
+            app:layout_constraintEnd_toEndOf="@id/textFavoritefilmsProfile"
+            app:layout_constraintStart_toStartOf="@id/textFavoritefilmsProfile"
+            tools:text="33" />
+
+        <TextView
+            android:id="@+id/textFavoritefilmsProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favorite films"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/textListsProfile"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textRatedfilmsProfile"
+            app:layout_constraintTop_toTopOf="@id/textRatedfilmsProfile" />
+
+        <TextView
+            android:id="@+id/textListcountProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/skincolor_letterboxn"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textListsProfile"
+            app:layout_constraintEnd_toEndOf="@id/textListsProfile"
+            app:layout_constraintStart_toStartOf="@id/textListsProfile"
+            tools:text="4" />
+
+        <TextView
+            android:id="@+id/textListsProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Lists"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/textReviewsProfile"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textFavoritefilmsProfile"
+            app:layout_constraintTop_toTopOf="@id/textRatedfilmsProfile" />
+
+        <TextView
+            android:id="@+id/textReviewcountProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/chippurple_letterboxn"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textReviewsProfile"
+            app:layout_constraintEnd_toEndOf="@id/textReviewsProfile"
+            app:layout_constraintStart_toStartOf="@id/textReviewsProfile"
+            tools:text="30" />
+
+        <TextView
+            android:id="@+id/textReviewsProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Reviews"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textListsProfile"
+            app:layout_constraintTop_toTopOf="@id/textRatedfilmsProfile" />
+
+        <TextView
+            android:id="@+id/textUsersFavFilms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textRatedfilmsProfile"
+            tools:text="Kyran's Favorite Films" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/rvUsersFavMoviesShimmer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersFavFilms">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+                <include layout="@layout/sample_popular_movies_shimmer" />
+                <include layout="@layout/sample_popular_movies_shimmer" />
+                <include layout="@layout/sample_popular_movies_shimmer" />
+                <include layout="@layout/sample_popular_movies_shimmer" />
+                <include layout="@layout/sample_popular_movies_shimmer" />
+                <include layout="@layout/sample_popular_movies_shimmer" />
+                <include layout="@layout/sample_popular_movies_shimmer" />
+                <include layout="@layout/sample_popular_movies_shimmer" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUsersFavMovies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersFavFilms"
+            tools:listitem="@layout/sample_popular_fav_movies" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="148dp"
+            android:src="@drawable/prostaline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersFavFilms" />
+
+        <TextView
+            android:id="@+id/textUsersrecentwatched"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/imageView8"
+            tools:text="Kyran's Recent Watched" />
+
+        <TextView
+            android:id="@+id/textUsersrecentreviewed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="164dp"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentwatched"
+            tools:text="Kyran's Recent Reviewed" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/rvUsersRecWatchedShimmer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentwatched">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <include layout="@layout/sample_recent_watched_profile_shimmer"/>
+                <include layout="@layout/sample_recent_watched_profile_shimmer"/>
+                <include layout="@layout/sample_recent_watched_profile_shimmer"/>
+                <include layout="@layout/sample_recent_watched_profile_shimmer"/>
+                <include layout="@layout/sample_recent_watched_profile_shimmer"/>
+                <include layout="@layout/sample_recent_watched_profile_shimmer"/>
+                <include layout="@layout/sample_recent_watched_profile_shimmer"/>
+
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUsersRecentRated"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="14dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentwatched"
+            tools:itemCount="5"
+            tools:listitem="@layout/sample_recent_watched_profile" />
+
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/rvRecentReviewsProfileShimmer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentreviewed" >
+
+        <include layout="@layout/sample_review_shimmer" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUsersRecReviewed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="-8dp"
+            android:layout_marginEnd="-8dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentreviewed"
+            tools:itemCount="10"
+            tools:listitem="@layout/sample_review" />
+
+        <Button
+            android:id="@+id/buttonSeeallRecents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/darkpurple_letterboxn"
+            android:minWidth="0dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="See All"
+            android:textColor="@color/skincolor_letterboxn"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textUsersrecentwatched"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textUsersrecentwatched" />
+
+        <Button
+            android:id="@+id/buttonSeeallReviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/darkpurple_letterboxn"
+            android:minWidth="0dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="See All"
+            android:textColor="@color/skincolor_letterboxn"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textUsersrecentreviewed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textUsersrecentreviewed" />
+
+        <ImageView
+            android:id="@+id/buttonChangeBackground"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/editicon"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintTop_toTopOf="@id/buttonlogout" />
+
+        <ImageView
+            android:id="@+id/pickMeButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/editicon"
+            app:layout_constraintEnd_toEndOf="@+id/imageUserppprofile"
+            app:layout_constraintTop_toTopOf="@+id/imageUserppprofile" />
+
+        <ImageView
+            android:id="@+id/imageUnderlineFollowers"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="2dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="@+id/textCountnFollowersprofile"
+            app:layout_constraintStart_toStartOf="@+id/textCountnFollowersprofile"
+            app:layout_constraintTop_toBottomOf="@+id/textCountnFollowersprofile"
+            app:srcCompat="@drawable/underline_follower" />
+
+        <ImageView
+            android:id="@+id/imageUnderlineFollowings"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="2dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="@+id/textCountnFollowingsprofile"
+            app:layout_constraintStart_toStartOf="@+id/textCountnFollowingsprofile"
+            app:layout_constraintTop_toBottomOf="@+id/textCountnFollowingsprofile"
+            app:srcCompat="@drawable/underline_follower" />
+
+        <TextView
+            android:id="@+id/textNoFavMoviesProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="There is no favorite movie."
+            android:textColor="#CCFFFFFF"
+            android:textStyle="italic"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/imageView8"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersFavFilms" />
+
+        <TextView
+            android:id="@+id/textNoRecentWatchedProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="There is no recently watched movie."
+            android:textColor="#CCFFFFFF"
+            android:textStyle="italic"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/textUsersrecentreviewed"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentwatched" />
+
+        <TextView
+            android:id="@+id/textNoReviewedProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="50dp"
+            android:text="There is no recently reviwed movie."
+            android:textColor="#CCFFFFFF"
+            android:textStyle="italic"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentreviewed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

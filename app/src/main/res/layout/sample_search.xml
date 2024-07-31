@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/darkpurple_letterboxn">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageSearchposter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:adjustViewBounds="true"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Small"
+        app:srcCompat="@drawable/custom_poster_shape" />
+
+    <TextView
+        android:id="@+id/textMovietitleSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLength="18"
+        android:maxLines="1"
+        android:text="Title"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageSearchposter" />
+
+    <TextView
+        android:id="@+id/textRatingSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3.4"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/ratingBarSearch"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textMovietitleSearch"
+        app:layout_constraintTop_toBottomOf="@+id/textMovietitleSearch" />
+
+    <RatingBar
+        android:id="@+id/ratingBarSearch"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:progressTint="#FF0000"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:stepSize="0.1"
+        app:layout_constraintBottom_toBottomOf="@+id/textRatingSearch"
+        app:layout_constraintEnd_toEndOf="@id/textMovietitleSearch"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textRatingSearch"
+        app:layout_constraintTop_toTopOf="@+id/textRatingSearch"
+        tools:rating="3.4" />
+
+    <TextView
+        android:id="@+id/textMoviereleasedateSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="release date"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/textMovietitleSearch"
+        app:layout_constraintStart_toStartOf="@+id/textMovietitleSearch"
+        app:layout_constraintTop_toBottomOf="@+id/textRatingSearch" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipMediaTypeSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:backgroundTint="#EC2626"
+        android:clickable="false"
+        android:elevation="4dp"
+        android:minWidth="50dp"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:chipEndPadding="0dp"
+        app:chipStartPadding="0dp"
+        app:chipStrokeWidth="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageSearchposter"
+        app:layout_constraintTop_toTopOf="@+id/imageSearchposter"
+        tools:text="tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

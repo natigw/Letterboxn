@@ -1,0 +1,167 @@
+package com.example.letterboxn.presentation.ui.fragments.movieDetails
+
+import android.util.Log
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.letterboxn.R
+import com.example.letterboxn.common.base.BaseFragment
+import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.databinding.FragmentWriteReviewBinding
+import com.example.letterboxn.common.utils.NancyToast
+import com.example.letterboxn.data.local.dao.ReviewDao
+import com.example.letterboxn.data.local.model.ReviewEntity
+import com.example.letterboxn.data.remote.model.account.favoriteMovies.ResultFavoriteMovie
+import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.RequestAddRemoveFavorite
+import com.example.letterboxn.data.remote.model.account.ratedMovies.rateMovie.RequestAddRating
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.MaterialDatePicker
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class WriteReviewFragment : BaseFragment<FragmentWriteReviewBinding>(FragmentWriteReviewBinding::inflate){
+
+    @Inject
+    lateinit var api: TmdbApi
+
+    @Inject
+    lateinit var reviewDao : ReviewDao
+
+    private val args: WriteReviewFragmentArgs by navArgs()
+
+    private var isFav = false
+
+    override fun onViewCreatedLight() {
+
+        lifecycleScope.launch {
+            try {
+                if (findMovieById(args.movieId) != null) {  //found
+                    isFav = true
+                    binding.imageButtonFavReview.setImageResource(R.drawable.round_favorite_unselected_24)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace() // Handle exceptions (network errors, etc)
+            }
+        }
+
+        lifecycleScope.launch {
+            val movieItem = api.getMovieDetails(movieId = args.movieId)
+            with(binding) {
+                Glide.with(imagePosterReview)
+                    .load("https://image.tmdb.org/t/p/w780" + movieItem.posterPath)
+                    .placeholder(R.drawable.custom_poster_shape)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(imagePosterReview)
+                textMovienameReview.text = movieItem.title
+                textMoviedateReview.text = movieItem.releaseDate.substring(0, 4)
+                textMovienameReview.maxWidth = textView17.width
+            }
+        }
+
+        setTodayDate()
+
+    }
+
+    override fun observeChanges() {
+        binding.buttonDatePicker.setOnClickListener {
+            showDatePicker()
+        }
+
+        binding.floatingActionButtonReviewback.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.imageButtonFavReview.setOnClickListener {
+            if (isFav) {
+                binding.imageButtonFavReview.setImageResource(R.drawable.round_favorite_24)
+                isFav = false
+            }
+            else {
+                binding.imageButtonFavReview.setImageResource(R.drawable.round_favorite_unselected_24)
+                isFav = true
+            }
+        }
+
+        binding.buttonPublishReview.setOnClickListener {
+            if (binding.ratingBarDetailsReview.rating == 0f) {
+                NancyToast.makeText(requireContext(), "Please rate the movie!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+                return@setOnClickListener
+            }
+            if (binding.editTextReview.text.isNullOrEmpty()) {
+                NancyToast.makeText(requireContext(), "Review cannot be empty!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+                return@setOnClickListener
+            }
+            lifecycleScope.launch {
+                api.addOrRemoveFavoriteMovie(
+                    requestFavorite = RequestAddRemoveFavorite(
+                        favorite = isFav,  //if true add, else remove fav
+                        mediaId = args.movieId,
+                        mediaType = "movie"
+                    )
+                )
+            }
+            lifecycleScope.launch {
+                api.addRateMovie(
+                    movieId = args.movieId,
+                    requestRateMovie = RequestAddRating(
+                        value = binding.ratingBarDetailsReview.rating
+                    )
+                )
+            }
+            lifecycleScope.launch {
+                reviewDao.addReview(ReviewEntity(
+                    movieId = args.movieId,
+                    review = binding.editTextReview.text.toString(),
+                    rating = binding.ratingBarDetailsReview.rating,
+                    reviewDate = binding.textMoviedateReview.text.toString()
+                ))
+                Log.e("dao", reviewDao.getAllReviews().toString())
+            }
+            binding.ratingBarDetailsReview.rating = 0f
+            binding.editTextReview.text = null
+            NancyToast.makeText(requireContext(), "Your review has been published!", NancyToast.LENGTH_SHORT, NancyToast.SUCCESS, false).show()
+            findNavController().popBackStack()
+        }
+    }
+
+    private suspend fun findMovieById(movieId: Int): ResultFavoriteMovie? {
+        val response = api.getFavoriteMovies()
+        return response.results.find { it.id == movieId }
+    }
+
+    private fun setTodayDate() {
+        val todayDate = Date()
+        val dateFormatted = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(todayDate)
+        binding.chipDatePicker.text = dateFormatted
+    }
+
+    private fun showDatePicker() {
+
+        val today = MaterialDatePicker.todayInUtcMilliseconds()
+        // Create constraints to block future dates
+        val constraintsBuilder = CalendarConstraints.Builder()
+            .setEnd(today)
+
+        val datePicker = MaterialDatePicker.Builder
+            .datePicker()
+            .setTitleText("Watching date")
+            .setCalendarConstraints(constraintsBuilder.build())
+            .setTheme(R.style.CustomDatePickerTheme)
+            .build()
+
+        datePicker.show(parentFragmentManager, "datePicker")
+
+        datePicker.addOnPositiveButtonClickListener { selection ->
+            val selectedDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(selection))
+            binding.chipDatePicker.text = selectedDate
+        }
+    }
+
+}

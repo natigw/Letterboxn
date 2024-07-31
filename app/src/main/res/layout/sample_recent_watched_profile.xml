@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageMovieposterWatchedProfile"
+        android:layout_width="66dp"
+        android:layout_height="99dp"
+        android:layout_marginStart="4dp"
+        android:adjustViewBounds="true"
+        android:background="@color/lightpurple_letterboxn"
+        android:elevation="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraSmall" />
+
+    <RatingBar
+        android:id="@+id/ratingBarWatchedProfile"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-2dp"
+        android:max="5"
+        android:numStars="5"
+        android:paddingStart="-2dp"
+        android:progressBackgroundTint="#80FFFFFF"
+        android:progressTint="#FF0000"
+        android:scaleX="0.88"
+        android:scaleY="0.88"
+        android:stepSize="0.5"
+        app:layout_constraintEnd_toEndOf="@+id/imageMovieposterWatchedProfile"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="@+id/imageMovieposterWatchedProfile"
+        app:layout_constraintTop_toBottomOf="@+id/imageMovieposterWatchedProfile"
+        tools:rating="3.5" />
+
+    <TextView
+        android:id="@+id/textReadmoreWatchedProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Read Reviews >"
+        android:textColor="@color/chippurple_letterboxn"
+        android:textSize="9sp"
+        app:layout_constraintStart_toStartOf="@+id/imageMovieposterWatchedProfile"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBarWatchedProfile" />
+</androidx.constraintlayout.widget.ConstraintLayout>

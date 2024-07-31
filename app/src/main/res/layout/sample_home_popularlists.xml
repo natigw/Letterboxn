@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageListFour"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:adjustViewBounds="true"
+        android:elevation="23dp"
+        android:scaleType="centerCrop"
+        android:background="@color/lightpurple_50pc_letterboxn"
+        app:layout_constraintStart_toStartOf="@+id/imageListThree"
+        app:layout_constraintTop_toTopOf="@id/imageListOne"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageListThree"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:adjustViewBounds="true"
+        android:elevation="23dp"
+        android:scaleType="centerCrop"
+        android:background="@color/lightpurple_50pc_letterboxn"
+        app:layout_constraintStart_toStartOf="@+id/imageListTwo"
+        app:layout_constraintTop_toTopOf="@id/imageListOne"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageListTwo"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:adjustViewBounds="true"
+        android:elevation="23dp"
+        android:scaleType="centerCrop"
+        android:background="@color/lightpurple_50pc_letterboxn"
+        app:layout_constraintStart_toStartOf="@+id/imageListOne"
+        app:layout_constraintTop_toTopOf="@id/imageListOne"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageListOne"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:elevation="23dp"
+        android:scaleType="centerCrop"
+        android:background="@color/lightpurple_50pc_letterboxn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+    <TextView
+        android:id="@+id/textPopularlistName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="ListName"
+        android:elevation="24dp"
+        android:textColor="@color/skincolor_letterboxn"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageListFour"
+        app:layout_constraintStart_toStartOf="@+id/imageListOne"
+        app:layout_constraintTop_toBottomOf="@+id/imageListOne" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imagePopularlistUserpicture"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="6dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/textPopularlistName"
+        app:layout_constraintTop_toBottomOf="@+id/textPopularlistName"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        android:src="@drawable/usersample"
+        android:background="#454288"/>
+
+    <TextView
+        android:id="@+id/textPopularlistusername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:maxLength="12"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagePopularlistUserpicture"
+        app:layout_constraintStart_toEndOf="@+id/imagePopularlistUserpicture"
+        app:layout_constraintTop_toTopOf="@+id/imagePopularlistUserpicture"
+        tools:text="username" />
+
+    <ImageView
+        android:id="@+id/imageView1621321312"
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textPopularlistLikecount"
+        app:layout_constraintStart_toEndOf="@+id/textPopularlistusername"
+        app:srcCompat="@drawable/round_favorite_unselected_24" />
+
+    <TextView
+        android:id="@+id/textPopularlistLikecount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:textColor="@color/white"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textPopularlistusername"
+        app:layout_constraintStart_toEndOf="@+id/imageView1621321312"
+        app:layout_constraintTop_toTopOf="@+id/textPopularlistusername"
+        tools:text="xxx" />
+
+    <ImageView
+        android:id="@+id/imageView17123213123"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textPopularlistCommentcount"
+        app:layout_constraintStart_toEndOf="@+id/textPopularlistLikecount"
+        app:srcCompat="@drawable/round_mode_comment_24" />
+
+    <TextView
+        android:id="@+id/textPopularlistCommentcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:textColor="@color/white"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textPopularlistusername"
+        app:layout_constraintStart_toEndOf="@+id/imageView17123213123"
+        app:layout_constraintTop_toTopOf="@+id/textPopularlistusername"
+        tools:text="xxx" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

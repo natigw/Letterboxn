@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent" >
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@color/darkpurple_letterboxn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+
+    <TextView
+        android:id="@+id/textUsernamedrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="User name"
+        android:textColor="@color/skincolor_letterboxn"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textUseremaildrawer"
+        app:layout_constraintStart_toEndOf="@+id/imageUserppDrawer"
+        app:layout_constraintTop_toTopOf="@+id/imageUserppDrawer" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageUserppDrawer"
+        android:layout_width="44dp"
+        android:layout_height="wrap_content"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        android:layout_marginTop="64dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/usersample"
+        android:background="#343261"/>
+
+    <TextView
+        android:id="@+id/textUseremaildrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="username"
+        android:textColor="#BFBFBF"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageUserppDrawer"
+        app:layout_constraintStart_toStartOf="@+id/textUsernamedrawer"
+        app:layout_constraintTop_toBottomOf="@+id/textUsernamedrawer" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipFollowersdrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00B63636"
+        android:text="xx Followers"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:chipCornerRadius="10dp"
+        app:chipEndPadding="10dp"
+        app:chipStartPadding="10dp"
+        app:chipStrokeColor="@color/chippurple_letterboxn"
+        app:chipStrokeWidth="2dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/imageUserppDrawer"
+        app:textEndPadding="0dp"
+        app:textStartPadding="0dp" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipFollowingsdrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#00FFFFFF"
+        android:text=" xx Followings"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:chipCornerRadius="10dp"
+        app:chipEndPadding="10dp"
+        app:chipStartPadding="10dp"
+        app:chipStrokeColor="@color/chippurple_letterboxn"
+        app:chipStrokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/chipFollowersdrawer"
+        app:layout_constraintTop_toTopOf="@+id/chipFollowersdrawer"
+        app:textEndPadding="0dp"
+        app:textStartPadding="0dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.09" />
+
+    <Button
+        android:id="@+id/buttonHomeDrawer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/skincolor_letterboxn"
+        android:gravity="center|start"
+        android:paddingStart="12dp"
+        android:text="Home"
+        android:textColor="@color/darkpurple_letterboxn"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_home_24"
+        app:iconPadding="16dp"
+        app:iconSize="24dp"
+        app:iconTint="@color/darkpurple_letterboxn"
+        app:layout_constraintEnd_toEndOf="@+id/chipFollowingsdrawer"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/chipFollowingsdrawer" />
+
+    <Button
+        android:id="@+id/buttonFilmsDrawer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/skincolor_letterboxn"
+        android:gravity="center|start"
+        android:paddingStart="12dp"
+        android:text="Films"
+        android:textColor="@color/darkpurple_letterboxn"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_movie_creation_24"
+        app:iconPadding="16dp"
+        app:iconSize="24dp"
+        app:iconTint="@color/darkpurple_letterboxn"
+        app:layout_constraintEnd_toEndOf="@+id/buttonHomeDrawer"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/buttonHomeDrawer" />
+
+    <Button
+        android:id="@+id/buttonDiaryDrawer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/skincolor_letterboxn"
+        android:gravity="center|start"
+        android:paddingStart="12dp"
+        android:text="Diary"
+        android:textColor="@color/darkpurple_letterboxn"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_calendar_month_24"
+        app:iconPadding="16dp"
+        app:iconSize="24dp"
+        app:iconTint="@color/darkpurple_letterboxn"
+        app:layout_constraintEnd_toEndOf="@+id/buttonFilmsDrawer"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/buttonFilmsDrawer" />
+
+    <Button
+        android:id="@+id/buttonReviewsDrawer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/skincolor_letterboxn"
+        android:gravity="center|start"
+        android:paddingStart="12dp"
+        android:text="Reviews"
+        android:textColor="@color/darkpurple_letterboxn"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_menu_book_24"
+        app:iconPadding="16dp"
+        app:iconSize="24dp"
+        app:iconTint="@color/darkpurple_letterboxn"
+        app:layout_constraintEnd_toEndOf="@+id/buttonDiaryDrawer"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDiaryDrawer" />
+
+    <Button
+        android:id="@+id/buttonWatchlistDrawer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/skincolor_letterboxn"
+        android:gravity="center|start"
+        android:paddingStart="12dp"
+        android:text="Watchlist"
+        android:textColor="@color/darkpurple_letterboxn"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_playlist_add_check_24"
+        app:iconPadding="16dp"
+        app:iconSize="24dp"
+        app:iconTint="@color/darkpurple_letterboxn"
+        app:layout_constraintEnd_toEndOf="@+id/buttonReviewsDrawer"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/buttonReviewsDrawer" />
+
+    <Button
+        android:id="@+id/buttonListsDrawer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/skincolor_letterboxn"
+        android:gravity="center|start"
+        android:paddingStart="12dp"
+        android:text="Lists"
+        android:textColor="@color/darkpurple_letterboxn"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_view_list_24"
+        app:iconPadding="16dp"
+        app:iconSize="24dp"
+        app:iconTint="@color/darkpurple_letterboxn"
+        app:layout_constraintEnd_toEndOf="@+id/buttonWatchlistDrawer"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/buttonWatchlistDrawer" />
+
+    <Button
+        android:id="@+id/buttonLikesDrawer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/skincolor_letterboxn"
+        android:gravity="center|start"
+        android:paddingStart="12dp"
+        android:text="Likes"
+        android:textColor="@color/darkpurple_letterboxn"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/round_favorite_border_24"
+        app:iconPadding="16dp"
+        app:iconSize="24dp"
+        app:iconTint="@color/darkpurple_letterboxn"
+        app:layout_constraintEnd_toEndOf="@+id/buttonListsDrawer"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/buttonListsDrawer" />
+
+    <Button
+        android:id="@+id/buttonLogoutDrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/darkpurple_letterboxn"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Logout"
+        android:textSize="12sp"
+        app:icon="@drawable/baseline_logout_24"
+        app:iconPadding="6dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLikesDrawer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
