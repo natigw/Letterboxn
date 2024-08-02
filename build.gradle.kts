@@ -4,12 +4,16 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     id("com.google.gms.google-services") version "4.4.2" apply false
     id("com.google.dagger.hilt.android") version "2.46.1" apply false
+    alias(libs.plugins.android.library) apply false
 }
 
 buildscript {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://jitpack.io")
+        }
     }
     dependencies {
         val nav_version = "2.7.7"

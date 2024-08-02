@@ -1,23 +1,20 @@
 package com.example.letterboxn.presentation.adapters
 
-import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseAdapter
 import com.example.letterboxn.common.utils.numberFormatter
-import com.example.letterboxn.databinding.BottomsheetfragmentWatchlistBinding
 import com.example.letterboxn.databinding.SampleWatchlistBinding
 import com.example.letterboxn.domain.model.WatchlistItem
 
 class BShWatchlistAdapter(
-    val movies : List<WatchlistItem>,
-    val bindinqa : BottomsheetfragmentWatchlistBinding,
     val onClick : (WatchlistItem) -> Unit
 ) : BaseAdapter<SampleWatchlistBinding>(SampleWatchlistBinding::inflate) {
 
+    var movies : List<WatchlistItem> = emptyList()
+
     override fun getItemCount(): Int {
-        bindinqa.textNoMoviesWatchlist.visibility = if (movies.isEmpty()) View.VISIBLE else View.GONE
         return movies.size
     }
 
@@ -40,6 +37,11 @@ class BShWatchlistAdapter(
                 onClick(movieItem)
             }
         }
+    }
+
+    fun updateAdapter(newMovies : List<WatchlistItem>) {
+        movies = newMovies
+        notifyDataSetChanged()
     }
 
 }

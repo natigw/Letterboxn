@@ -28,17 +28,6 @@ class ExploreViewModel @Inject constructor(
         exploreRepository.getMovies()
             .cachedIn(viewModelScope)
 
-//    var count = MutableStateFlow(1)
-//
-//    fun increaseCount(){
-//        count.update { it.plus(1) }
-//        getMovies(count.value)
-//    }
-//    fun decreaseCount(){
-//        count.update { it.plus(-1) }
-//        getMovies(count.value)
-//    }
-
 //    val movies = MutableStateFlow<List<MovieItem>>(emptyList())
     val categories = MutableStateFlow<List<CategoryItem>>(emptyList())
 

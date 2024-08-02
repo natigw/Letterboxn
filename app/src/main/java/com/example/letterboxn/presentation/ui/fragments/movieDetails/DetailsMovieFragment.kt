@@ -38,13 +38,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 import javax.inject.Inject
-import kotlin.random.Random
 
 @AndroidEntryPoint
-class DetailsMovieFragment :
-    BaseFragment<FragmentDetailsMovieBinding>(FragmentDetailsMovieBinding::inflate) {
+class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentDetailsMovieBinding::inflate) {
 
     @Inject
     lateinit var api: TmdbApi
@@ -61,18 +58,19 @@ class DetailsMovieFragment :
             findNavController().navigate(DetailsMovieFragmentDirections.actionDetailsMovieFragmentToPersonDetailsBottomSheetFragment(it))
         }
     )
-//    val reviewAdapter = MovieDetailsReviewsAdapter(
-//        onClick = {
-//            findNavController().navigate(DetailsMovieFragmentDirections.actionDetailsMovieFragmentToRecentReviewDetailsBottomSheetFragment(it))
-//        }
-//    )
+
+    private val reviewAdapter = MovieDetailsReviewsAdapter(
+        onClick = {
+            // more click edende reviewda 5 line elave acilsin
+        }
+    )
 
     var movieTitle : String = ""
     var movieId : Int = 0
     var rating = 0f
-    var isAlreadyAddedToList = false
     var isFav = false
-    var isAddedToWatchList = false
+    private var isAlreadyAddedToList = false
+    private var isAddedToWatchList = false
 
 //    private lateinit var shimmer : ShimmerFrameLayout
 
@@ -80,6 +78,8 @@ class DetailsMovieFragment :
 
 //        shimmer = binding.detailsShimmer
 //        shimmer.startShimmer()
+
+        setAdapters()
 
         val savedStateHandled = findNavController().currentBackStackEntry?.savedStateHandle
         savedStateHandled?.getLiveData<Float>("result")
@@ -108,8 +108,6 @@ class DetailsMovieFragment :
             val movieItem = api.getMovieDetails(movieId = args.movieId)
             castResponse = api.getMovieCredits(movieItem.id).cast
             crewResponse = api.getMovieCredits(movieItem.id).crew
-
-            setAdapters()
 
             binding.rvCast.visibility = View.VISIBLE
             binding.rvCrew.visibility = View.INVISIBLE
@@ -238,23 +236,19 @@ class DetailsMovieFragment :
 
 
             try{
-                val response = api.getMovieReviews(movieId)
-                binding.rvReviews.adapter = MovieDetailsReviewsAdapter(
-                    bindinqa = binding,
-                    reviews = response.results.map {
-                        ReviewWithoutMovieItem(
-                            authorName = it.author,
-                            authorImage = it.authorDetails.avatarPath,
-                            reviewId = it.id,
-                            review = it.content,
-                            reviewRating = it.authorDetails.rating.toFloat()/2,
-                            commentCount = randomInteger(100, 10000)
-                        )
-                    },
-                    onClick = {
-                        // more click edende reviewda 5 line elave acilsin
-                    }
-                )
+                val reviews = api.getMovieReviews(movieId).results.map {
+                    ReviewWithoutMovieItem(
+                        authorName = it.author,
+                        authorImage = it.authorDetails.avatarPath,
+                        reviewId = it.id,
+                        review = it.content,
+                        reviewRating = it.authorDetails.rating.toFloat()/2,
+                        commentCount = randomInteger(100, 10000)
+                    )
+                }
+                binding.textNoReviewsSentenceMovieDetails.visibility = if (reviews.isEmpty()) View.VISIBLE else View.GONE
+                binding.buttonSeeallReviewsDetailsMovie.visibility = if (reviews.size > 10) View.VISIBLE else View.GONE
+                reviewAdapter.updateAdapter(reviews)
             }
             catch (e:Exception) {
                 Log.e("api", e.toString())
@@ -392,7 +386,7 @@ class DetailsMovieFragment :
         val customTitle = TextView(requireContext()).apply {
             text = "  Are you sure to remove?"
             setPadding(40, 40, 40, 40) // Adjust padding as needed
-            setTextSize(24f)
+            textSize = 24f
             setTextColor(Color.WHITE)
         }
 
@@ -434,10 +428,10 @@ class DetailsMovieFragment :
     fun observe() {
     }
 
-    fun setAdapters() {
+    private fun setAdapters() {
         binding.rvCast.adapter = castAdapter
         binding.rvCrew.adapter = crewAdapter
-//        binding.rvReviews.adapter = reviewAdapter
+        binding.rvReviews.adapter = reviewAdapter
     }
 
 }

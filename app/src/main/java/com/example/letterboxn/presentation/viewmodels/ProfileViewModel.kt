@@ -2,10 +2,7 @@ package com.example.letterboxn.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.letterboxn.data.remote.model.account.ratedMovies.ResultRatedMovie
-import com.example.letterboxn.domain.model.MovieItem
 import com.example.letterboxn.domain.model.RatedMovieItem
-import com.example.letterboxn.domain.repository.MovieRepository
 import com.example.letterboxn.domain.repository.RatedMovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

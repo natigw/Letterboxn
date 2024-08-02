@@ -21,13 +21,13 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(bindingToInflate = 
 
     private val viewmodel: ExploreViewModel by viewModels()
 
-    val adapter = MoviePagingAdapter {
+    private val adapter = MoviePagingAdapter {
         this.findNavController()
             .navigate(ExploreFragmentDirections.actionExploreFragmentToDetailsMovieFragment(it.movieId))
     }
 
 
-    //    private val adapter = ExploreMoviesAdapter {
+//    private val adapter = ExploreMoviesAdapter {
 //        findNavController().navigate(
 //            ExploreFragmentDirections.actionExploreFragmentToDetailsMovieFragment(it.movieId)
 //        )
@@ -44,25 +44,9 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(bindingToInflate = 
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
 
-
-//        if (viewmodel.count.value != 1) binding.buttonPreviouspageExplore.isGone = false
-//        setupClickListeners()
-
         setAdapters()
         observe()
     }
-
-//    private fun setupClickListeners() {
-//        binding.buttonNextpageExplore.setOnClickListener {
-//            viewmodel.increaseCount()
-//            binding.buttonPreviouspageExplore.isGone = false
-//        }
-//
-//        binding.buttonPreviouspageExplore.setOnClickListener {
-//            if (viewmodel.count.value == 2) binding.buttonPreviouspageExplore.isGone = true
-//            viewmodel.decreaseCount()
-//        }
-//    }
 
     override fun observeChanges() {
         binding.buttonsearch.setOnClickListener {

@@ -2,9 +2,13 @@ package com.example.letterboxn.presentation.ui.activities
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.core.view.isGone
+import androidx.core.view.marginBottom
+import androidx.core.view.updateLayoutParams
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.letterboxn.R
@@ -43,8 +47,8 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            }
 //        })
-
-//        binding.fragmentContainerView.marginBottom = binding.bottomNavigationView.height
+//
+//        binding.fragmentContainerView.layoutParams. = binding.bottomNavigationView.height
 
         //disabling bottom navigation hint
         binding.bottomNavigationView.menu.forEach {

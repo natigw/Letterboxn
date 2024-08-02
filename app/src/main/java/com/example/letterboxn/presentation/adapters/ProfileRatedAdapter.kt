@@ -1,24 +1,19 @@
 package com.example.letterboxn.presentation.adapters
 
-import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseAdapter
-import com.example.letterboxn.data.remote.model.account.ratedMovies.ResultRatedMovie
-import com.example.letterboxn.databinding.FragmentProfileBinding
 import com.example.letterboxn.databinding.SampleRecentWatchedProfileBinding
 import com.example.letterboxn.domain.model.RatedMovieItem
 
 class ProfileRatedAdapter(
-    val bindinqa : FragmentProfileBinding,
     val onClick: (Int) -> Unit
 ) : BaseAdapter<SampleRecentWatchedProfileBinding>(SampleRecentWatchedProfileBinding::inflate) {
 
     var movies: List<RatedMovieItem> = emptyList()
 
     override fun getItemCount(): Int {
-        bindinqa.textNoRecentWatchedProfile.visibility = if (movies.isEmpty()) View.VISIBLE else View.GONE
         return movies.size
     }
 

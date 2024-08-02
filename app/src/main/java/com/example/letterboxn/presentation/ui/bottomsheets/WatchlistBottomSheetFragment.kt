@@ -1,5 +1,6 @@
 package com.example.letterboxn.presentation.ui.bottomsheets
 
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.letterboxn.common.base.BaseBottomSheetFragment
@@ -17,27 +18,27 @@ class WatchlistBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetfragment
     @Inject
     lateinit var api : TmdbApi
 
-//    val watchlistAdapter = binding.rvWatchlist.adapter
+    val watchlistAdapter = BShWatchlistAdapter(
+        onClick = {
+            findNavController().navigate(WatchlistBottomSheetFragmentDirections.actionWatchlistBottomSheetFragmentToDetailsMovieFragment(it.movieId))
+        }
+    )
 
     override fun onViewCreatedLight() {
         lifecycleScope.launch {
-            val response = api.getWatchlist()
-            binding.rvWatchlist.adapter = BShWatchlistAdapter(
-                bindinqa = binding,
-                movies = response.results.map {
-                    WatchlistItem(
-                        movieId = it.id,
-                        movieTitle = it.title,
-                        moviePoster = it.posterPath,
-                        likeCount = it.voteCount,
-                        rating = it.voteAverage.toFloat(),
-                        releaseDate = it.releaseDate,
-                    )
-                },
-                onClick = {
-                    findNavController().navigate(WatchlistBottomSheetFragmentDirections.actionWatchlistBottomSheetFragmentToDetailsMovieFragment(it.movieId))
-                }
-            )
+            val movies = api.getWatchlist().results.map {
+                WatchlistItem(
+                    movieId = it.id,
+                    movieTitle = it.title,
+                    moviePoster = it.posterPath,
+                    likeCount = it.voteCount,
+                    rating = it.voteAverage.toFloat(),
+                    releaseDate = it.releaseDate,
+                )
+            }
+            binding.textNoMoviesWatchlist.visibility = if (movies.isEmpty()) View.VISIBLE else View.GONE
+            watchlistAdapter.updateAdapter(movies)
         }
+        binding.rvWatchlist.adapter = watchlistAdapter
     }
 }

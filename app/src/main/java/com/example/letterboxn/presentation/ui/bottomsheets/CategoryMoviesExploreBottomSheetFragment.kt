@@ -1,5 +1,6 @@
 package com.example.letterboxn.presentation.ui.bottomsheets
 
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,6 +21,12 @@ class CategoryMoviesExploreBottomSheetFragment : BaseBottomSheetFragment<Bottoms
 
     private val args : CategoryMoviesExploreBottomSheetFragmentArgs by navArgs()
 
+    private val categoryAdapter = ExploreMoviesByCategoryAdapter(
+        onClick = {
+            findNavController().navigate(CategoryMoviesExploreBottomSheetFragmentDirections.actionCategoryMoviesExploreBottomSheetFragmentToDetailsMovieFragment(it.movieId))
+        }
+    )
+
     override fun onViewCreatedLight() {
 
         binding.textCategoryTitleBSh.text = args.categoryItem.categoryName
@@ -31,24 +38,22 @@ class CategoryMoviesExploreBottomSheetFragment : BaseBottomSheetFragment<Bottoms
 
             val list = moviesGroupedByGenre[args.categoryItem.categoryId] ?: emptyList()
 
-            binding.textNoMoviesCateg
-            binding.rvMoviesByCategories.adapter = ExploreMoviesByCategoryAdapter(
-                bindinqa = binding,
-                movies = list.map {
-                    MoviesByCategoryItem(
-                        movieId = it.id,
-                        movieTitle = it.title,
-                        moviePoster = it.posterPath,
-                        rating = it.voteAverage.toFloat() / 2,
-                        likeCount = it.voteCount,
-                    )
-                },
-                onClick = {
-                    findNavController().navigate(CategoryMoviesExploreBottomSheetFragmentDirections.actionCategoryMoviesExploreBottomSheetFragmentToDetailsMovieFragment(it.movieId))
-                }
-            )
+            val result = list.map {
+                MoviesByCategoryItem(
+                    movieId = it.id,
+                    movieTitle = it.title,
+                    moviePoster = it.posterPath,
+                    rating = it.voteAverage.toFloat() / 2,
+                    likeCount = it.voteCount,
+                )
+            }
+            binding.textNoMoviesCateg.visibility = if (result.isEmpty()) View.VISIBLE else View.GONE
+            categoryAdapter.updateAdapter(result)
+            setAdapters()
         }
     }
 
-
+    private fun setAdapters() {
+        binding.rvMoviesByCategories.adapter = categoryAdapter
+    }
 }

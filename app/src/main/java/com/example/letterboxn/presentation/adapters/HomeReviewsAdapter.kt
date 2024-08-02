@@ -7,17 +7,16 @@ import com.example.letterboxn.common.base.BaseAdapter
 import com.example.letterboxn.common.utils.numberFormatter
 import com.example.letterboxn.common.utils.randomInteger
 import com.example.letterboxn.data.remote.model.person.ResultPerson
+import com.example.letterboxn.data.remote.model.popularList.ResultPopularList
 import com.example.letterboxn.databinding.SampleReviewBinding
 import com.example.letterboxn.domain.model.ReviewWithMovieItem
-import kotlin.random.Random
 
 class HomeReviewsAdapter (
-    val results: List<com.example.letterboxn.data.remote.model.popularList.ResultPopularList>,
-    val people: List<ResultPerson>,
     val onClick: (ReviewWithMovieItem) -> Unit
 ) : BaseAdapter<SampleReviewBinding>(SampleReviewBinding::inflate) {
 
-//    var review : List<ReviewWithMovieItem> = emptyList()
+    var results: List<ResultPopularList> = emptyList()
+    var people: List<ResultPerson> = emptyList()
 
     override fun getItemCount(): Int {
         return results.size - 10
@@ -78,5 +77,11 @@ class HomeReviewsAdapter (
 //        reviews = newReviews
 //        notifyDataSetChanged()
 //    }
+
+    fun updateAdapter(newResults : List<ResultPopularList>, newPeople : List<ResultPerson>) {
+        results = newResults
+        people = newPeople
+        notifyDataSetChanged()
+    }
 
 }

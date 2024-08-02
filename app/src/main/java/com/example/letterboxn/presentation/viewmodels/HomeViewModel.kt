@@ -15,6 +15,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val movieRepository : MovieRepository,
     private val listRepository: ListRepository
+//    private val personRepository : PersonRepo
 ) : ViewModel() {
 
     val movies = MutableStateFlow<List<MovieItem>>(emptyList())

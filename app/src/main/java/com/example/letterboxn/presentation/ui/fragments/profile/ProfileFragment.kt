@@ -21,6 +21,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -45,6 +46,7 @@ import com.example.letterboxn.domain.model.MovieItem
 import com.example.letterboxn.domain.model.ReviewWithMovieItem
 import com.example.letterboxn.presentation.adapters.ProfileFavMoviesAdapter
 import com.example.letterboxn.presentation.adapters.ProfileReviewsAdapter
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,20 +82,27 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     val viewmodel : ProfileViewModel by viewModels()
 
-//    val favAdapter = ProfileFavMoviesAdapter(
-//        bindinqa = binding,
-//        onClick = {
-//            findNavController().navigate(
-//                ProfileFragmentDirections.actionProfileFragmentToDetailsMovieFragment(it.movieId)
-//            )
-//        }
-//    )
-
-    val recentRatedAdapter = ProfileRatedAdapter (
-        bindinqa = binding,
+    private val favAdapter = ProfileFavMoviesAdapter(
+        onClick = {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToDetailsMovieFragment(it.movieId)
+            )
+        },
+        onLongClick = { position, movieId ->
+            showDeleteConfirmationDialog(position, movieId)
+        }
+    )
+    private val recentRatedAdapter = ProfileRatedAdapter (
         onClick = {
             findNavController().navigate(
                 ProfileFragmentDirections.actionProfileFragmentToDetailsMovieFragment(it)
+            )
+        }
+    )
+    private val reviewAdapter = ProfileReviewsAdapter(
+        onClick = {
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToRecentReviewDetailsBottomSheetFragment(it)
             )
         }
     )
@@ -114,7 +123,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     private lateinit var takePictureLauncher: ActivityResultLauncher<Void?>
 
-    private lateinit var favAdapter: ProfileFavMoviesAdapter
+    private lateinit var shimmerWatched : ShimmerFrameLayout
 
     val reviewsToDelete = mutableListOf<ReviewEntity>()
 
@@ -146,7 +155,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val shimmerFrameLayout = binding.rvUsersFavMoviesShimmer
         shimmerFrameLayout.startShimmer()
         shimmerFrameLayout.visibility = View.VISIBLE
-        val shimmerWatched = binding.rvUsersRecWatchedShimmer
+        shimmerWatched = binding.rvUsersRecWatchedShimmer
         shimmerWatched.startShimmer()
         shimmerWatched.visibility = View.VISIBLE
         val shimmerReviewed = binding.rvRecentReviewsProfileShimmer
@@ -169,42 +178,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         lifecycleScope.launch {
             val response = api.getFavoriteMovies()
             binding.textFavcountProfile.text = numberFormatter(response.totalResults.toLong())
-            favAdapter = ProfileFavMoviesAdapter(
-                bindinqa = binding,
-                movies = response.results.map {
-                    MovieItem(
-                        moviePoster = it.posterPath,
-                        movieId = it.id,
-                        movieTitle = it.title,
-                        movieDescription = it.overview
-                    )
-                }.toMutableList(),
-                onClick = {
-                    findNavController().navigate(
-                        ProfileFragmentDirections.actionProfileFragmentToDetailsMovieFragment(it.movieId)
-                    )
-                },
-                onLongClick = { position, movieId ->
-                    showDeleteConfirmationDialog(position, movieId)
-                }
-            )
-            binding.rvUsersFavMovies.adapter = favAdapter
+            val newMovies = response.results.map {
+                MovieItem(
+                    moviePoster = it.posterPath,
+                    movieId = it.id,
+                    movieTitle = it.title,
+                    movieDescription = it.overview
+                )
+            }.toMutableList()
+            binding.textNoFavMoviesProfile.visibility = if (newMovies.isEmpty()) View.VISIBLE else View.GONE
+            favAdapter.updateAdapter(newMovies)
         }
-
-//        lifecycleScope.launch {
-//            val responseRecWatched = api.getRatedMoviesAccount()
-//            binding.textRatedcountProfile.text = numberFormatter(responseRecWatched.totalResults.toLong())
-//            binding.rvUsersRecWatched.adapter = ProfileRatedAdapter(
-//                bindinqa = binding,
-//                results = responseRecWatched.results,
-//                onClick = {
-//                    findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToDetailsMovieFragment(movieId = it))
-//                }
-//            )
-//            shimmerWatched.stopShimmer()
-//            shimmerWatched.visibility = View.GONE
-//        }
-
 
         val deleteIcon = ContextCompat.getDrawable(requireContext(), R.drawable.trash_bin)!!
         val background = ColorDrawable(Color.RED)
@@ -213,6 +197,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             try {
                 //reviewDao.getAllReviewsDynamically().collectLatest {}
                 val reviews = reviewDao.getAllReviews().reversed()
+                binding.textReviewcountProfile.text = numberFormatter(reviews.size.toLong())
                 val reviewsWithMovieDetails = reviews.map { review ->
                     val movieDetails = api.getMovieDetails(movieId = review.movieId)
                     ReviewWithMovieItem(
@@ -228,18 +213,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                         movieRating = movieDetails.voteAverage.toFloat()/2,
                         movieReleaseDate = movieDetails.releaseDate
                     )
-                }
-                binding.textReviewcountProfile.text = numberFormatter(reviews.size.toLong())
-                val reviewAdapter = ProfileReviewsAdapter(
-                    bindinqa = binding,
-                    reviews = reviewsWithMovieDetails.toMutableList(),
-                    onClick = {
-                        findNavController().navigate(
-                            ProfileFragmentDirections.actionProfileFragmentToRecentReviewDetailsBottomSheetFragment(it)
-                        )
-                    }
-                )
-                binding.rvUsersRecReviewed.adapter = reviewAdapter
+                }.toMutableList()
+                binding.textNoReviewedProfile.visibility = if (reviews.isEmpty()) View.VISIBLE else View.GONE
+                reviewAdapter.updateAdapter(reviewsWithMovieDetails)
 
                 val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
                     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -325,8 +301,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         refreshProfilePicture()
         refreshProfileBackPoster()
 
-//        setRv()
-//        observe()
+        setAdapters()
+        observe()
     }
 
     override fun onPause() {
@@ -336,27 +312,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 reviewDao.deleteReview(it)
             }
         }
-    }
-
-    private fun showDeleteConfirmationDialog(position: Int, movieId : Int) {
-        val deleteText = SpannableString("Delete").apply {
-            setSpan(ForegroundColorSpan(Color.RED), 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-        }
-        MaterialAlertDialogBuilder(requireContext()).apply {
-            setMessage("Do you want to remove this movie?")
-            setPositiveButton(deleteText) { _, _ ->
-                favAdapter.removeItem(position)
-                binding.textFavcountProfile.text = binding.textFavcountProfile.text.toString().toInt().minus(1).toString()
-                lifecycleScope.launch {
-                    api.addOrRemoveFavoriteMovie(requestFavorite = RequestAddRemoveFavorite(
-                        favorite = false,
-                        mediaId = movieId,
-                        mediaType = "movie"
-                    ))
-                }
-            }
-            setNegativeButton("Cancel", null)
-        }.show()
     }
 
     override fun observeChanges() {
@@ -388,17 +343,44 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         requireActivity().finish()
     }
 
-    fun observe() {
+    private fun observe() {
         lifecycleScope.launch {
             viewmodel.movies
                 .collect {
+                    binding.textNoRecentWatchedProfile.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
+                    binding.textRatedcountProfile.text = numberFormatter(it.size.toLong())
                     recentRatedAdapter.updateAdapter(it)
+                    shimmerWatched.stopShimmer()
+                    shimmerWatched.visibility = View.GONE
                 }
         }
     }
 
-    fun setRv() {
+    private fun setAdapters() {
+        binding.rvUsersFavMovies.adapter = favAdapter
         binding.rvUsersRecentRated.adapter = recentRatedAdapter
+        binding.rvUsersRecReviewed.adapter = reviewAdapter
+    }
+
+    private fun showDeleteConfirmationDialog(position: Int, movieId : Int) {
+        val deleteText = SpannableString("Delete").apply {
+            setSpan(ForegroundColorSpan(Color.RED), 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        }
+        MaterialAlertDialogBuilder(requireContext()).apply {
+            setMessage("Do you want to remove this movie?")
+            setPositiveButton(deleteText) { _, _ ->
+                favAdapter.removeItem(position)
+                binding.textFavcountProfile.text = binding.textFavcountProfile.text.toString().toInt().minus(1).toString()
+                lifecycleScope.launch {
+                    api.addOrRemoveFavoriteMovie(requestFavorite = RequestAddRemoveFavorite(
+                        favorite = false,
+                        mediaId = movieId,
+                        mediaType = "movie"
+                    ))
+                }
+            }
+            setNegativeButton("Cancel", null)
+        }.show()
     }
 
     private fun showChangeProfileDialog() {

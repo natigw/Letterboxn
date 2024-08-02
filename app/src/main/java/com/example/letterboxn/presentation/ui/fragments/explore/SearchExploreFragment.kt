@@ -29,12 +29,11 @@ class SearchExploreFragment :
     lateinit var api: TmdbApi
 
     val viewmodel : SearchViewModel by viewModels()
-//    private val searchAdapter = SearchAdapter(
-//        bindinqa = binding,
-//        onClick = {
-//            findNavController().navigate(SearchExploreFragmentDirections.actionSearchExploreFragmentToDetailsMovieFragment(it))
-//        }
-//    )
+    private val searchAdapter = SearchAdapter(
+        onClick = {
+            findNavController().navigate(SearchExploreFragmentDirections.actionSearchExploreFragmentToDetailsMovieFragment(it))
+        }
+    )
 
     private var isMultiSearch = false
 
@@ -44,7 +43,7 @@ class SearchExploreFragment :
         hideClearButton()
         enterPress()
 
-//        setAdapters()
+        setAdapters()
 //        updateAdapters()
 
         binding.floatingActionButtonSearch.setOnClickListener {
@@ -72,24 +71,18 @@ class SearchExploreFragment :
         if (isMultiSearch) {
             lifecycleScope.launch {
                 try {
-                    val responseMultiSearch = api.multiSearchMovies(movieToSearch).results
-                    binding.rvSearchExplore.adapter = SearchAdapter(
-                        isMulti = true,
-                        bindinqa = binding,
-                        movies = responseMultiSearch.map {
-                            SearchItem(
-                                movieId = it.id,
-                                movieTitle = it.title,
-                                moviePoster = it.posterPath,
-                                movieRating = it.voteAverage.toFloat(),
-                                movieReleaseDate = it.releaseDate,
-                                mediaType = it.mediaType
-                            )
-                        },
-                        onClick = {
-                            findNavController().navigate(SearchExploreFragmentDirections.actionSearchExploreFragmentToDetailsMovieFragment(it))
-                        }
-                    )
+                    val responseMultiSearch = api.multiSearchMovies(movieToSearch).results.map {
+                        SearchItem(
+                            movieId = it.id,
+                            movieTitle = it.title,
+                            moviePoster = it.posterPath,
+                            movieRating = it.voteAverage.toFloat(),
+                            movieReleaseDate = it.releaseDate,
+                            mediaType = it.mediaType
+                        )
+                    }
+                    binding.textNoResults.visibility = if (responseMultiSearch.isEmpty()) View.VISIBLE else View.GONE
+                    searchAdapter.updateAdapter(responseMultiSearch,true)
                 }
                 catch (e: Exception) {
                     Log.e("api", e.toString())
@@ -99,30 +92,20 @@ class SearchExploreFragment :
         else {
             try {
                 lifecycleScope.launch {
-                    val responseSearch = api.searchMovies(movieToSearch).results
-                    binding.rvSearchExplore.adapter = SearchAdapter(
-                        isMulti = false,
-                        bindinqa = binding,
-                        movies = responseSearch.map {
-                            SearchItem(
-                                movieId = it.id,
-                                movieTitle = it.title,
-                                moviePoster = it.posterPath,
-                                movieRating = it.voteAverage.toFloat(),
-                                movieReleaseDate = it.releaseDate,
-                                mediaType = "movie"
-                            )
-                        },
-                        onClick = {
-                            findNavController().navigate(
-                                SearchExploreFragmentDirections.actionSearchExploreFragmentToDetailsMovieFragment(
-                                    it
-                                )
-                            )
-                        }
-                    )
+                    val responseSearch = api.searchMovies(movieToSearch).results.map {
+                        SearchItem(
+                            movieId = it.id,
+                            movieTitle = it.title,
+                            moviePoster = it.posterPath,
+                            movieRating = it.voteAverage.toFloat(),
+                            movieReleaseDate = it.releaseDate,
+                            mediaType = "movie"
+                        )
+                    }
+                    binding.textNoResults.visibility = if (responseSearch.isEmpty()) View.VISIBLE else View.GONE
+                    searchAdapter.updateAdapter(responseSearch,false)
                 }
-            }catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.e("api", e.toString())
             }
         }
@@ -176,7 +159,7 @@ class SearchExploreFragment :
 //        }
 //    }
 //
-//    private fun setAdapters() {
-//        binding.rvSearchExplore.adapter = searchAdapter
-//    }
+    private fun setAdapters() {
+        binding.rvSearchExplore.adapter = searchAdapter
+    }
 }

@@ -1,23 +1,20 @@
 package com.example.letterboxn.presentation.adapters
 
-import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseAdapter
 import com.example.letterboxn.common.utils.numberFormatter
-import com.example.letterboxn.databinding.BottomsheetfragmentCategoryMoviesExploreBinding
 import com.example.letterboxn.databinding.SampleBsheetCategoryBinding
 import com.example.letterboxn.domain.model.MoviesByCategoryItem
 
 class ExploreMoviesByCategoryAdapter(
-    val bindinqa : BottomsheetfragmentCategoryMoviesExploreBinding,
-    val movies : List<MoviesByCategoryItem>,
     val onClick : (MoviesByCategoryItem) -> Unit
 ) : BaseAdapter<SampleBsheetCategoryBinding>(SampleBsheetCategoryBinding::inflate) {
 
+    var movies : List<MoviesByCategoryItem> = emptyList()
+
     override fun getItemCount(): Int {
-        bindinqa.textNoMoviesCateg.visibility = if (movies.isEmpty()) View.VISIBLE else View.GONE
         return movies.size
     }
 
@@ -39,6 +36,11 @@ class ExploreMoviesByCategoryAdapter(
                 onClick(movieItem)
             }
         }
+    }
+
+    fun updateAdapter(newMovies : List<MoviesByCategoryItem>) {
+        movies = newMovies
+        notifyDataSetChanged()
     }
 
 }

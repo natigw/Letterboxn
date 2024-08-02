@@ -65,23 +65,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     val viewmodel: HomeViewModel by viewModels()
 
-    val popularAdapter = HomePopularMoviesAdapter(
+    private val popularAdapter = HomePopularMoviesAdapter(
         onClick = {
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToDetailsMovieFragment(it.movieId)
             )
         }
     )
-//    val listAdapter = HomePopularlistsAdapter {
-//        findNavController().navigate(
-//            HomeFragmentDirections.actionHomeFragmentToPopularListsHomeBottomSheetFragment(it)
-//        )
-//    }
-//    val reviewAdapter = HomeRecentreviewsAdapter {
-//        findNavController().navigate(
-//            HomeFragmentDirections.actionHomeFragmentToPopularListsHomeBottomSheetFragment(it)
-//        )
-//    }
+    private val listAdapter = HomePopularListsAdapter {
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToPopularListsHomeBottomSheetFragment(it)
+        )
+    }
+    private val reviewAdapter = HomeReviewsAdapter {
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToRecentReviewDetailsBottomSheetFragment(it)
+        )
+    }
 
     private lateinit var shimmerPopularMovies : ShimmerFrameLayout
     private lateinit var shimmerPopularLists : ShimmerFrameLayout
@@ -90,7 +90,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun onViewCreatedLight() {
 
         startShimmers()
+        setUI()
 
+        setAdapters()
+        lifecycleScope.launch {
+            val responseList = api.getLists(1).results
+            val responseHuman = api.getPeople(1).resultPeople
+
+            listAdapter.updateAdapter(responseList, responseHuman)
+            reviewAdapter.updateAdapter(responseList, responseHuman)
+
+            stopShimmers()
+        }
+
+        observeAdapters()
+    }
+
+    private fun setUI() {
         val drawerLayout = binding.myDrawerLayout
         val navigationView = requireActivity().findViewById(R.id.drawernavigationhome) as NavigationView
 
@@ -138,9 +154,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     true
                 }
                 R.id.nav_diary -> {
-                drawerLayout.closeDrawer(GravityCompat.START)
-                findNavController().navigate(R.id.profileFragment)
-                true
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    findNavController().navigate(R.id.profileFragment)
+                    true
                 }
                 R.id.nav_reviews -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -171,42 +187,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 else -> false
             }
         }
-
-        setAdapters()
-
-        observe()
-        setRv()
-    }
-
-    private fun setAdapters() {
-
-        lifecycleScope.launch {
-            val responseList = api.getLists(1).results
-            val responseHuman = api.getPeople(1).resultPeople
-
-            binding.rvpopularlists.adapter = HomePopularListsAdapter(
-                people = responseHuman,
-                movies = responseList,
-                onClick = {
-                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPopularListsHomeBottomSheetFragment(it))
-                }
-            )
-            stopShimmers()
-        }
-
-        lifecycleScope.launch {
-            val responseList = api.getLists(1).results
-            val responseHuman = api.getPeople(1).resultPeople
-            binding.rvrecentreviews.adapter = HomeReviewsAdapter(
-                people = responseHuman,
-                results = responseList,
-                onClick = {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToRecentReviewDetailsBottomSheetFragment(it)
-                    )
-                }
-            )
-        }
     }
 
     override fun observeChanges() {
@@ -234,12 +214,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         requireActivity().finish()
     }
 
-    fun observe() {
+    private fun observeAdapters() {
         lifecycleScope.launch {
-            viewmodel.movies
-                .collect {
-                    popularAdapter.updateAdapter(it)
-                }
+            viewmodel.movies.collect {
+                popularAdapter.updateAdapter(it)
+            }
         }
 //        lifecycleScope.launch {
 //            viewmodel.lists
@@ -255,10 +234,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 //        }
     }
 
-    fun setRv() {
+    private fun setAdapters() {
         binding.rvpopularmovies.adapter = popularAdapter
-        //binding.rvpopularlists.adapter = listAdapter
-        //binding.rvrecentreviews.adapter = reviewAdapter
+        binding.rvpopularlists.adapter = listAdapter
+        binding.rvrecentreviews.adapter = reviewAdapter
     }
 
     private fun startShimmers() {
@@ -282,12 +261,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         shimmerHomeReviews.visibility = View.GONE
     }
 
-    fun showStatusDialog() {
+    private fun showStatusDialog() {
 
         val customTitle = TextView(requireContext()).apply {
             text = "  Change your status"
             setPadding(40, 40, 40, 40) // Adjust padding as needed
-            setTextSize(24f)
+            textSize = 24f
             setTextColor(Color.WHITE)
         }
 

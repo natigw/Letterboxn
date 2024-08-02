@@ -15,13 +15,12 @@ import com.example.letterboxn.domain.model.ReviewWithMovieItem
 import kotlin.random.Random
 
 class ProfileReviewsAdapter (
-    val bindinqa : FragmentProfileBinding,
-    val reviews: MutableList<ReviewWithMovieItem>,
     val onClick: (ReviewWithMovieItem) -> Unit
 ) : BaseAdapter<SampleReviewBinding>(SampleReviewBinding::inflate) {
 
+    var reviews: MutableList<ReviewWithMovieItem> = mutableListOf()
+
     override fun getItemCount(): Int {
-        bindinqa.textNoReviewedProfile.visibility = if (reviews.isEmpty()) View.VISIBLE else  View.GONE
         return reviews.size
     }
 
@@ -71,5 +70,10 @@ class ProfileReviewsAdapter (
     fun restoreItem(review: ReviewWithMovieItem, position: Int) {
         reviews.add(position, review)
         notifyItemInserted(position)
+    }
+
+    fun updateAdapter(newReviews : MutableList<ReviewWithMovieItem>) {
+        reviews = newReviews
+        notifyDataSetChanged()
     }
 }

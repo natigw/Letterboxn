@@ -11,71 +11,12 @@ import com.example.letterboxn.domain.model.ListItemEach
 import com.example.letterboxn.domain.model.PopularListItem
 import com.google.android.material.imageview.ShapeableImageView
 
-//class HomePopularlistsAdapter(
-//    val onClick: (ListItem) -> Unit
-//) : BaseAdapter<SampleHomePopularlistsBinding>(SampleHomePopularlistsBinding::inflate) {
-//
-//    var data: List<ListItem> = emptyList()
-//
-//    override fun getItemCount(): Int {
-//        return data.size
-//    }
-//
-//    override fun onBindLight(binding: SampleHomePopularlistsBinding, position: Int) {
-//        val listitem = data[position]
-//
-//        with(binding) {
-//            Glide.with(imageListOne)
-//                .load("https://image.tmdb.org/t/p/w500" + listitem.movieItems[0])
-//                .placeholder(R.drawable.custom_poster_shape)
-//.transition(DrawableTransitionOptions.withCrossFade())
-//                .into(imageListOne)
-//            Glide.with(imageListTwo)
-//                .load("https://image.tmdb.org/t/p/w500" + listitem.movieItems[0])
-//                .placeholder(R.drawable.custom_poster_shape)
-//.transition(DrawableTransitionOptions.withCrossFade())
-//                .into(imageListTwo)
-//            Glide.with(imageListThree)
-//                .load("https://image.tmdb.org/t/p/w500" + listitem.movieItems[0])
-//                .placeholder(R.drawable.custom_poster_shape)
-//.transition(DrawableTransitionOptions.withCrossFade())
-//                .into(imageListThree)
-//            Glide.with(imageListFour)
-//                .load("https://image.tmdb.org/t/p/w500" + listitem.movieItems[0])
-//                .placeholder(R.drawable.custom_poster_shape)
-//.transition(DrawableTransitionOptions.withCrossFade())
-//                .into(imageListFour)
-//
-//            textPopularlistName.text = listitem.listTitle
-//            textPopularlistusername.text = listitem.authorName
-//            textPopularlistLikecount.text = numberFormatter(listitem.likeCount.toLong())
-//            textPopularlistCommentcount.text = numberFormatter(listitem.commentCount.toLong())
-//            Glide.with(imagePopularlistUserpicture)
-//                .load("https://image.tmdb.org/t/p/h632" + listitem.authorImage)
-//                .placeholder(R.drawable.usersample)
-//.transition(DrawableTransitionOptions.withCrossFade())
-//                .into(imagePopularlistUserpicture)
-//            root.setOnClickListener {
-//                onClick(listitem)
-//            }
-//        }
-//    }
-//
-//    fun updateAdapter(newList : List<ListItem>) {
-//        data = newList
-//        notifyDataSetChanged()
-//    }
-//
-//}
-
-
-
 class HomePopularListsAdapter(
-    val movies: List<ResultPopularList>,
-    val people: List<ResultPerson>,
     val onClick: (PopularListItem) -> Unit
 ) : BaseAdapter<SampleHomePopularlistsBinding>(SampleHomePopularlistsBinding::inflate) {
 
+    var movies: List<ResultPopularList> = emptyList()
+    var people: List<ResultPerson> = emptyList()
 
     override fun getItemCount(): Int {
         return movies.size - 4
@@ -134,5 +75,11 @@ class HomePopularListsAdapter(
             //.placeholder(R.drawable.custom_poster_shape)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(dest)
+    }
+
+    fun updateAdapter(newMovies : List<ResultPopularList>, newPeople : List<ResultPerson>) {
+        movies = newMovies
+        people = newPeople
+        notifyDataSetChanged()
     }
 }
