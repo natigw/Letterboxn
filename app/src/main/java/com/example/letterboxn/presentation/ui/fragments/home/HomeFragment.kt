@@ -17,14 +17,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
-import com.example.letterboxn.data.remote.api.TmdbApi
 import com.example.letterboxn.databinding.FragmentHomeBinding
 import com.example.letterboxn.presentation.adapters.HomePopularMoviesAdapter
 import com.example.letterboxn.presentation.ui.activities.OnBoardingActivity
 import com.example.letterboxn.presentation.viewmodels.HomeViewModel
 import com.example.letterboxn.common.utils.NancyToast
 import com.example.letterboxn.common.utils.numberFormatterSpaced
-import com.example.letterboxn.data.local.dao.UserDao
+import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.model.popularList.ResultPopularList
 import com.example.letterboxn.presentation.adapters.HomePopularListsAdapter
 import com.example.letterboxn.presentation.adapters.HomeReviewsAdapter
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -43,10 +43,7 @@ import javax.inject.Named
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     @Inject
-    lateinit var api: TmdbApi
-
-    @Inject
-    lateinit var userdao : UserDao
+    lateinit var api : TmdbApi
 
     @Inject
     lateinit var firestore: FirebaseFirestore
@@ -56,7 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     lateinit var shprefLoggedin: SharedPreferences
 
     @Inject
-    @Named("UserStatusinApp")
+    @Named("UserStatusInApp")
     lateinit var shprefStatus: SharedPreferences
 
     @Inject
@@ -88,22 +85,56 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private lateinit var shimmerHomeReviews : ShimmerFrameLayout
 
     override fun onViewCreatedLight() {
-
         startShimmers()
         setUI()
-
         setAdapters()
+        updateAdapters()
+    }
+
+    private fun updateAdapters() {
         lifecycleScope.launch {
-            val responseList = api.getLists(1).results
+            viewmodel.movies.collect {
+                popularAdapter.updateAdapter(it)
+            }
+        }
+//        lifecycleScope.launch {
+//            viewmodel.lists.collect {
+//                listAdapter.updateAdapter(it)
+//            }
+//        }
+//        lifecycleScope.launch {
+//            viewmodel.
+//                .collect {
+//                    reviewAdapter.updateAdapter(it)
+//                }
+//        }
+        lifecycleScope.launch {
+            val responseList1 = api.getLists(1).results
+            val responseList2 = api.getLists(2).results
+            val responseList3 = api.getLists(3).results
+            val responseList4 = api.getLists(4).results
             val responseHuman = api.getPeople(1).resultPeople
 
+            val responseList = mutableListOf<ResultPopularList>()
+
+            repeat(10) {
+                responseList.add(responseList1[it])
+                responseList.add(responseList2[it])
+                responseList.add(responseList3[it])
+                responseList.add(responseList4[it])
+            }
+
             listAdapter.updateAdapter(responseList, responseHuman)
-            reviewAdapter.updateAdapter(responseList, responseHuman)
+            reviewAdapter.updateAdapter(responseList1, responseHuman)
 
             stopShimmers()
         }
+    }
 
-        observeAdapters()
+    private fun setAdapters() {
+        binding.rvpopularmovies.adapter = popularAdapter
+        binding.rvpopularlists.adapter = listAdapter
+        binding.rvrecentreviews.adapter = reviewAdapter
     }
 
     private fun setUI() {
@@ -212,32 +243,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val intent = Intent(requireContext(), OnBoardingActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
-    }
-
-    private fun observeAdapters() {
-        lifecycleScope.launch {
-            viewmodel.movies.collect {
-                popularAdapter.updateAdapter(it)
-            }
-        }
-//        lifecycleScope.launch {
-//            viewmodel.lists
-//                .collect {
-//                    listAdapter.updateAdapter(it)
-//                }
-//        }
-//        lifecycleScope.launch {
-//            viewmodel.
-//                .collect {
-//                    reviewAdapter.updateAdapter(it)
-//                }
-//        }
-    }
-
-    private fun setAdapters() {
-        binding.rvpopularmovies.adapter = popularAdapter
-        binding.rvpopularlists.adapter = listAdapter
-        binding.rvrecentreviews.adapter = reviewAdapter
     }
 
     private fun startShimmers() {

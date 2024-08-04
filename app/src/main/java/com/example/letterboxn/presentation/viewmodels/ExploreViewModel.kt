@@ -7,21 +7,17 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.letterboxn.domain.model.CategoryItem
 import com.example.letterboxn.domain.model.MovieItem
-import com.example.letterboxn.domain.repository.CategoryRepository
-import com.example.letterboxn.domain.repository.ExploreMovieRepository
+import com.example.letterboxn.domain.repository.ExploreRepository
 import com.example.letterboxn.domain.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ExploreViewModel @Inject constructor(
-    private val exploreRepository : ExploreMovieRepository,
-    private val movieRepository : MovieRepository,
-    private val categoryRepository : CategoryRepository
+    private val exploreRepository : ExploreRepository,
+    private val movieRepository : MovieRepository
 ) : ViewModel() {
 
     val moviesList: LiveData<PagingData<MovieItem>> =
@@ -45,7 +41,7 @@ class ExploreViewModel @Inject constructor(
 
     private fun getCategories() {
         viewModelScope.launch {
-            val response = categoryRepository.getCategories()
+            val response = exploreRepository.getCategories()
             categories.emit(response)
         }
     }

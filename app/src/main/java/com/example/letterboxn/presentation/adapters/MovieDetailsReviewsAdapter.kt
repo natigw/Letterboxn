@@ -10,14 +10,13 @@ import com.example.letterboxn.databinding.SampleReviewMoviedetailsBinding
 import com.example.letterboxn.common.utils.numberFormatter
 import com.example.letterboxn.domain.model.ReviewWithoutMovieItem
 
-class MovieDetailsReviewsAdapter(
-    val onClick: (ReviewWithoutMovieItem) -> Unit
-) : BaseAdapter<SampleReviewMoviedetailsBinding>(SampleReviewMoviedetailsBinding::inflate) {
+class MovieDetailsReviewsAdapter : BaseAdapter<SampleReviewMoviedetailsBinding>(SampleReviewMoviedetailsBinding::inflate) {
 
     var reviews : List<ReviewWithoutMovieItem> = emptyList()
+    private var showAll = false
 
     override fun getItemCount(): Int {
-        return if (reviews.size > 10) 10 else reviews.size
+        return if (showAll) reviews.size else minOf(reviews.size, 5)
     }
 
     override fun onBindLight(binding: SampleReviewMoviedetailsBinding, position: Int) {
@@ -31,14 +30,12 @@ class MovieDetailsReviewsAdapter(
             if (rating == 0f) {
                 ReviewratingBar.visibility = View.INVISIBLE
                 textNoRatingsDetails.visibility = View.VISIBLE
+            } else {
+                ReviewratingBar.rating = rating
             }
-            else ReviewratingBar.rating = rating
 
             textReviewmain.text = reviewItem.review
-//            if (textRecentmaintext.lineCount < 5) textRecentreadmore.visibility = View.INVISIBLE
-//            textRecentmaintext.maxLines = 5
-////            val overviewLines = useritem.knownFor[0].overview.split("\n").size
-////            if (overviewLines < 5) textRecentreadmore.visibility = View.INVISIBLE
+            val lines = reviewItem.review.length / 84
             textReviewmain.maxLines = 5
 
             Glide.with(imageReviewUserpp)
@@ -47,15 +44,27 @@ class MovieDetailsReviewsAdapter(
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .error(R.drawable.usersample)
                 .into(imageReviewUserpp)
+
+            textReviewreadmore.visibility = if (lines < 5) View.INVISIBLE else View.VISIBLE
+
             root.setOnClickListener {
-                onClick(reviewItem)
+                if (lines > 5 && textReviewmain.maxLines < lines) {
+                    textReviewmain.maxLines += 5
+                }
+                if (textReviewreadmore.text == "Read less") {
+                    textReviewmain.maxLines = 5
+                    textReviewreadmore.text = "Read more..."
+                }
+                if (textReviewmain.maxLines >= lines) {
+                    textReviewreadmore.text = "Read less"
+                }
             }
         }
-
     }
 
-    fun updateAdapter(newReviews : List<ReviewWithoutMovieItem>) {
+    fun updateAdapter(newReviews: List<ReviewWithoutMovieItem>, showAll: Boolean = false) {
         reviews = newReviews
+        this.showAll = showAll
         notifyDataSetChanged()
     }
 }

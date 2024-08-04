@@ -54,31 +54,31 @@ class DataModule {
 
     @Named("UserLoggedIn")
     @Provides
-    fun provideSharedPreferenceLogon(@ApplicationContext context: android.content.Context) : SharedPreferences {
-        return context.getSharedPreferences("userloggedin", android.content.Context.MODE_PRIVATE)
+    fun provideSharedPreferenceLogon(@ApplicationContext context: Context) : SharedPreferences {
+        return context.getSharedPreferences("userloggedin", Context.MODE_PRIVATE)
     }
 
     @Named("UserProfileImage")
     @Provides
-    fun provideSharedPreferenceUserProfile(@ApplicationContext context: android.content.Context) : SharedPreferences {
-        return context.getSharedPreferences("userProfileImage", android.content.Context.MODE_PRIVATE)
+    fun provideSharedPreferenceUserProfile(@ApplicationContext context: Context) : SharedPreferences {
+        return context.getSharedPreferences("userProfileImage", Context.MODE_PRIVATE)
     }
 
     @Named("UserBackPosterImage")
     @Provides
-    fun provideSharedPreferenceUserBackPoster(@ApplicationContext context: android.content.Context) : SharedPreferences {
-        return context.getSharedPreferences("userBackPosterImage", android.content.Context.MODE_PRIVATE)
+    fun provideSharedPreferenceUserBackPoster(@ApplicationContext context: Context) : SharedPreferences {
+        return context.getSharedPreferences("userBackPosterImage", Context.MODE_PRIVATE)
     }
     @Named("UserBackPosterIsDefault")
     @Provides
-    fun provideSharedPreferenceBackPosterIsDefault(@ApplicationContext context: android.content.Context) : SharedPreferences {
-        return context.getSharedPreferences("userBackPosterIsDefault", android.content.Context.MODE_PRIVATE)
+    fun provideSharedPreferenceBackPosterIsDefault(@ApplicationContext context: Context) : SharedPreferences {
+        return context.getSharedPreferences("userBackPosterIsDefault", Context.MODE_PRIVATE)
     }
 
-    @Named("UserStatusinApp")
+    @Named("UserStatusInApp")
     @Provides
-    fun provideSharedPreferenceStatus(@ApplicationContext context: android.content.Context) : SharedPreferences {
-        return context.getSharedPreferences("userStatus", android.content.Context.MODE_PRIVATE)
+    fun provideSharedPreferenceStatus(@ApplicationContext context: Context) : SharedPreferences {
+        return context.getSharedPreferences("userStatus", Context.MODE_PRIVATE)
     }
 
 }

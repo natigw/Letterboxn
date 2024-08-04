@@ -11,14 +11,14 @@ import com.example.letterboxn.R
 import com.example.letterboxn.databinding.SampleExplorePosterBinding
 import com.example.letterboxn.domain.model.MovieItem
 
-class MoviePagingAdapter(private val movieClickListener: MovieClickListener) :
-    PagingDataAdapter<MovieItem, MoviePagingAdapter.ViewHolder>(MovieDiffCallback()) {
+class MoviePagingAdapter(
+    private val movieClickListener: MovieClickListener
+) : PagingDataAdapter<MovieItem, MoviePagingAdapter.ViewHolder>(MovieDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        if (item != null) {
+        if (item != null)
             holder.bind(item, movieClickListener)
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -63,3 +63,37 @@ class MovieDiffCallback : DiffUtil.ItemCallback<MovieItem>() {
 fun interface MovieClickListener {
     fun onMovieClick(movie: MovieItem)
 }
+
+
+
+//no pagination
+//class ExploreMoviesAdapter(
+//    val onClick : (MovieItem)->Unit
+//) : BaseAdapter<SampleExplorePosterBinding>(SampleExplorePosterBinding::inflate){
+//
+//    var movies : List<MovieItem> = emptyList()
+//
+//    override fun getItemCount(): Int {
+//        return movies.size
+//    }
+//
+//    override fun onBindLight(binding: SampleExplorePosterBinding, position: Int) {
+//        val movieitem = movies[position]
+//
+//        binding.textMovienameExplore.text = movieitem.movieTitle
+//        Glide.with(binding.imageMovieExplore)
+//            .load("https://image.tmdb.org/t/p/w500" + movieitem.moviePoster)
+//            .placeholder(R.drawable.custom_poster_shape)
+//            .transition(DrawableTransitionOptions.withCrossFade())
+//            .into(binding.imageMovieExplore)
+//        binding.root.setOnClickListener{
+//            onClick(movieitem)
+//        }
+//    }
+//
+//    fun updateAdapter(newMovies : List<MovieItem>) {
+//        movies = newMovies
+//        notifyDataSetChanged()
+//    }
+//
+//}

@@ -16,11 +16,7 @@ class SearchViewModel @Inject constructor(
 
     val results = MutableStateFlow<List<SearchItem>>(emptyList())
 
-    init {
-        searchMovies(movieName = "Monkey man")
-    }
-
-    private fun searchMovies(movieName : String) {
+    fun searchMovies(movieName : String) {
         viewModelScope.launch {
             val response = searchRepository.searchMovies(movieName)
             results.emit(response)

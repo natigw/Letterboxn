@@ -7,13 +7,14 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.example.letterboxn.presentation.adapters.MoviesPagingSource
 import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.domain.model.CategoryItem
 import com.example.letterboxn.domain.model.MovieItem
-import com.example.letterboxn.domain.repository.ExploreMovieRepository
+import com.example.letterboxn.domain.repository.ExploreRepository
 import javax.inject.Inject
 
-class ExploreMovieRepositoryImpl @Inject constructor(
+class ExploreRepositoryImpl @Inject constructor(
     private val api: TmdbApi
-) : ExploreMovieRepository {
+) : ExploreRepository {
 
     override suspend fun getMovies(page: Int): List<MovieItem> {
         val response = api.getMovies()
@@ -31,4 +32,15 @@ class ExploreMovieRepositoryImpl @Inject constructor(
         config = PagingConfig(pageSize = 10, maxSize = 200),
         pagingSourceFactory = { MoviesPagingSource(api) }
     ).liveData
+
+
+    override suspend fun getCategories(): List<CategoryItem> {
+        val response = api.getGenres()
+        return response.genres.map {
+            CategoryItem(
+                categoryId = it.id,
+                categoryName = it.name
+            )
+        }
+    }
 }

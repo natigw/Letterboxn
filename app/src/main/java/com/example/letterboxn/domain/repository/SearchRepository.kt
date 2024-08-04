@@ -4,5 +4,5 @@ import com.example.letterboxn.domain.model.SearchItem
 import retrofit2.http.Query
 
 interface SearchRepository {
-    suspend fun searchMovies(@Query("query") movie: String) : List<SearchItem>
+    suspend fun searchMovies(movie: String) : List<SearchItem>
 }

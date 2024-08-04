@@ -17,11 +17,11 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -43,6 +43,7 @@ import com.example.letterboxn.data.local.dao.ReviewDao
 import com.example.letterboxn.data.local.model.ReviewEntity
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.RequestAddRemoveFavorite
 import com.example.letterboxn.domain.model.MovieItem
+import com.example.letterboxn.domain.model.RatedMovieItem
 import com.example.letterboxn.domain.model.ReviewWithMovieItem
 import com.example.letterboxn.presentation.adapters.ProfileFavMoviesAdapter
 import com.example.letterboxn.presentation.adapters.ProfileReviewsAdapter
@@ -50,6 +51,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
@@ -123,7 +125,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     private lateinit var takePictureLauncher: ActivityResultLauncher<Void?>
 
+    private lateinit var shimmerFav : ShimmerFrameLayout
     private lateinit var shimmerWatched : ShimmerFrameLayout
+    private lateinit var shimmerReviewed : ShimmerFrameLayout
+
+    var username : String = "User"
 
     val reviewsToDelete = mutableListOf<ReviewEntity>()
 
@@ -139,11 +145,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     override fun onViewCreatedLight() {
 
-//        findNavController().currentBackStackEntry?.savedStateHandle
-//            ?.getLiveData<Boolean>("changed")
-//            ?.observe(viewLifecycleOwner) {
-//                if (it) refreshProfileBackPoster()
-//            }
+        findNavController().currentBackStackEntry?.savedStateHandle
+            ?.getLiveData<Boolean>("changed")
+            ?.observe(viewLifecycleOwner) {
+                if (it == true) refreshProfileBackPoster()
+            }
 
 //        val shp = requireContext().getSharedPreferences("account_id", Context.MODE_PRIVATE)
 //        val accId = shp.getInt("id", 0)
@@ -151,158 +157,131 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 //        NancyToast.makeText(requireContext(), "accountId is $accId", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
 //        NancyToast.makeText(requireContext(), "api+sess is $advApiKey", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
 
+        setAndStartShimmers()
 
-        val shimmerFrameLayout = binding.rvUsersFavMoviesShimmer
-        shimmerFrameLayout.startShimmer()
-        shimmerFrameLayout.visibility = View.VISIBLE
-        shimmerWatched = binding.rvUsersRecWatchedShimmer
-        shimmerWatched.startShimmer()
-        shimmerWatched.visibility = View.VISIBLE
-        val shimmerReviewed = binding.rvRecentReviewsProfileShimmer
-        shimmerReviewed.stopShimmer()
-        shimmerReviewed.visibility = View.GONE
-
-        val username = shprefLogon.getString("username", null)
+        username = shprefLogon.getString("username", null) ?: "User"
         binding.textUsernameprofile.text = username
         binding.textUsersFavFilms.text = "$username's Favorite Films"
         binding.textUsersrecentwatched.text = "$username's Recent Watched"
         binding.textUsersrecentreviewed.text = "$username's Recent Reviewed"
         val userFollowers = 22  //from api
-        val userFollowings = 39
+        val userFollowings = 39 //from api
         binding.textCountnFollowersprofile.text = "${numberFormatterSpaced(userFollowers.toLong())} Followers"
         binding.textCountnFollowingsprofile.text = "${numberFormatterSpaced(userFollowings.toLong())} Followings"
-        val lists = 4
+        val lists = 4  //from api
         binding.textListcountProfile.text = numberFormatter(lists.toLong())
 
 
-        lifecycleScope.launch {
-            val response = api.getFavoriteMovies()
-            binding.textFavcountProfile.text = numberFormatter(response.totalResults.toLong())
-            val newMovies = response.results.map {
-                MovieItem(
-                    moviePoster = it.posterPath,
-                    movieId = it.id,
-                    movieTitle = it.title,
-                    movieDescription = it.overview
-                )
-            }.toMutableList()
-            binding.textNoFavMoviesProfile.visibility = if (newMovies.isEmpty()) View.VISIBLE else View.GONE
-            favAdapter.updateAdapter(newMovies)
-        }
-
-        val deleteIcon = ContextCompat.getDrawable(requireContext(), R.drawable.trash_bin)!!
-        val background = ColorDrawable(Color.RED)
-
-        lifecycleScope.launch {
-            try {
-                //reviewDao.getAllReviewsDynamically().collectLatest {}
-                val reviews = reviewDao.getAllReviews().reversed()
-                binding.textReviewcountProfile.text = numberFormatter(reviews.size.toLong())
-                val reviewsWithMovieDetails = reviews.map { review ->
-                    val movieDetails = api.getMovieDetails(movieId = review.movieId)
-                    ReviewWithMovieItem(
-                        authorName = username ?: "salam",
-                        authorImage = shprefProfilePicture.getString("profile_image_uri", null)
-                            ?: "android.resource://${requireActivity().packageName}/${R.drawable.usersample}",
-                        review = review.review,
-                        reviewRating = review.rating,
-                        commentCount = 0,
-                        movieId = movieDetails.id,
-                        movieTitle = movieDetails.title,
-                        moviePoster = movieDetails.posterPath,
-                        movieRating = movieDetails.voteAverage.toFloat()/2,
-                        movieReleaseDate = movieDetails.releaseDate
-                    )
-                }.toMutableList()
-                binding.textNoReviewedProfile.visibility = if (reviews.isEmpty()) View.VISIBLE else View.GONE
-                reviewAdapter.updateAdapter(reviewsWithMovieDetails)
-
-                val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-                    override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                        return false
-                    }
-
-                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                        val position = viewHolder.adapterPosition
-                        val deletedReview = reviewAdapter.deleteItem(position)
-                        binding.textReviewcountProfile.text = binding.textReviewcountProfile.text.toString().toInt().minus(1).toString()
-                        runBlocking {
-                            reviewsToDelete.add(ReviewEntity(
-                                movieId = deletedReview.movieId,
-                                review = deletedReview.review,
-                                rating = deletedReview.reviewRating,
-                                reviewDate = deletedReview.movieReleaseDate,
-                                reviewId = reviewDao.getReviewId(deletedReview.movieId, review = deletedReview.review)!!))
-                        }
-                        Snackbar.make(binding.rvUsersRecReviewed, "Review deleted", Snackbar.LENGTH_LONG).apply {
-                            setAction("UNDO") {
-                                reviewAdapter.restoreItem(deletedReview, position)
-                                binding.rvUsersRecReviewed.scrollToPosition(position)
-                                reviewsToDelete.removeLast()
-                                binding.textReviewcountProfile.text = binding.textReviewcountProfile.text.toString().toInt().plus(1).toString()
-                            }.show()
-                        }
-                    }
-
-                    override fun onChildDraw(
-                        c: Canvas,
-                        recyclerView: RecyclerView,
-                        viewHolder: RecyclerView.ViewHolder,
-                        dX: Float,
-                        dY: Float,
-                        actionState: Int,
-                        isCurrentlyActive: Boolean
-                    ) {
-                        val itemView = viewHolder.itemView
-                        val backgroundCornerOffset = 20 // Offset for the background
-
-                        val iconSize = deleteIcon.intrinsicHeight / 4 // Adjust icon size here
-                        val iconMargin = (itemView.height - iconSize) / 2
-                        val iconTop = itemView.top + (itemView.height - iconSize) / 2
-                        val iconBottom = iconTop + iconSize
-
-                        when {
-                            dX > 0 -> { // Swiping to the right
-                                val iconLeft = itemView.left + iconMargin
-                                val iconRight = iconLeft + iconSize
-                                deleteIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-
-                                background.setBounds(itemView.left, itemView.top, itemView.left + dX.toInt() + backgroundCornerOffset, itemView.bottom)
-                            }
-                            dX < 0 -> { // Swiping to the left
-                                val iconRight = itemView.right - iconMargin
-                                val iconLeft = iconRight - iconSize
-                                deleteIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
-
-                                background.setBounds(itemView.right + dX.toInt() - backgroundCornerOffset, itemView.top, itemView.right, itemView.bottom)
-                            }
-                            else -> { // View is unSwiped
-                                background.setBounds(0, 0, 0, 0)
-                            }
-                        }
-
-                        background.draw(c)
-                        deleteIcon.draw(c)
-
-                        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    }
-                }
-
-                val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-                itemTouchHelper.attachToRecyclerView(binding.rvUsersRecReviewed)
-
-                shimmerFrameLayout.stopShimmer()
-                shimmerFrameLayout.visibility = View.GONE
-            } catch (e: Exception) {
-                Log.e("dao", e.toString())
-            }
-        }
+//        val deleteIcon = ContextCompat.getDrawable(requireContext(), R.drawable.trash_bin)!!
+//        val background = ColorDrawable(Color.RED)
+//
+//        lifecycleScope.launch {
+//            try {
+//                val reviews = reviewDao.getAllReviews().reversed()
+//                binding.textReviewcountProfile.text = numberFormatter(reviews.size.toLong())
+//                val reviewsWithMovieDetails = reviews.map { review ->
+//                    val movieDetails = api.getMovieDetails(movieId = review.movieId)
+//                    ReviewWithMovieItem(
+//                        authorName = username ?: "salam",
+//                        authorImage = shprefProfilePicture.getString("profile_image_uri", null)
+//                            ?: "android.resource://${requireActivity().packageName}/${R.drawable.usersample}",
+//                        review = review.review,
+//                        reviewRating = review.rating,
+//                        commentCount = 0,
+//                        movieId = movieDetails.id,
+//                        movieTitle = movieDetails.title,
+//                        moviePoster = movieDetails.posterPath,
+//                        movieRating = movieDetails.voteAverage.toFloat()/2,
+//                        movieReleaseDate = movieDetails.releaseDate
+//                    )
+//                }.toMutableList()
+//                binding.textNoReviewedProfile.visibility = if (reviews.isEmpty()) View.VISIBLE else View.GONE
+//                reviewAdapter.updateAdapter(reviewsWithMovieDetails)
+//
+//                val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+//                    override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+//                        return false
+//                    }
+//
+//                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                        val position = viewHolder.adapterPosition
+//                        val deletedReview = reviewAdapter.deleteItem(position)
+//                        binding.textReviewcountProfile.text = binding.textReviewcountProfile.text.toString().toInt().minus(1).toString()
+//                        runBlocking {
+//                            reviewsToDelete.add(ReviewEntity(
+//                                movieId = deletedReview.movieId,
+//                                review = deletedReview.review,
+//                                rating = deletedReview.reviewRating,
+//                                reviewDate = deletedReview.movieReleaseDate,
+//                                reviewId = reviewDao.getReviewId(deletedReview.movieId, review = deletedReview.review)!!))
+//                        }
+//                        Snackbar.make(binding.rvUsersRecReviewed, "Review deleted", Snackbar.LENGTH_LONG).apply {
+//                            setAction("UNDO") {
+//                                reviewAdapter.restoreItem(deletedReview, position)
+//                                binding.rvUsersRecReviewed.scrollToPosition(position)
+//                                reviewsToDelete.removeLast()
+//                                binding.textReviewcountProfile.text = binding.textReviewcountProfile.text.toString().toInt().plus(1).toString()
+//                            }.show()
+//                        }
+//                    }
+//
+//                    override fun onChildDraw(
+//                        c: Canvas,
+//                        recyclerView: RecyclerView,
+//                        viewHolder: RecyclerView.ViewHolder,
+//                        dX: Float,
+//                        dY: Float,
+//                        actionState: Int,
+//                        isCurrentlyActive: Boolean
+//                    ) {
+//                        val itemView = viewHolder.itemView
+//                        val backgroundCornerOffset = 20 // Offset for the background
+//
+//                        val iconSize = deleteIcon.intrinsicHeight / 4 // Adjust icon size here
+//                        val iconMargin = (itemView.height - iconSize) / 2
+//                        val iconTop = itemView.top + (itemView.height - iconSize) / 2
+//                        val iconBottom = iconTop + iconSize
+//
+//                        when {
+//                            dX > 0 -> { // Swiping to the right
+//                                val iconLeft = itemView.left + iconMargin
+//                                val iconRight = iconLeft + iconSize
+//                                deleteIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+//
+//                                background.setBounds(itemView.left, itemView.top, itemView.left + dX.toInt() + backgroundCornerOffset, itemView.bottom)
+//                            }
+//                            dX < 0 -> { // Swiping to the left
+//                                val iconRight = itemView.right - iconMargin
+//                                val iconLeft = iconRight - iconSize
+//                                deleteIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+//
+//                                background.setBounds(itemView.right + dX.toInt() - backgroundCornerOffset, itemView.top, itemView.right, itemView.bottom)
+//                            }
+//                            else -> { // View is unSwiped
+//                                background.setBounds(0, 0, 0, 0)
+//                            }
+//                        }
+//
+//                        background.draw(c)
+//                        deleteIcon.draw(c)
+//
+//                        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+//                    }
+//                }
+//
+//                val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+//                itemTouchHelper.attachToRecyclerView(binding.rvUsersRecReviewed)
+//
+//            } catch (e: Exception) {
+//                Log.e("dao", e.toString())
+//            }
+//        }
 
         refreshProfilePicture()
         refreshProfileBackPoster()
 
         setAdapters()
-        observe()
+        updateAdapters()
     }
 
     override fun onPause() {
@@ -322,7 +301,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.buttonChangeBackground.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToFavMoviesBottomSheetFragment())
         }
-
         binding.buttonSeeallRecents.setOnClickListener {
             NancyToast.makeText(requireContext(), "[navigating all rated movies page]", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
         }
@@ -337,22 +315,99 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     }
 
-    private fun navigateToOnBoardActivity() {
-        val intent = Intent(requireContext(), OnBoardingActivity::class.java)
-        startActivity(intent)
-        requireActivity().finish()
-    }
-
-    private fun observe() {
+    private fun updateAdapters() {
         lifecycleScope.launch {
-            viewmodel.movies
-                .collect {
-                    binding.textNoRecentWatchedProfile.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
-                    binding.textRatedcountProfile.text = numberFormatter(it.size.toLong())
-                    recentRatedAdapter.updateAdapter(it)
-                    shimmerWatched.stopShimmer()
-                    shimmerWatched.visibility = View.GONE
-                }
+            val it = api.getFavoriteMovies().results.map {
+                MovieItem(
+                    movieId = it.id,
+                    movieTitle = it.title,
+                    moviePoster = it.posterPath,
+                    movieDescription = it.overview
+                )
+            }.toMutableList()
+            binding.textFavcountProfile.text = numberFormatter(it.size.toLong())
+            binding.textNoFavMoviesProfile.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+            favAdapter.updateAdapter(it)
+            shimmerFav.stopShimmer()
+            shimmerFav.visibility = View.GONE
+//            viewmodel.favMovies.collectLatest {
+//                binding.textFavcountProfile.text = numberFormatter(it.size.toLong())
+//                binding.textNoFavMoviesProfile.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+//                favAdapter.updateAdapter(it)
+//                shimmerFav.stopShimmer()
+//                shimmerFav.visibility = View.GONE
+//            }
+        }
+        lifecycleScope.launch {
+            val it = api.getRatedMoviesAccount().results.map {
+                RatedMovieItem(
+                    movieId = it.id,
+                    moviePoster = it.posterPath,
+                    rating = it.rating
+                )
+            }
+            binding.textNoRecentWatchedProfile.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
+            binding.textRatedcountProfile.text = numberFormatter(it.size.toLong())
+            recentRatedAdapter.updateAdapter(it)
+            shimmerWatched.stopShimmer()
+            shimmerWatched.visibility = View.GONE
+//            viewmodel.movies.collectLatest {
+//                    binding.textNoRecentWatchedProfile.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
+//                    binding.textRatedcountProfile.text = numberFormatter(it.size.toLong())
+//                    recentRatedAdapter.updateAdapter(it)
+//                    shimmerWatched.stopShimmer()
+//                    shimmerWatched.visibility = View.GONE
+//            }
+        }
+        lifecycleScope.launch {
+            val reviews = reviewDao.getAllReviews()
+            val reviewsWithMovieDetails = reviews.map { review ->
+                val movieDetails = api.getMovieDetails(movieId = review.movieId) //viewmodel
+                ReviewWithMovieItem(
+                    authorName = username,
+                    authorImage = shprefProfilePicture.getString("profile_image_uri", null)
+                        ?: "android.resource://${requireActivity().packageName}/${R.drawable.usersample}",
+                    review = review.review,
+                    reviewRating = review.rating,
+                    commentCount = 0,
+                    movieId = movieDetails.id,
+                    movieTitle = movieDetails.title,
+                    moviePoster = movieDetails.posterPath,
+                    movieRating = movieDetails.voteAverage.toFloat() / 2,
+                    movieReleaseDate = movieDetails.releaseDate
+                )
+            }.reversed().toMutableList()
+            binding.textReviewcountProfile.text = numberFormatter(reviews.size.toLong())
+            binding.textNoReviewedProfile.visibility = if (reviews.isEmpty()) View.VISIBLE else View.GONE
+            reviewAdapter.updateAdapter(reviewsWithMovieDetails)
+            shimmerReviewed.stopShimmer()
+            shimmerReviewed.visibility = View.GONE
+            swipeToDelete()
+
+//            viewmodel.reviews.collectLatest {
+//                val reviewsWithMovieDetails = it.map { review ->
+//                    val movieDetails = api.getMovieDetails(movieId = review.movieId) //viewmodel
+//                    ReviewWithMovieItem(
+//                        authorName = username,
+//                        authorImage = shprefProfilePicture.getString("profile_image_uri", null)
+//                            ?: "android.resource://${requireActivity().packageName}/${R.drawable.usersample}",
+//                        review = review.review,
+//                        reviewRating = review.rating,
+//                        commentCount = 0,
+//                        movieId = movieDetails.id,
+//                        movieTitle = movieDetails.title,
+//                        moviePoster = movieDetails.posterPath,
+//                        movieRating = movieDetails.voteAverage.toFloat() / 2,
+//                        movieReleaseDate = movieDetails.releaseDate
+//                    )
+//                }.toMutableList()
+//                binding.textReviewcountProfile.text = numberFormatter(it.size.toLong())
+//                binding.textNoReviewedProfile.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+//                reviewAdapter.updateAdapter(reviewsWithMovieDetails)
+//                shimmerReviewed.stopShimmer()
+//                shimmerReviewed.visibility = View.GONE
+//                swipeToDelete()
+//            }
         }
     }
 
@@ -360,6 +415,108 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.rvUsersFavMovies.adapter = favAdapter
         binding.rvUsersRecentRated.adapter = recentRatedAdapter
         binding.rvUsersRecReviewed.adapter = reviewAdapter
+    }
+
+    private fun setAndStartShimmers() {
+        shimmerFav = binding.rvUsersFavMoviesShimmer
+        shimmerFav.startShimmer()
+        shimmerFav.visibility = View.VISIBLE
+        shimmerWatched = binding.rvUsersRecWatchedShimmer
+        shimmerWatched.startShimmer()
+        shimmerWatched.visibility = View.VISIBLE
+        shimmerReviewed = binding.rvRecentReviewsProfileShimmer
+        shimmerReviewed.startShimmer()
+        shimmerReviewed.visibility = View.VISIBLE
+    }
+
+    private fun swipeToDelete() {
+        val deleteIcon = ContextCompat.getDrawable(requireContext(), R.drawable.trash_bin)!!
+        val background = ColorDrawable(Color.RED)
+
+        try {
+            val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+                override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.adapterPosition
+                    val deletedReview = reviewAdapter.deleteItem(position)
+                    binding.textReviewcountProfile.text = binding.textReviewcountProfile.text.toString().toInt().minus(1).toString()
+                    runBlocking {
+                        reviewsToDelete.add(ReviewEntity(
+                            movieId = deletedReview.movieId,
+                            review = deletedReview.review,
+                            rating = deletedReview.reviewRating,
+                            reviewDate = deletedReview.movieReleaseDate,
+                            reviewId = reviewDao.getReviewId(deletedReview.movieId, review = deletedReview.review)!!))
+                    }
+                    Snackbar.make(binding.rvUsersRecReviewed, "Review deleted", Snackbar.LENGTH_LONG).apply {
+                        setAction("UNDO") {
+                            reviewAdapter.restoreItem(deletedReview, position)
+                            binding.rvUsersRecReviewed.scrollToPosition(position)
+                            reviewsToDelete.removeLast()
+                            binding.textReviewcountProfile.text = binding.textReviewcountProfile.text.toString().toInt().plus(1).toString()
+                        }.show()
+                    }
+                }
+
+                override fun onChildDraw(
+                    c: Canvas,
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    dX: Float,
+                    dY: Float,
+                    actionState: Int,
+                    isCurrentlyActive: Boolean
+                ) {
+                    val itemView = viewHolder.itemView
+                    val backgroundCornerOffset = 20 // Offset for the background
+
+                    val iconSize = deleteIcon.intrinsicHeight / 4 // Adjust icon size here
+                    val iconMargin = (itemView.height - iconSize) / 2
+                    val iconTop = itemView.top + (itemView.height - iconSize) / 2
+                    val iconBottom = iconTop + iconSize
+
+                    when {
+                        dX > 0 -> { // Swiping to the right
+                            val iconLeft = itemView.left + iconMargin
+                            val iconRight = iconLeft + iconSize
+                            deleteIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+
+                            background.setBounds(itemView.left, itemView.top, itemView.left + dX.toInt() + backgroundCornerOffset, itemView.bottom)
+                        }
+                        dX < 0 -> { // Swiping to the left
+                            val iconRight = itemView.right - iconMargin
+                            val iconLeft = iconRight - iconSize
+                            deleteIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+
+                            background.setBounds(itemView.right + dX.toInt() - backgroundCornerOffset, itemView.top, itemView.right, itemView.bottom)
+                        }
+                        else -> { // View is unSwiped
+                            background.setBounds(0, 0, 0, 0)
+                        }
+                    }
+
+                    background.draw(c)
+                    deleteIcon.draw(c)
+
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                }
+            }
+
+            val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+            itemTouchHelper.attachToRecyclerView(binding.rvUsersRecReviewed)
+
+        } catch (e: Exception) {
+            Log.e("dao", e.toString())
+        }
+    }
+
+    private fun navigateToOnBoardActivity() {
+        val intent = Intent(requireContext(), OnBoardingActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun showDeleteConfirmationDialog(position: Int, movieId : Int) {

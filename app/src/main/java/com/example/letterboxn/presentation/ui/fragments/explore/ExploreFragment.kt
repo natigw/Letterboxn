@@ -25,13 +25,12 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(bindingToInflate = 
         this.findNavController()
             .navigate(ExploreFragmentDirections.actionExploreFragmentToDetailsMovieFragment(it.movieId))
     }
-
-
 //    private val adapter = ExploreMoviesAdapter {
 //        findNavController().navigate(
 //            ExploreFragmentDirections.actionExploreFragmentToDetailsMovieFragment(it.movieId)
 //        )
 //    }
+
     private val categoryAdapter = ExploreCategoriesAdapter(
         onClick = {
             findNavController().navigate(ExploreFragmentDirections.actionExploreFragmentToCategoryMoviesExploreBottomSheetFragment(it))

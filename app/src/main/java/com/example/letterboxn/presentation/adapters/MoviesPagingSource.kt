@@ -6,42 +6,6 @@ import com.example.letterboxn.data.remote.api.TmdbApi
 import com.example.letterboxn.domain.model.MovieItem
 import javax.inject.Inject
 
-//class MoviesPagingSource(
-//    private val api: MyApi
-//) : PagingSource<Int, MovieItem>() {
-//
-//    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieItem> {
-//        return try {
-//            val currentPage = params.key ?: 1
-//            val response = api.getMovies(page = currentPage)
-//            val data = response.results.map {
-//                MovieItem(
-//                    movieId = it.id,
-//                    movieTitle = it.title,
-//                    moviePoster = it.posterPath,
-//                    movieDescription = it.overview
-//                )
-//            }
-//
-//            LoadResult.Page(
-//                data = data,
-//                prevKey = if (currentPage == 1) null else currentPage - 1,
-//                nextKey = if (data.isEmpty()) null else currentPage + 1
-//            )
-//        } catch (e: Exception) {
-//            LoadResult.Error(e)
-//        }
-//    }
-//
-//    override fun getRefreshKey(state: PagingState<Int, MovieItem>): Int? {
-//        return state.anchorPosition?.let { anchorPosition ->
-//            val anchorPage = state.closestPageToPosition(anchorPosition)
-//            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
-//        }
-//    }
-//}
-
-
 class MoviesPagingSource @Inject constructor(
     private val api: TmdbApi
 ): PagingSource<Int, MovieItem>() {

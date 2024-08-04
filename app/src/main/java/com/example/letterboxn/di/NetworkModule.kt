@@ -1,20 +1,19 @@
 package com.example.letterboxn.di
 
 import androidx.paging.PagingSource
+import com.example.letterboxn.data.local.dao.ReviewDao
 import com.example.letterboxn.presentation.adapters.MoviesPagingSource
 import com.example.letterboxn.data.remote.api.TmdbApi
-import com.example.letterboxn.data.remote.repository.CategoryRepositoryImpl
-import com.example.letterboxn.data.remote.repository.ExploreMovieRepositoryImpl
+import com.example.letterboxn.data.remote.repository.ExploreRepositoryImpl
 import com.example.letterboxn.data.remote.repository.ListRepositoryImpl
 import com.example.letterboxn.data.remote.repository.MovieRepositoryImpl
-import com.example.letterboxn.data.remote.repository.RatedMovieRepositoryImpl
+import com.example.letterboxn.data.remote.repository.ReviewRepositoryImpl
 import com.example.letterboxn.data.remote.repository.SearchRepositoryImpl
 import com.example.letterboxn.domain.model.MovieItem
-import com.example.letterboxn.domain.repository.CategoryRepository
-import com.example.letterboxn.domain.repository.ExploreMovieRepository
+import com.example.letterboxn.domain.repository.ExploreRepository
 import com.example.letterboxn.domain.repository.ListRepository
 import com.example.letterboxn.domain.repository.MovieRepository
-import com.example.letterboxn.domain.repository.RatedMovieRepository
+import com.example.letterboxn.domain.repository.ReviewRepository
 import com.example.letterboxn.domain.repository.SearchRepository
 import dagger.Module
 import dagger.Provides
@@ -52,32 +51,14 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideCategoryRepository(api : TmdbApi) : CategoryRepository {
-        return CategoryRepositoryImpl(api)
-    }
-
-    @Singleton
-    @Provides
     fun providePopularListsRepository(api : TmdbApi) : ListRepository {
         return ListRepositoryImpl(api)
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideReviewRepository(api : TmdbApi) : ReviewRepository {
-//        return ReviewRepositoryImpl(api)
-//    }
-
     @Singleton
     @Provides
-    fun provideRatedMovieRepository(api: TmdbApi) : RatedMovieRepository {
-        return RatedMovieRepositoryImpl(api)
-    }
-
-    @Singleton
-    @Provides
-    fun provideExploreMovieRepository(api : TmdbApi) : ExploreMovieRepository {
-        return ExploreMovieRepositoryImpl(api)
+    fun provideExploreMovieRepository(api : TmdbApi) : ExploreRepository {
+        return ExploreRepositoryImpl(api)
     }
 
     @Singleton
@@ -90,6 +71,12 @@ class NetworkModule {
     @Provides
     fun providePagingSource(api: TmdbApi) : PagingSource<Int, MovieItem> {
         return MoviesPagingSource(api)
+    }
+
+    @Singleton
+    @Provides
+    fun provideReviewRepository(reviewDao: ReviewDao) : ReviewRepository {
+        return ReviewRepositoryImpl(reviewDao)
     }
 
 }

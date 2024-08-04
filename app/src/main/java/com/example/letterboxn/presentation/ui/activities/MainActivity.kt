@@ -36,20 +36,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        binding.bottomNavigationView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-//            override fun onGlobalLayout() {
-//                // Remove the listener to avoid multiple calls
-//                binding.bottomNavigationView.viewTreeObserver.removeOnGlobalLayoutListener(this)
-//
-//                // Set the marginBottom of fragmentContainerView to the height of bottomNavigationView
-//                binding.fragmentContainerView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-//                    bottomMargin = binding.bottomNavigationView.height
-//                }
-//            }
-//        })
-//
-//        binding.fragmentContainerView.layoutParams. = binding.bottomNavigationView.height
-
         //disabling bottom navigation hint
         binding.bottomNavigationView.menu.forEach {
             val menuItem = binding.bottomNavigationView.findViewById<View>(it.itemId)
@@ -63,10 +49,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showConnectionLostMessage() {
         Snackbar.make(findViewById(android.R.id.content), "Connection Lost", Snackbar.LENGTH_INDEFINITE).apply {
-                setAction("Dismiss") {
-                    dismiss()
-                }.show()
-            }
+            setAction("Dismiss") {
+                dismiss()
+            }.show()
+        }
     }
 
     override fun onDestroy() {

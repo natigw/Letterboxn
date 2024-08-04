@@ -58,12 +58,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
             findNavController().navigate(DetailsMovieFragmentDirections.actionDetailsMovieFragmentToPersonDetailsBottomSheetFragment(it))
         }
     )
-
-    private val reviewAdapter = MovieDetailsReviewsAdapter(
-        onClick = {
-            // more click edende reviewda 5 line elave acilsin
-        }
-    )
+    private val reviewAdapter = MovieDetailsReviewsAdapter()
 
     var movieTitle : String = ""
     var movieId : Int = 0
@@ -247,8 +242,15 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
                     )
                 }
                 binding.textNoReviewsSentenceMovieDetails.visibility = if (reviews.isEmpty()) View.VISIBLE else View.GONE
-                binding.buttonSeeallReviewsDetailsMovie.visibility = if (reviews.size > 10) View.VISIBLE else View.GONE
-                reviewAdapter.updateAdapter(reviews)
+                binding.buttonSeeallReviewsDetailsMovie.visibility = if (reviews.size > 5) View.VISIBLE else View.GONE
+                binding.buttonSeeallReviewsDetailsMovie.setOnClickListener {
+                    reviewAdapter.updateAdapter(reviews, true) //all
+                    binding.root.post {
+                        binding.root.scrollTo(0, binding.buttonSeeallReviewsDetailsMovie.top)
+                    }
+                    binding.buttonSeeallReviewsDetailsMovie.visibility = View.INVISIBLE
+                }
+                reviewAdapter.updateAdapter(reviews) //first 5
             }
             catch (e:Exception) {
                 Log.e("api", e.toString())

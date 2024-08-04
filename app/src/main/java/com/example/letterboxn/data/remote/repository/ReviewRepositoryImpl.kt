@@ -1,22 +1,23 @@
 package com.example.letterboxn.data.remote.repository
 
-//class ReviewRepositoryImpl @Inject constructor(
-//    private val api: MyApi
-//) : ReviewRepository {
-//
-//    override suspend fun getReviews(): List<ReviewItem> {
-//
-//        val response = api.get()
-//        return response.results.map {
-//            ListItem(
-//                listTitle = it.name,
-//                authorName = "Author",
-//                authorImage = it.posterPath,
-//                likeCount = 100,
-//                commentCount = 21,
-//                movieItems = listOf(MovieItem(it.posterPath, it.originalName, it.overview, it.id))
-//            )
-//        }
-//    }
-//
-//}
+import com.example.letterboxn.data.local.dao.ReviewDao
+import com.example.letterboxn.domain.model.ReviewLocalItem
+import com.example.letterboxn.domain.repository.ReviewRepository
+import javax.inject.Inject
+
+class ReviewRepositoryImpl @Inject constructor(
+    val reviewDao : ReviewDao
+): ReviewRepository {
+    override suspend fun getAllReviews(): List<ReviewLocalItem> {
+        val response = reviewDao.getAllReviews()
+        return response.map {
+            ReviewLocalItem(
+                movieId = it.movieId,
+                review = it.review,
+                rating = it.rating,
+                reviewDate = it.reviewDate,
+                reviewId = it.reviewId
+            )
+        }.reversed()
+    }
+}

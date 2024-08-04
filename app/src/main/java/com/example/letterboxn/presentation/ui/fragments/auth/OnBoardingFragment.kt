@@ -34,8 +34,8 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(bindingToInfl
             if (status && username != null) {
                 if (isUserAuthorized(username)) {
                     navigateToMainActivity()
-                } else
-                    NancyToast.makeText(requireContext(), "User unauthorized! Please log in.", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+                } //else
+                    //NancyToast.makeText(requireContext(), "User unauthorized! Please log in.", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
             }
         }
 

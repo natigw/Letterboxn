@@ -1,7 +1,7 @@
 package com.example.letterboxn.domain.repository
 
-//import com.example.letterboxn.domain.model.ReviewItem
-//
-//interface ReviewRepository {
-//    suspend fun getReviews() : List<ReviewItem>
-//}
+import com.example.letterboxn.domain.model.ReviewLocalItem
+
+interface ReviewRepository {
+    suspend fun getAllReviews() : List<ReviewLocalItem>
+}

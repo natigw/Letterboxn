@@ -32,7 +32,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
                 val email = emailsu.text.toString()
                 val password = passwordsu.text.toString()
                 val entrypin = entrypinsu.text.toString()
-                val apikey = userapikeysu.text.toString()
+                //val apikey = userapikeysu.text.toString()
 
 //                var res: Boolean
 //
@@ -40,7 +40,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
 //                    res = api.isValidApiKey(apikey).success
 //                }
 
-                if (!checkInputFields(username, email, password, entrypin, apikey)) return@setOnClickListener
+                if (!checkInputFields(username, email, password, entrypin)) return@setOnClickListener//, apikey)) return@setOnClickListener
 
                 lifecycleScope.launch {
 
@@ -53,7 +53,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
                     }
 
                     try {
-                        registerUser(username, email, password, entrypin, apikey)
+                        registerUser(username, email, password, entrypin)//, apikey)
                         //createUserInFirebaseAuth(email, password)
                         clearInputFields()
                         NancyToast.makeText(requireContext(), "Registration successful!", NancyToast.LENGTH_SHORT, NancyToast.SUCCESS, false).show()
@@ -87,7 +87,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
         }
     }
 
-    private fun checkInputFields(username: String, email: String, password: String, entrypin: String, apikey: String): Boolean {
+    private fun checkInputFields(username: String, email: String, password: String, entrypin: String) : Boolean {//, apikey: String): Boolean {
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || entrypin.isEmpty()) {
             NancyToast.makeText(requireContext(), "Please fill the gaps!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
             return false
@@ -108,10 +108,10 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
             NancyToast.makeText(requireContext(), "The length of entrypin can only be 4!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
             return false
         }
-        if (apikey.isEmpty()) {
-            NancyToast.makeText(requireContext(), "Please input a valid API key!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
-            return false
-        }
+//        if (apikey.isEmpty()) {
+//            NancyToast.makeText(requireContext(), "Please input a valid API key!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+//            return false
+//        }
         //if (apikey.isEmpty() || !validateApiKey(apikey)) NancyToast.makeText(requireContext(), "Please input a valid API key!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
         //return validateApiKey(apikey)   //else true for all the statements above
         return true
@@ -140,7 +140,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
             usernamesu.text = null
             emailsu.text = null
             passwordsu.text = null
-            userapikeysu.text = null
+            //userapikeysu.text = null
         }
     }
 
@@ -153,14 +153,14 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
         }
     }
 
-    private suspend fun registerUser(username: String, email: String, password: String, entrypin: String, apikey: String) {
+    private suspend fun registerUser(username: String, email: String, password: String, entrypin: String) {//, apikey: String) {
         firestore.collection("users").document(email).set(
             mapOf(
                 "username" to username,
                 "email" to email,
                 "password" to password,
                 "entrypin" to entrypin,
-                "apikey" to apikey
+                //"apikey" to apikey
             )
         ).await()
     }

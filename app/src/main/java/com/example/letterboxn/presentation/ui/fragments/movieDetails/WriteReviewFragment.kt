@@ -122,7 +122,6 @@ class WriteReviewFragment : BaseFragment<FragmentWriteReviewBinding>(FragmentWri
                     rating = binding.ratingBarDetailsReview.rating,
                     reviewDate = binding.textMoviedateReview.text.toString()
                 ))
-                Log.e("dao", reviewDao.getAllReviews().toString())
             }
             binding.ratingBarDetailsReview.rating = 0f
             binding.editTextReview.text = null

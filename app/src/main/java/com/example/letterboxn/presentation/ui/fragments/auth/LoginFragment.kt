@@ -142,7 +142,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                     editor.putString("entrypin", data.entrypin)
                     editor.apply()
                     clearInputFields()
-                    authUserInTMDB(data.apikey)
+                    //authUserInTMDB(data.apikey)
                     NancyToast.makeText(requireContext(), "Login successful!", NancyToast.LENGTH_SHORT, NancyToast.SUCCESS, false).show()
                     navigateToMainActivity()
                 } else {

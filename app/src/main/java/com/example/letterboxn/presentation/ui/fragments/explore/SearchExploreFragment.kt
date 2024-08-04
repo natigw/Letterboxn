@@ -44,12 +44,25 @@ class SearchExploreFragment :
         enterPress()
 
         setAdapters()
-//        updateAdapters()
+        //updateAdapters()
 
         binding.floatingActionButtonSearch.setOnClickListener {
             if (binding.editTextSearch.text.isNullOrEmpty()) return@setOnClickListener
             doSearch()
         }
+    }
+
+    private fun updateAdapters() {
+        lifecycleScope.launch {
+            viewmodel.results
+                .collect {
+                    searchAdapter.updateAdapter(it, isMultiSearch)
+                }
+        }
+    }
+
+    private fun setAdapters() {
+        binding.rvSearchExplore.adapter = searchAdapter
     }
 
     override fun observeChanges() {
@@ -149,17 +162,4 @@ class SearchExploreFragment :
         imm.hideSoftInputFromWindow(binding.editTextSearch.windowToken, 0)
     }
 
-
-//    private fun updateAdapters() {
-//        lifecycleScope.launch {
-//            viewmodel.results
-//                .collect {
-//                    searchAdapter.updateAdapter(it)
-//                }
-//        }
-//    }
-//
-    private fun setAdapters() {
-        binding.rvSearchExplore.adapter = searchAdapter
-    }
 }
