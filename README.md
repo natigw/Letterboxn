@@ -17,19 +17,6 @@ This project uses the official API of TMDB to fetch realtime data with the follo
 
 Check out some screenshots from the app:
 <p align="center">
-  <img src="![home](https://github.com/user-attachments/assets/ca7ae3df-2b42-48d4-aa16-852789ac733c)" width="300">
+  <img src="https://github.com/user-attachments/assets/04eaa96d-0484-4f2f-9dfd-970b8e22a115" width="300">
+  <img src="https://github.com/user-attachments/assets/14ae15d7-f177-491b-836f-33408b73d0fe" width="300">
 </p>
-<p align="center">
-  <img src="![login](https://github.com/user-attachments/assets/04eaa96d-0484-4f2f-9dfd-970b8e22a115)" width="300">
-</p>
-![login](https://github.com/user-attachments/assets/04eaa96d-0484-4f2f-9dfd-970b8e22a115)
-![home](https://github.com/user-attachments/assets/14ae15d7-f177-491b-836f-33408b73d0fe)
-![list_bottomsheet](https://github.com/user-attachments/assets/36d90d4c-9c7b-40b6-ab58-9caee1553951)
-![review_details](https://github.com/user-attachments/assets/8757f987-0219-4d24-aa5b-c0db428204dc)
-![drawer](https://github.com/user-attachments/assets/fe11731f-3982-40cd-bfea-98c3504a0d11)
-![explore](https://github.com/user-attachments/assets/140fabeb-2dc2-4abd-b07f-b43b98ef75cc)
-![search](https://github.com/user-attachments/assets/b72334bf-f743-4cdb-956f-845fb72cbbd4)
-![category](https://github.com/user-attachments/assets/b21b13af-adf9-406c-b4be-e286000bc73c)
-![profile](https://github.com/user-attachments/assets/48701730-38d5-4d4c-8832-ebbeaefddb79)
-![pick_poster](https://github.com/user-attachments/assets/fc05638e-444e-42ac-abff-097865c14c0b)
-![profile_review](https://github.com/user-attachments/assets/06d86f5c-c6c5-4d27-965d-e5f352b5bdec)
