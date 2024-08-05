@@ -16,6 +16,12 @@ This project uses the official API of TMDB to fetch realtime data with the follo
 - Shimmer placeholder, Glide, Coil libraries
 
 Check out some screenshots from the app:
+<p align="center">
+  <img src="![home](https://github.com/user-attachments/assets/ca7ae3df-2b42-48d4-aa16-852789ac733c)" width="300">
+</p>
+<p align="center">
+  <img src="![login](https://github.com/user-attachments/assets/04eaa96d-0484-4f2f-9dfd-970b8e22a115)" width="300">
+</p>
 ![login](https://github.com/user-attachments/assets/04eaa96d-0484-4f2f-9dfd-970b8e22a115)
 ![home](https://github.com/user-attachments/assets/14ae15d7-f177-491b-836f-33408b73d0fe)
 ![list_bottomsheet](https://github.com/user-attachments/assets/36d90d4c-9c7b-40b6-ab58-9caee1553951)
