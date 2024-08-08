@@ -33,9 +33,9 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-val defaultApiKey = "af7d82efc6ee62c7015bbedd34c8e8bc"
-val defaultSessionId = "74c418d99438ea27b60170d0f6a4f675012ec084"
-val defaultAccountId = "21304579"
+const val defaultApiKey = "af7d82efc6ee62c7015bbedd34c8e8bc"
+const val defaultSessionId = "74c418d99438ea27b60170d0f6a4f675012ec084"
+const val defaultAccountId = "21304579"
 
 interface TmdbApi {
 

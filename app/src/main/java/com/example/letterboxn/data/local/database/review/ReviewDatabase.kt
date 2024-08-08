@@ -1,8 +1,7 @@
-package com.example.letterboxn.data.local.dao
+package com.example.letterboxn.data.local.database.review
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.letterboxn.data.local.model.ReviewEntity
 
 @Database([ReviewEntity::class], version = 1)
 abstract class ReviewDatabase : RoomDatabase() {

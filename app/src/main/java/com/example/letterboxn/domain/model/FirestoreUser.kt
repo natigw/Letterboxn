@@ -1,4 +1,4 @@
-package com.example.letterboxn.common
+package com.example.letterboxn.domain.model
 
 data class FirestoreUser (
     val username : String = "",

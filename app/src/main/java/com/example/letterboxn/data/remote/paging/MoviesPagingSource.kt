@@ -1,4 +1,4 @@
-package com.example.letterboxn.presentation.adapters
+package com.example.letterboxn.data.remote.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

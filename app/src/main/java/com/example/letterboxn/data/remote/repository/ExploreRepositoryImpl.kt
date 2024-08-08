@@ -5,7 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.example.letterboxn.presentation.adapters.MoviesPagingSource
+import com.example.letterboxn.data.remote.paging.MoviesPagingSource
 import com.example.letterboxn.data.remote.api.TmdbApi
 import com.example.letterboxn.domain.model.CategoryItem
 import com.example.letterboxn.domain.model.MovieItem

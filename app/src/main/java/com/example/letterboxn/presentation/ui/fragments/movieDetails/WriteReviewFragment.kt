@@ -1,6 +1,5 @@
 package com.example.letterboxn.presentation.ui.fragments.movieDetails
 
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -11,8 +10,8 @@ import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.data.remote.api.TmdbApi
 import com.example.letterboxn.databinding.FragmentWriteReviewBinding
 import com.example.letterboxn.common.utils.NancyToast
-import com.example.letterboxn.data.local.dao.ReviewDao
-import com.example.letterboxn.data.local.model.ReviewEntity
+import com.example.letterboxn.data.local.database.review.ReviewDao
+import com.example.letterboxn.data.local.database.review.ReviewEntity
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.ResultFavoriteMovie
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.RequestAddRemoveFavorite
 import com.example.letterboxn.data.remote.model.account.ratedMovies.rateMovie.RequestAddRating
@@ -116,12 +115,14 @@ class WriteReviewFragment : BaseFragment<FragmentWriteReviewBinding>(FragmentWri
                 )
             }
             lifecycleScope.launch {
-                reviewDao.addReview(ReviewEntity(
+                reviewDao.addReview(
+                    ReviewEntity(
                     movieId = args.movieId,
                     review = binding.editTextReview.text.toString(),
                     rating = binding.ratingBarDetailsReview.rating,
                     reviewDate = binding.textMoviedateReview.text.toString()
-                ))
+                )
+                )
             }
             binding.ratingBarDetailsReview.rating = 0f
             binding.editTextReview.text = null

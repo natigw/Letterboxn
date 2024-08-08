@@ -3,10 +3,10 @@ package com.example.letterboxn.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import com.example.letterboxn.data.local.dao.ReviewDao
-import com.example.letterboxn.data.local.dao.ReviewDatabase
-import com.example.letterboxn.data.local.dao.UserDao
-import com.example.letterboxn.data.local.dao.UserDatabase
+import com.example.letterboxn.data.local.database.review.ReviewDao
+import com.example.letterboxn.data.local.database.review.ReviewDatabase
+import com.example.letterboxn.data.local.database.user.UserDao
+import com.example.letterboxn.data.local.database.user.UserDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class DataModule {
+class LocalModule {
 
     @Singleton
     @Provides

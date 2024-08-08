@@ -17,7 +17,6 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -39,8 +38,8 @@ import com.example.letterboxn.presentation.viewmodels.ProfileViewModel
 import com.example.letterboxn.common.utils.NancyToast
 import com.example.letterboxn.common.utils.numberFormatter
 import com.example.letterboxn.common.utils.numberFormatterSpaced
-import com.example.letterboxn.data.local.dao.ReviewDao
-import com.example.letterboxn.data.local.model.ReviewEntity
+import com.example.letterboxn.data.local.database.review.ReviewDao
+import com.example.letterboxn.data.local.database.review.ReviewEntity
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.RequestAddRemoveFavorite
 import com.example.letterboxn.domain.model.MovieItem
 import com.example.letterboxn.domain.model.RatedMovieItem
@@ -51,7 +50,6 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
@@ -444,12 +442,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     val deletedReview = reviewAdapter.deleteItem(position)
                     binding.textReviewcountProfile.text = binding.textReviewcountProfile.text.toString().toInt().minus(1).toString()
                     runBlocking {
-                        reviewsToDelete.add(ReviewEntity(
+                        reviewsToDelete.add(
+                            ReviewEntity(
                             movieId = deletedReview.movieId,
                             review = deletedReview.review,
                             rating = deletedReview.reviewRating,
                             reviewDate = deletedReview.movieReleaseDate,
-                            reviewId = reviewDao.getReviewId(deletedReview.movieId, review = deletedReview.review)!!))
+                            reviewId = reviewDao.getReviewId(deletedReview.movieId, review = deletedReview.review)!!)
+                        )
                     }
                     Snackbar.make(binding.rvUsersRecReviewed, "Review deleted", Snackbar.LENGTH_LONG).apply {
                         setAction("UNDO") {

@@ -1,10 +1,9 @@
-package com.example.letterboxn.data.local.dao
+package com.example.letterboxn.data.local.database.user
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.letterboxn.data.local.model.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

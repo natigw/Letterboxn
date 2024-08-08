@@ -1,6 +1,6 @@
 package com.example.letterboxn.data.remote.repository
 
-import com.example.letterboxn.data.local.dao.ReviewDao
+import com.example.letterboxn.data.local.database.review.ReviewDao
 import com.example.letterboxn.domain.model.ReviewLocalItem
 import com.example.letterboxn.domain.repository.ReviewRepository
 import javax.inject.Inject

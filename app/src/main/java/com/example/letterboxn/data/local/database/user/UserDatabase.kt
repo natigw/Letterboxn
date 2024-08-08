@@ -1,8 +1,7 @@
-package com.example.letterboxn.data.local.dao
+package com.example.letterboxn.data.local.database.user
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.letterboxn.data.local.model.UserEntity
 
 @Database([UserEntity::class], version = 1)
 abstract class UserDatabase : RoomDatabase() {

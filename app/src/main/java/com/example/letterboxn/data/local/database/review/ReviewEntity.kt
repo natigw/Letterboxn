@@ -1,4 +1,4 @@
-package com.example.letterboxn.data.local.model
+package com.example.letterboxn.data.local.database.review
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

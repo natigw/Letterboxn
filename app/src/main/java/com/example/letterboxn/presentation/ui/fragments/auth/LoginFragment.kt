@@ -9,7 +9,7 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.letterboxn.R
-import com.example.letterboxn.common.FirestoreUser
+import com.example.letterboxn.domain.model.FirestoreUser
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.databinding.FragmentLoginBinding
 import com.example.letterboxn.presentation.ui.activities.MainActivity
