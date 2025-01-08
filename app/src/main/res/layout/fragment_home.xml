@@ -1,156 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.ui.fragments.home.HomeFragment"
-    tools:openDrawer="start">
+    tools:openDrawer="end">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/darkpurple_letterboxn"
+        android:background="@color/letterboxn_dark_purple"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/morehome"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="32dp"
-                android:src="@drawable/threexetts"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imageuserpphome"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:scaleType="centerCrop"
-                android:adjustViewBounds="true"
-                android:background="#343261"
-                android:src="@drawable/usersample"
-                app:layout_constraintBottom_toBottomOf="@+id/morehome"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toTopOf="@+id/morehome"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-
-            <ImageView
-                android:id="@+id/imageUserstatusHome"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:src="@drawable/circle_red"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toTopOf="@+id/imageuserpphome" />
-
-            <TextView
-                android:id="@+id/textgreeting1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/white"
-                android:textSize="24dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/morehome"
-                tools:text="Greetings" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Review or track films you’ve watched..."
-                android:textColor="#CCFFFFFF"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textgreeting1" />
-
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
+                android:id="@+id/guidelineHome1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.04" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline4"
+                android:id="@+id/guidelineHome2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.96" />
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/rvpopularmoviesShimmera"
-                android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/toggleDrawerHome"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/ic_three_lines"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageUserProfilePictureHome"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:adjustViewBounds="true"
+                android:background="#343261"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_user"
+                app:layout_constraintBottom_toBottomOf="@+id/toggleDrawerHome"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineHome2"
+                app:layout_constraintTop_toTopOf="@+id/toggleDrawerHome"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+            <ImageView
+                android:id="@+id/imageUserStatusHome"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/circle_red"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineHome2"
+                app:layout_constraintTop_toTopOf="@+id/imageUserProfilePictureHome" />
+
+            <TextView
+                android:id="@+id/textGreetingHome"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView5">
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
+                app:layout_constraintTop_toBottomOf="@+id/toggleDrawerHome"
+                tools:text="Greetings" />
+
+            <TextView
+                android:id="@+id/textWelcomeExplanationTEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/explanation_text_home"
+                android:textColor="@color/white_80pc"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
+                app:layout_constraintTop_toBottomOf="@+id/textGreetingHome" />
+
+            <TextView
+                android:id="@+id/textPopularMoviesHomeTEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/popular_movies_this_month"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
+                app:layout_constraintTop_toBottomOf="@+id/textWelcomeExplanationTEXT" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerPopularMoviesHome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineHome2"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
+                app:layout_constraintTop_toBottomOf="@+id/textPopularMoviesHomeTEXT">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
-                    <include layout="@layout/sample_popular_movies_shimmer"/>
-                    <include layout="@layout/sample_popular_movies_shimmer"/>
-                    <include layout="@layout/sample_popular_movies_shimmer"/>
-                    <include layout="@layout/sample_popular_movies_shimmer"/>
-                    <include layout="@layout/sample_popular_movies_shimmer"/>
-                    <include layout="@layout/sample_popular_movies_shimmer"/>
-                    <include layout="@layout/sample_popular_movies_shimmer"/>
+                    <include layout="@layout/sample_popular_movies_shimmer" />
+
+                    <include layout="@layout/sample_popular_movies_shimmer" />
+
+                    <include layout="@layout/sample_popular_movies_shimmer" />
+
+                    <include layout="@layout/sample_popular_movies_shimmer" />
+
+                    <include layout="@layout/sample_popular_movies_shimmer" />
+
+                    <include layout="@layout/sample_popular_movies_shimmer" />
+
+                    <include layout="@layout/sample_popular_movies_shimmer" />
 
                 </LinearLayout>
-
             </com.facebook.shimmer.ShimmerFrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvpopularmovies"
+                android:id="@+id/rvPopularMoviesHome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineHome2"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
+                app:layout_constraintTop_toBottomOf="@+id/textPopularMoviesHomeTEXT"
                 tools:itemCount="10"
                 tools:listitem="@layout/sample_popular_fav_movies" />
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/rvpopularlistsShimmer"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/textPopularListsHomeTEXT"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:text="@string/popular_lists_this_month"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
+                app:layout_constraintTop_toBottomOf="@+id/shimmerPopularMoviesHome" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerPopularListsHome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7">
+                app:layout_constraintTop_toBottomOf="@+id/textPopularListsHomeTEXT">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
-                    <include layout="@layout/sample_home_popularlists_shimmer" />
-                    <include layout="@layout/sample_home_popularlists_shimmer" />
-                    <include layout="@layout/sample_home_popularlists_shimmer" />
-                    <include layout="@layout/sample_home_popularlists_shimmer" />
-                    <include layout="@layout/sample_home_popularlists_shimmer" />
-                    <include layout="@layout/sample_home_popularlists_shimmer" />
-                    <include layout="@layout/sample_home_popularlists_shimmer" />
+                    <include layout="@layout/sample_popular_list_home_shimmer" />
+
+                    <include layout="@layout/sample_popular_list_home_shimmer" />
+
+                    <include layout="@layout/sample_popular_list_home_shimmer" />
+
+                    <include layout="@layout/sample_popular_list_home_shimmer" />
+
+                    <include layout="@layout/sample_popular_list_home_shimmer" />
+
+                    <include layout="@layout/sample_popular_list_home_shimmer" />
+
+                    <include layout="@layout/sample_popular_list_home_shimmer" />
 
                 </LinearLayout>
-
             </com.facebook.shimmer.ShimmerFrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvpopularlists"
+                android:id="@+id/rvPopularListsHome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -158,365 +188,336 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7"
-                tools:listitem="@layout/sample_home_popularlists" />
+                app:layout_constraintTop_toBottomOf="@+id/textPopularListsHomeTEXT"
+                tools:listitem="@layout/sample_popular_list_home" />
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/rvrecentreviewsShimmer"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/textRecentReviewsHomeTEXT"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView6">
+                android:text="@string/recent_friends_review"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
+                app:layout_constraintTop_toBottomOf="@+id/shimmerPopularListsHome" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerRecentReviewsHome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineHome2"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
+                app:layout_constraintTop_toBottomOf="@+id/textRecentReviewsHomeTEXT">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <include layout="@layout/sample_review_shimmer" />
+                    <include layout="@layout/sample_review_home_shimmer" />
 
-                    <include layout="@layout/sample_review_shimmer" />
+                    <include layout="@layout/sample_review_home_shimmer" />
 
-                    <include layout="@layout/sample_review_shimmer" />
+                    <include layout="@layout/sample_review_home_shimmer" />
 
-                    <include layout="@layout/sample_review_shimmer" />
+                    <include layout="@layout/sample_review_home_shimmer" />
 
-                    <include layout="@layout/sample_review_shimmer" />
+                    <include layout="@layout/sample_review_home_shimmer" />
 
-                    <include layout="@layout/sample_review_shimmer" />
+                    <include layout="@layout/sample_review_home_shimmer" />
 
-                    <include layout="@layout/sample_review_shimmer" />
+                    <include layout="@layout/sample_review_home_shimmer" />
 
                 </LinearLayout>
-
             </com.facebook.shimmer.ShimmerFrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvrecentreviews"
+                android:id="@+id/rvRecentReviewsHome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="-8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="-8dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineHome2"
+                app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
+                app:layout_constraintTop_toBottomOf="@+id/textRecentReviewsHomeTEXT"
                 tools:listitem="@layout/sample_review" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Popular Movies This Month"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="167dp"
-                android:text="Popular Lists This Month"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="230dp"
-                android:text="Recent Friends’ Review"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/drawernavigationhome"
+        android:id="@+id/drawerNavigationHome"
         android:layout_width="260dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/darkpurple_letterboxn"
+        android:background="@color/letterboxn_dark_purple"
         app:drawerLayoutCornerSize="32dp"
-        app:itemRippleColor="@color/skincolor_letterboxn"
+        app:headerLayout="@layout/drawer_header"
+        app:itemIconSize="26dp"
+        app:itemIconTint="@color/drawer_item_color"
+        app:itemRippleColor="@color/letterboxn_skin_color"
+        app:itemShapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
         app:itemShapeFillColor="@color/drawer_button_back_color"
         app:itemTextAppearanceActiveBoldEnabled="true"
-        app:itemIconSize="26dp"
-        app:itemShapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
-        app:itemIconTint="@color/drawer_item_color"
         app:itemTextColor="@color/drawer_item_color"
-        app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer_menu" >
+        app:menu="@menu/drawer_menu">
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent">-->
-<!--            <androidx.core.widget.NestedScrollView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent">-->
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="match_parent">-->
+        <!--            <androidx.core.widget.NestedScrollView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent">-->
 
-<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:background="@color/darkpurple_letterboxn"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content" >-->
+        <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--                    android:background="@color/darkpurple_letterboxn"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content" >-->
 
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/textUsernamedrawer"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="8dp"-->
-<!--                        android:text="User name"-->
-<!--                        android:textColor="@color/skincolor_letterboxn"-->
-<!--                        android:textSize="18sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:layout_constraintBottom_toTopOf="@+id/textUseremaildrawer"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/imageUserppDrawer"-->
-<!--                        app:layout_constraintTop_toTopOf="@+id/imageUserppDrawer" />-->
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/textUsernamedrawer"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginStart="8dp"-->
+        <!--                        android:text="User name"-->
+        <!--                        android:textColor="@color/skincolor_letterboxn"-->
+        <!--                        android:textSize="18sp"-->
+        <!--                        android:textStyle="bold"-->
+        <!--                        app:layout_constraintBottom_toTopOf="@+id/textUseremaildrawer"-->
+        <!--                        app:layout_constraintStart_toEndOf="@+id/imageUserppDrawer"-->
+        <!--                        app:layout_constraintTop_toTopOf="@+id/imageUserppDrawer" />-->
 
-<!--                    <com.google.android.material.imageview.ShapeableImageView-->
-<!--                        android:id="@+id/imageUserppDrawer"-->
-<!--                        android:layout_width="44dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"-->
-<!--                        android:layout_marginTop="64dp"-->
-<!--                        android:adjustViewBounds="true"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        app:srcCompat="@drawable/usersample"-->
-<!--                        android:background="#343261"/>-->
+        <!--                    <com.google.android.material.imageview.ShapeableImageView-->
+        <!--                        android:id="@+id/imageUserppDrawer"-->
+        <!--                        android:layout_width="44dp"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"-->
+        <!--                        android:layout_marginTop="64dp"-->
+        <!--                        android:adjustViewBounds="true"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
+        <!--                        app:layout_constraintTop_toTopOf="parent"-->
+        <!--                        app:srcCompat="@drawable/usersample"-->
+        <!--                        android:background="#343261"/>-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/textUseremaildrawer"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="username"-->
-<!--                        android:textColor="#BFBFBF"-->
-<!--                        android:textSize="12sp"-->
-<!--                        app:layout_constraintBottom_toBottomOf="@+id/imageUserppDrawer"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textUsernamedrawer"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textUsernamedrawer" />-->
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/textUseremaildrawer"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:text="username"-->
+        <!--                        android:textColor="#BFBFBF"-->
+        <!--                        android:textSize="12sp"-->
+        <!--                        app:layout_constraintBottom_toBottomOf="@+id/imageUserppDrawer"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/textUsernamedrawer"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@+id/textUsernamedrawer" />-->
 
-<!--                    <com.google.android.material.chip.Chip-->
-<!--                        android:id="@+id/chipFollowersdrawer"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="42dp"-->
-<!--                        android:layout_marginTop="16dp"-->
-<!--                        android:background="#00FFFFFF"-->
-<!--                        android:backgroundTint="#00B63636"-->
-<!--                        android:text="xx Followers"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textSize="10sp"-->
-<!--                        app:chipCornerRadius="10dp"-->
-<!--                        app:chipEndPadding="10dp"-->
-<!--                        app:chipStartPadding="10dp"-->
-<!--                        app:chipStrokeColor="@color/chippurple_letterboxn"-->
-<!--                        app:chipStrokeWidth="2dp"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/imageUserppDrawer"-->
-<!--                        app:textEndPadding="0dp"-->
-<!--                        app:textStartPadding="0dp" />-->
+        <!--                    <com.google.android.material.chip.Chip-->
+        <!--                        android:id="@+id/chipFollowersdrawer"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="42dp"-->
+        <!--                        android:layout_marginTop="16dp"-->
+        <!--                        android:background="#00FFFFFF"-->
+        <!--                        android:backgroundTint="#00B63636"-->
+        <!--                        android:text="xx Followers"-->
+        <!--                        android:textColor="@color/white"-->
+        <!--                        android:textSize="10sp"-->
+        <!--                        app:chipCornerRadius="10dp"-->
+        <!--                        app:chipEndPadding="10dp"-->
+        <!--                        app:chipStartPadding="10dp"-->
+        <!--                        app:chipStrokeColor="@color/chippurple_letterboxn"-->
+        <!--                        app:chipStrokeWidth="2dp"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@+id/imageUserppDrawer"-->
+        <!--                        app:textEndPadding="0dp"-->
+        <!--                        app:textStartPadding="0dp" />-->
 
-<!--                    <com.google.android.material.chip.Chip-->
-<!--                        android:id="@+id/chipFollowingsdrawer"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="42dp"-->
-<!--                        android:layout_marginStart="32dp"-->
-<!--                        android:layout_marginEnd="24dp"-->
-<!--                        android:backgroundTint="#00FFFFFF"-->
-<!--                        android:text=" xx Followings"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textSize="10sp"-->
-<!--                        app:chipCornerRadius="10dp"-->
-<!--                        app:chipEndPadding="10dp"-->
-<!--                        app:chipStartPadding="10dp"-->
-<!--                        app:chipStrokeColor="@color/chippurple_letterboxn"-->
-<!--                        app:chipStrokeWidth="2dp"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintHorizontal_bias="0.0"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/chipFollowersdrawer"-->
-<!--                        app:layout_constraintTop_toTopOf="@+id/chipFollowersdrawer"-->
-<!--                        app:textEndPadding="0dp"-->
-<!--                        app:textStartPadding="0dp" />-->
+        <!--                    <com.google.android.material.chip.Chip-->
+        <!--                        android:id="@+id/chipFollowingsdrawer"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="42dp"-->
+        <!--                        android:layout_marginStart="32dp"-->
+        <!--                        android:layout_marginEnd="24dp"-->
+        <!--                        android:backgroundTint="#00FFFFFF"-->
+        <!--                        android:text=" xx Followings"-->
+        <!--                        android:textColor="@color/white"-->
+        <!--                        android:textSize="10sp"-->
+        <!--                        app:chipCornerRadius="10dp"-->
+        <!--                        app:chipEndPadding="10dp"-->
+        <!--                        app:chipStartPadding="10dp"-->
+        <!--                        app:chipStrokeColor="@color/chippurple_letterboxn"-->
+        <!--                        app:chipStrokeWidth="2dp"-->
+        <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                        app:layout_constraintHorizontal_bias="0.0"-->
+        <!--                        app:layout_constraintStart_toEndOf="@+id/chipFollowersdrawer"-->
+        <!--                        app:layout_constraintTop_toTopOf="@+id/chipFollowersdrawer"-->
+        <!--                        app:textEndPadding="0dp"-->
+        <!--                        app:textStartPadding="0dp" />-->
 
-<!--                    <androidx.constraintlayout.widget.Guideline-->
-<!--                        android:id="@+id/guideline11"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical"-->
-<!--                        app:layout_constraintGuide_percent="0.09" />-->
+        <!--                    <androidx.constraintlayout.widget.Guideline-->
+        <!--                        android:id="@+id/guideline11"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:orientation="vertical"-->
+        <!--                        app:layout_constraintGuide_percent="0.09" />-->
 
-<!--                    <Button-->
-<!--                        android:id="@+id/buttonHomeDrawer"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:backgroundTint="@color/drawer_button_back_color"-->
-<!--                        android:gravity="center|start"-->
-<!--                        android:paddingStart="12dp"-->
-<!--                        android:text="Home"-->
-<!--                        android:textColor="@color/drawer_item_color"-->
-<!--                        app:cornerRadius="12dp"-->
-<!--                        app:icon="@drawable/round_home_24"-->
-<!--                        app:iconPadding="16dp"-->
-<!--                        app:iconSize="24dp"-->
-<!--                        app:iconTint="@color/drawer_item_color"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/chipFollowingsdrawer"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/chipFollowingsdrawer" />-->
+        <!--                    <Button-->
+        <!--                        android:id="@+id/buttonHomeDrawer"-->
+        <!--                        android:layout_width="0dp"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="20dp"-->
+        <!--                        android:backgroundTint="@color/drawer_button_back_color"-->
+        <!--                        android:gravity="center|start"-->
+        <!--                        android:paddingStart="12dp"-->
+        <!--                        android:text="Home"-->
+        <!--                        android:textColor="@color/drawer_item_color"-->
+        <!--                        app:cornerRadius="12dp"-->
+        <!--                        app:icon="@drawable/round_home_24"-->
+        <!--                        app:iconPadding="16dp"-->
+        <!--                        app:iconSize="24dp"-->
+        <!--                        app:iconTint="@color/drawer_item_color"-->
+        <!--                        app:layout_constraintEnd_toEndOf="@+id/chipFollowingsdrawer"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@+id/chipFollowingsdrawer" />-->
 
-<!--                    <Button-->
-<!--                        android:id="@+id/buttonFilmsDrawer"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="4dp"-->
-<!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
-<!--                        android:gravity="center|start"-->
-<!--                        android:paddingStart="12dp"-->
-<!--                        android:text="Films"-->
-<!--                        android:textColor="@color/darkpurple_letterboxn"-->
-<!--                        app:cornerRadius="12dp"-->
-<!--                        app:icon="@drawable/round_movie_creation_24"-->
-<!--                        app:iconPadding="16dp"-->
-<!--                        app:iconSize="24dp"-->
-<!--                        app:iconTint="@color/darkpurple_letterboxn"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/buttonHomeDrawer"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/buttonHomeDrawer" />-->
+        <!--                    <Button-->
+        <!--                        android:id="@+id/buttonFilmsDrawer"-->
+        <!--                        android:layout_width="0dp"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="4dp"-->
+        <!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
+        <!--                        android:gravity="center|start"-->
+        <!--                        android:paddingStart="12dp"-->
+        <!--                        android:text="Films"-->
+        <!--                        android:textColor="@color/darkpurple_letterboxn"-->
+        <!--                        app:cornerRadius="12dp"-->
+        <!--                        app:icon="@drawable/round_movie_creation_24"-->
+        <!--                        app:iconPadding="16dp"-->
+        <!--                        app:iconSize="24dp"-->
+        <!--                        app:iconTint="@color/darkpurple_letterboxn"-->
+        <!--                        app:layout_constraintEnd_toEndOf="@+id/buttonHomeDrawer"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@+id/buttonHomeDrawer" />-->
 
-<!--                    <Button-->
-<!--                        android:id="@+id/buttonDiaryDrawer"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="4dp"-->
-<!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
-<!--                        android:gravity="center|start"-->
-<!--                        android:paddingStart="12dp"-->
-<!--                        android:text="Diary"-->
-<!--                        android:textColor="@color/darkpurple_letterboxn"-->
-<!--                        app:cornerRadius="12dp"-->
-<!--                        app:icon="@drawable/round_calendar_month_24"-->
-<!--                        app:iconPadding="16dp"-->
-<!--                        app:iconSize="24dp"-->
-<!--                        app:iconTint="@color/darkpurple_letterboxn"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/buttonFilmsDrawer"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/buttonFilmsDrawer" />-->
+        <!--                    <Button-->
+        <!--                        android:id="@+id/buttonDiaryDrawer"-->
+        <!--                        android:layout_width="0dp"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="4dp"-->
+        <!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
+        <!--                        android:gravity="center|start"-->
+        <!--                        android:paddingStart="12dp"-->
+        <!--                        android:text="Diary"-->
+        <!--                        android:textColor="@color/darkpurple_letterboxn"-->
+        <!--                        app:cornerRadius="12dp"-->
+        <!--                        app:icon="@drawable/round_calendar_month_24"-->
+        <!--                        app:iconPadding="16dp"-->
+        <!--                        app:iconSize="24dp"-->
+        <!--                        app:iconTint="@color/darkpurple_letterboxn"-->
+        <!--                        app:layout_constraintEnd_toEndOf="@+id/buttonFilmsDrawer"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@+id/buttonFilmsDrawer" />-->
 
-<!--                    <Button-->
-<!--                        android:id="@+id/buttonReviewsDrawer"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="4dp"-->
-<!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
-<!--                        android:gravity="center|start"-->
-<!--                        android:paddingStart="12dp"-->
-<!--                        android:text="Reviews"-->
-<!--                        android:textColor="@color/darkpurple_letterboxn"-->
-<!--                        app:cornerRadius="12dp"-->
-<!--                        app:icon="@drawable/round_menu_book_24"-->
-<!--                        app:iconPadding="16dp"-->
-<!--                        app:iconSize="24dp"-->
-<!--                        app:iconTint="@color/darkpurple_letterboxn"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/buttonDiaryDrawer"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/buttonDiaryDrawer" />-->
+        <!--                    <Button-->
+        <!--                        android:id="@+id/buttonReviewsDrawer"-->
+        <!--                        android:layout_width="0dp"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="4dp"-->
+        <!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
+        <!--                        android:gravity="center|start"-->
+        <!--                        android:paddingStart="12dp"-->
+        <!--                        android:text="Reviews"-->
+        <!--                        android:textColor="@color/darkpurple_letterboxn"-->
+        <!--                        app:cornerRadius="12dp"-->
+        <!--                        app:icon="@drawable/round_menu_book_24"-->
+        <!--                        app:iconPadding="16dp"-->
+        <!--                        app:iconSize="24dp"-->
+        <!--                        app:iconTint="@color/darkpurple_letterboxn"-->
+        <!--                        app:layout_constraintEnd_toEndOf="@+id/buttonDiaryDrawer"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@+id/buttonDiaryDrawer" />-->
 
-<!--                    <Button-->
-<!--                        android:id="@+id/buttonWatchlistDrawer"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="4dp"-->
-<!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
-<!--                        android:gravity="center|start"-->
-<!--                        android:paddingStart="12dp"-->
-<!--                        android:text="Watchlist"-->
-<!--                        android:textColor="@color/darkpurple_letterboxn"-->
-<!--                        app:cornerRadius="12dp"-->
-<!--                        app:icon="@drawable/round_playlist_add_check_24"-->
-<!--                        app:iconPadding="16dp"-->
-<!--                        app:iconSize="24dp"-->
-<!--                        app:iconTint="@color/darkpurple_letterboxn"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/buttonReviewsDrawer"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/buttonReviewsDrawer" />-->
+        <!--                    <Button-->
+        <!--                        android:id="@+id/buttonWatchlistDrawer"-->
+        <!--                        android:layout_width="0dp"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="4dp"-->
+        <!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
+        <!--                        android:gravity="center|start"-->
+        <!--                        android:paddingStart="12dp"-->
+        <!--                        android:text="Watchlist"-->
+        <!--                        android:textColor="@color/darkpurple_letterboxn"-->
+        <!--                        app:cornerRadius="12dp"-->
+        <!--                        app:icon="@drawable/round_playlist_add_check_24"-->
+        <!--                        app:iconPadding="16dp"-->
+        <!--                        app:iconSize="24dp"-->
+        <!--                        app:iconTint="@color/darkpurple_letterboxn"-->
+        <!--                        app:layout_constraintEnd_toEndOf="@+id/buttonReviewsDrawer"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@+id/buttonReviewsDrawer" />-->
 
-<!--                    <Button-->
-<!--                        android:id="@+id/buttonListsDrawer"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="4dp"-->
-<!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
-<!--                        android:gravity="center|start"-->
-<!--                        android:paddingStart="12dp"-->
-<!--                        android:text="Lists"-->
-<!--                        android:textColor="@color/darkpurple_letterboxn"-->
-<!--                        app:cornerRadius="12dp"-->
-<!--                        app:icon="@drawable/round_view_list_24"-->
-<!--                        app:iconPadding="16dp"-->
-<!--                        app:iconSize="24dp"-->
-<!--                        app:iconTint="@color/darkpurple_letterboxn"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/buttonWatchlistDrawer"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/buttonWatchlistDrawer" />-->
+        <!--                    <Button-->
+        <!--                        android:id="@+id/buttonListsDrawer"-->
+        <!--                        android:layout_width="0dp"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="4dp"-->
+        <!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
+        <!--                        android:gravity="center|start"-->
+        <!--                        android:paddingStart="12dp"-->
+        <!--                        android:text="Lists"-->
+        <!--                        android:textColor="@color/darkpurple_letterboxn"-->
+        <!--                        app:cornerRadius="12dp"-->
+        <!--                        app:icon="@drawable/round_view_list_24"-->
+        <!--                        app:iconPadding="16dp"-->
+        <!--                        app:iconSize="24dp"-->
+        <!--                        app:iconTint="@color/darkpurple_letterboxn"-->
+        <!--                        app:layout_constraintEnd_toEndOf="@+id/buttonWatchlistDrawer"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@+id/buttonWatchlistDrawer" />-->
 
-<!--                    <Button-->
-<!--                        android:id="@+id/buttonLikesDrawer"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="4dp"-->
-<!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
-<!--                        android:gravity="center|start"-->
-<!--                        android:paddingStart="12dp"-->
-<!--                        android:text="Likes"-->
-<!--                        android:textColor="@color/darkpurple_letterboxn"-->
-<!--                        app:cornerRadius="12dp"-->
-<!--                        app:icon="@drawable/round_favorite_border_24"-->
-<!--                        app:iconPadding="16dp"-->
-<!--                        app:iconSize="24dp"-->
-<!--                        app:iconTint="@color/darkpurple_letterboxn"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/buttonListsDrawer"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/buttonListsDrawer" />-->
+        <!--                    <Button-->
+        <!--                        android:id="@+id/buttonLikesDrawer"-->
+        <!--                        android:layout_width="0dp"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="4dp"-->
+        <!--                        android:backgroundTint="@color/skincolor_letterboxn"-->
+        <!--                        android:gravity="center|start"-->
+        <!--                        android:paddingStart="12dp"-->
+        <!--                        android:text="Likes"-->
+        <!--                        android:textColor="@color/darkpurple_letterboxn"-->
+        <!--                        app:cornerRadius="12dp"-->
+        <!--                        app:icon="@drawable/round_favorite_border_24"-->
+        <!--                        app:iconPadding="16dp"-->
+        <!--                        app:iconSize="24dp"-->
+        <!--                        app:iconTint="@color/darkpurple_letterboxn"-->
+        <!--                        app:layout_constraintEnd_toEndOf="@+id/buttonListsDrawer"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@+id/buttonListsDrawer" />-->
 
-<!--                    <Button-->
-<!--                        android:id="@+id/buttonLogoutDrawer"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="50dp"-->
-<!--                        android:backgroundTint="@color/darkpurple_letterboxn"-->
-<!--                        android:paddingLeft="16dp"-->
-<!--                        android:paddingRight="16dp"-->
-<!--                        android:text="Logout"-->
-<!--                        android:textSize="12sp"-->
-<!--                        app:icon="@drawable/baseline_logout_24"-->
-<!--                        app:iconPadding="6dp"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/buttonLikesDrawer" />-->
+        <!--                    <Button-->
+        <!--                        android:id="@+id/buttonLogoutDrawer"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginTop="50dp"-->
+        <!--                        android:backgroundTint="@color/darkpurple_letterboxn"-->
+        <!--                        android:paddingLeft="16dp"-->
+        <!--                        android:paddingRight="16dp"-->
+        <!--                        android:text="Logout"-->
+        <!--                        android:textSize="12sp"-->
+        <!--                        app:icon="@drawable/baseline_logout_24"-->
+        <!--                        app:iconPadding="6dp"-->
+        <!--                        app:layout_constraintStart_toStartOf="@+id/guideline11"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@+id/buttonLikesDrawer" />-->
 
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--            </androidx.core.widget.NestedScrollView>-->
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <!--            </androidx.core.widget.NestedScrollView>-->
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </com.google.android.material.navigation.NavigationView>
-
-
 </androidx.drawerlayout.widget.DrawerLayout>

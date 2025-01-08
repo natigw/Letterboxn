@@ -14,17 +14,18 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.common.utils.nancyToast
+import com.example.common.utils.nancyToastInfo
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.common.utils.DoubleClickListener
-import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.data.remote.model.movieCredit.Cast
 import com.example.letterboxn.data.remote.model.movieCredit.Crew
 import com.example.letterboxn.databinding.FragmentDetailsMovieBinding
 import com.example.letterboxn.presentation.adapters.MovieDetailsCastAdapter
 import com.example.letterboxn.presentation.adapters.MovieDetailsCrewAdapter
 import com.example.letterboxn.presentation.adapters.MovieDetailsReviewsAdapter
-import com.example.letterboxn.common.utils.NancyToast
 import com.example.letterboxn.common.utils.numberFormatter
 import com.example.letterboxn.common.utils.randomInteger
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.ResultFavoriteMovie
@@ -44,7 +45,7 @@ import javax.inject.Inject
 class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentDetailsMovieBinding::inflate) {
 
     @Inject
-    lateinit var api: TmdbApi
+    lateinit var api: MovieApi
 
     private val args: DetailsMovieFragmentArgs by navArgs()
 
@@ -84,11 +85,11 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
         savedStateHandled?.getLiveData<Boolean>("requestStatus")
             ?.observe(viewLifecycleOwner) {
                 isAlreadyAddedToList = !it
-                Snackbar.make(requireView(), "Movie added to recent watched list.", Snackbar.LENGTH_SHORT)
-                    .setAction("See all") {
+                Snackbar.make(requireView(), getString(R.string.movie_added_to_recent_watched_list), Snackbar.LENGTH_SHORT)
+                    .setAction(getString(R.string.see_all)) {
                         findNavController().navigate(DetailsMovieFragmentDirections.actionDetailsMovieFragmentToProfileFragment())
                     }.show()
-                binding.buttonAddtoMyList.text = "Added to Lists"
+                binding.buttonAddtoMyList.text = getString(R.string.added_to_watched_list)
                 binding.buttonAddtoMyList.setIconResource(R.drawable.round_check_circle_24)
                 binding.textMyRatingDetails.visibility = View.VISIBLE
                 binding.textRatingValueDetails.visibility = View.VISIBLE
@@ -140,8 +141,8 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
                             val concatenatedLanguages = languages.joinToString(separator = "\n")
                             textGenresDetails.text = concatenatedGenres
                             textLanguagesDetails.text = concatenatedLanguages
-                            textBudgetDetails.text = if (details.budget != 0) "$${details.budget}" else "not announced"
-                            textRevenueDetails.text = if (details.revenue != 0) "$${details.revenue}" else "not announced"
+                            textBudgetDetails.text = if (details.budget != 0) "$${details.budget}" else getString(R.string.not_announced)
+                            textRevenueDetails.text = if (details.revenue != 0) "$${details.revenue}" else getString(R.string.not_announced)
                         }
                     }
                 }
@@ -160,7 +161,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
             try {
                 if (findMovieById(movieId) != null) {  //found
                     isAlreadyAddedToList = true
-                    binding.buttonAddtoMyList.text = "Added to Lists"
+                    binding.buttonAddtoMyList.text = getString(R.string.added_to_watched_list)
                     binding.buttonAddtoMyList.setIconResource(R.drawable.round_check_circle_24)
                     binding.textMyRatingDetails.visibility = View.VISIBLE
                     binding.imageStarMyRatingDetails.visibility = View.VISIBLE
@@ -183,7 +184,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
                 if (findMovieByIdWatchlist(movieId) != null) {  //found
                     isAddedToWatchList = true
                     binding.buttonAddtoWatchlist.textSize = 10f
-                    binding.buttonAddtoWatchlist.text = "Added to Watchlist"
+                    binding.buttonAddtoWatchlist.text = getString(R.string.added_to_watchlist)
                     val size = dpToPx(16f).toInt()
                     binding.buttonAddtoWatchlist.iconSize = size
                     binding.buttonAddtoWatchlist.setIconResource(R.drawable.round_check_circle_24)
@@ -208,9 +209,9 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
                 textReleasedate.text = movieItem.releaseDate.substring(0, 4)
                 textMoviedurationDetails.text = if (movieItem.runtime != 0) {
                     "${movieItem.runtime} min"
-                } else "N/A"
+                } else getString(R.string.not_assigned)
                 val director = "Christopher Nolan" //real director from api
-                textMoviedirectorDetails.text = Html.fromHtml("Directed by <b>$director</b>")
+                textMoviedirectorDetails.text = Html.fromHtml("${getString(R.string.directed_by)} <b>$director</b>")
                 textMovieoverviewmainDetails.text = movieItem.overview
                 ratingBarDetailsMovie.rating = movieItem.voteAverage.toFloat() / 2
                 textRatingvalueDetails.text = binding.ratingBarDetailsMovie.rating.toString()
@@ -279,26 +280,26 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
             findNavController().popBackStack()
         }
         binding.buttonSeeallReviewsDetailsMovie.setOnClickListener {
-            NancyToast.makeText(requireContext(), "[All reviews]", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
+            nancyToastInfo(requireContext(), getString(R.string.all_reviews))
         }
 
         binding.floatingActionButtonLikeMovie.setOnClickListener {
             isFav = false
             binding.floatingActionButtonLikeMovie.visibility = View.GONE
-            Snackbar.make(requireView(), "Movie removed from Favorites!", Snackbar.LENGTH_LONG)
-                .setAction("Undo") {
-                    // how to cancel the rest of process
+            Snackbar.make(requireView(), getString(R.string.movie_removed_from_favorites), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.undo)) {
+                    //cancel the rest of process
                     lifecycleScope.launch {
                         api.addOrRemoveFavoriteMovie(
                             requestFavorite = RequestAddRemoveFavorite(
                                 favorite = true,
                                 mediaId = movieId,
-                                mediaType = "movie"
+                                mediaType = "movie" //TODO->enum classa kecir
                             )
                         )
                         isFav = true
                         binding.floatingActionButtonLikeMovie.visibility = View.VISIBLE
-                        Snackbar.make(requireView(), "Movie added to Favorites!", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(requireView(), getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_SHORT).show()
                     }
                 }.show()
             lifecycleScope.launch {
@@ -324,7 +325,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
                             )
                         )
                     }
-                    Snackbar.make(requireView(), "Movie added to Favorites!", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(requireView(), getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_SHORT).show()
                     binding.floatingActionButtonLikeMovie.visibility = View.VISIBLE
                 }
             }
@@ -350,22 +351,22 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
                 ))
             }
             if (isAddedToWatchList) {
-                Snackbar.make(view, "Movie removed from watchlist.", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, getString(R.string.movie_added_to_watchlist), Snackbar.LENGTH_SHORT).show()
                 isAddedToWatchList = false
                 binding.buttonAddtoWatchlist.textSize = 11f
-                binding.buttonAddtoWatchlist.text = "Add to Watchlist"
+                binding.buttonAddtoWatchlist.text = getString(R.string.add_to_watchlist)
                 val size = dpToPx(19f).toInt()
                 binding.buttonAddtoWatchlist.iconSize = size
                 binding.buttonAddtoWatchlist.setIconResource(R.drawable.round_playlist_add_24)
             }
             else {
-                Snackbar.make(view, "Movie added to watchlist.", Snackbar.LENGTH_SHORT)
-                    .setAction("See all") {
+                Snackbar.make(view, getString(R.string.movie_added_to_watchlist), Snackbar.LENGTH_SHORT)
+                    .setAction(getString(R.string.see_all)) {
                         findNavController().navigate(DetailsMovieFragmentDirections.actionDetailsMovieFragmentToWatchlistBottomSheetFragment())
                     }.show()
                 isAddedToWatchList = true
                 binding.buttonAddtoWatchlist.textSize = 10f
-                binding.buttonAddtoWatchlist.text = "Added to Watchlist"
+                binding.buttonAddtoWatchlist.text = getString(R.string.added_to_watchlist)
                 val size = dpToPx(16f).toInt()
                 binding.buttonAddtoWatchlist.iconSize = size
                 binding.buttonAddtoWatchlist.setIconResource(R.drawable.round_check_circle_24)
@@ -386,24 +387,24 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
     private fun deleteFromList(movieId : Int) {
 
         val customTitle = TextView(requireContext()).apply {
-            text = "  Are you sure to remove?"
-            setPadding(40, 40, 40, 40) // Adjust padding as needed
+            text = getString(R.string.are_you_sure_to_remove)
+            setPadding(40, 40, 40, 40)
             textSize = 24f
             setTextColor(Color.WHITE)
         }
 
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.CustomAlertDialog)
             .setCustomTitle(customTitle)
-            .setMessage("If you remove this movie from Watched list, the rating for it will also be deleted permanently.")
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setMessage(getString(R.string.remove_from_list_explanation))
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
-                NancyToast.makeText(requireContext(), "Operation cancelled", NancyToast.LENGTH_SHORT, NancyToast.DEFAULT, false).show()
+                nancyToast(requireContext(), getString(R.string.operation_cancelled))
             }
-            .setPositiveButton("Delete") { _, _ ->
+            .setPositiveButton(getString(R.string.delete)) { _, _ ->
                 lifecycleScope.launch {
                     api.deleteRateMovie(movieId = movieId)
-                    Snackbar.make(requireView(), "Movie removed from recent watched list.", Snackbar.LENGTH_SHORT).show()
-                    binding.buttonAddtoMyList.text = "Add to Lists"
+                    Snackbar.make(requireView(), getString(R.string.movie_removed_from_watched_list), Snackbar.LENGTH_SHORT).show()
+                    binding.buttonAddtoMyList.text = getString(R.string.add_to_watched_list)
                     binding.buttonAddtoMyList.setIconResource(R.drawable.round_list_bulleted_24)
                     binding.textMyRatingDetails.visibility = View.INVISIBLE
                     binding.textRatingValueDetails.visibility = View.INVISIBLE
@@ -427,13 +428,9 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
         dialog.show()
     }
 
-    fun observe() {
-    }
-
     private fun setAdapters() {
         binding.rvCast.adapter = castAdapter
         binding.rvCrew.adapter = crewAdapter
         binding.rvReviews.adapter = reviewAdapter
     }
-
 }

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class ReviewEntity(
     val movieId : Int,
     val review : String,
-    val rating : Float,
+    val rating : Double,
     val reviewDate : String,
     @PrimaryKey(autoGenerate = true) val reviewId : Int = 0
 )

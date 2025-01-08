@@ -5,16 +5,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.common.utils.nancyToastSuccess
+import com.example.common.utils.nancyToastWarning
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
-import com.example.letterboxn.data.remote.api.TmdbApi
-import com.example.letterboxn.databinding.FragmentWriteReviewBinding
-import com.example.letterboxn.common.utils.NancyToast
 import com.example.letterboxn.data.local.database.review.ReviewDao
 import com.example.letterboxn.data.local.database.review.ReviewEntity
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.ResultFavoriteMovie
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.RequestAddRemoveFavorite
 import com.example.letterboxn.data.remote.model.account.ratedMovies.rateMovie.RequestAddRating
+import com.example.letterboxn.databinding.FragmentWriteReviewBinding
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,13 +26,14 @@ import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class WriteReviewFragment : BaseFragment<FragmentWriteReviewBinding>(FragmentWriteReviewBinding::inflate){
+class WriteReviewFragment :
+    BaseFragment<FragmentWriteReviewBinding>(FragmentWriteReviewBinding::inflate) {
 
     @Inject
-    lateinit var api: TmdbApi
+    lateinit var api: MovieApi
 
     @Inject
-    lateinit var reviewDao : ReviewDao
+    lateinit var reviewDao: ReviewDao
 
     private val args: WriteReviewFragmentArgs by navArgs()
 
@@ -81,8 +83,7 @@ class WriteReviewFragment : BaseFragment<FragmentWriteReviewBinding>(FragmentWri
             if (isFav) {
                 binding.imageButtonFavReview.setImageResource(R.drawable.round_favorite_24)
                 isFav = false
-            }
-            else {
+            } else {
                 binding.imageButtonFavReview.setImageResource(R.drawable.round_favorite_unselected_24)
                 isFav = true
             }
@@ -90,11 +91,11 @@ class WriteReviewFragment : BaseFragment<FragmentWriteReviewBinding>(FragmentWri
 
         binding.buttonPublishReview.setOnClickListener {
             if (binding.ratingBarDetailsReview.rating == 0f) {
-                NancyToast.makeText(requireContext(), "Please rate the movie!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+                nancyToastWarning(requireContext(), getString(R.string.please_rate_movie))
                 return@setOnClickListener
             }
             if (binding.editTextReview.text.isNullOrEmpty()) {
-                NancyToast.makeText(requireContext(), "Review cannot be empty!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+                nancyToastWarning(requireContext(), getString(R.string.review_cannot_be_empty))
                 return@setOnClickListener
             }
             lifecycleScope.launch {
@@ -117,16 +118,16 @@ class WriteReviewFragment : BaseFragment<FragmentWriteReviewBinding>(FragmentWri
             lifecycleScope.launch {
                 reviewDao.addReview(
                     ReviewEntity(
-                    movieId = args.movieId,
-                    review = binding.editTextReview.text.toString(),
-                    rating = binding.ratingBarDetailsReview.rating,
-                    reviewDate = binding.textMoviedateReview.text.toString()
-                )
+                        movieId = args.movieId,
+                        review = binding.editTextReview.text.toString(),
+                        rating = binding.ratingBarDetailsReview.rating.toDouble(),
+                        reviewDate = binding.textMoviedateReview.text.toString()
+                    )
                 )
             }
             binding.ratingBarDetailsReview.rating = 0f
             binding.editTextReview.text = null
-            NancyToast.makeText(requireContext(), "Your review has been published!", NancyToast.LENGTH_SHORT, NancyToast.SUCCESS, false).show()
+            nancyToastSuccess(requireContext(), getString(R.string.review_published))
             findNavController().popBackStack()
         }
     }
@@ -151,7 +152,7 @@ class WriteReviewFragment : BaseFragment<FragmentWriteReviewBinding>(FragmentWri
 
         val datePicker = MaterialDatePicker.Builder
             .datePicker()
-            .setTitleText("Watching date")
+            .setTitleText(getString(R.string.watching_date))
             .setCalendarConstraints(constraintsBuilder.build())
             .setTheme(R.style.CustomDatePickerTheme)
             .build()
@@ -159,9 +160,9 @@ class WriteReviewFragment : BaseFragment<FragmentWriteReviewBinding>(FragmentWri
         datePicker.show(parentFragmentManager, "datePicker")
 
         datePicker.addOnPositiveButtonClickListener { selection ->
-            val selectedDate = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(selection))
+            val selectedDate =
+                SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(selection))
             binding.chipDatePicker.text = selectedDate
         }
     }
-
 }

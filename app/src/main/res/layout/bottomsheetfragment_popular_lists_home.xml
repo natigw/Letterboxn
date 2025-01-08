@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textBShitCategorytitle"
-        android:background="@color/lightpurple_letterboxn"/>
+        android:background="@color/letterboxn_light_purple"/>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageBShit2"
@@ -48,7 +48,7 @@
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@+id/imageBShit1"
         app:layout_constraintTop_toBottomOf="@+id/textBShitCategorytitle"
-        android:background="@color/lightpurple_letterboxn" />
+        android:background="@color/letterboxn_light_purple" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageBShit3"
@@ -63,7 +63,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textBshitmovietitle1"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
-        android:background="@color/lightpurple_letterboxn" />
+        android:background="@color/letterboxn_light_purple" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageBShit4"
@@ -78,7 +78,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageBShit3"
         app:layout_constraintTop_toBottomOf="@+id/textBshitmovietitle2"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
-        android:background="@color/lightpurple_letterboxn" />
+        android:background="@color/letterboxn_light_purple" />
 
     <TextView
         android:id="@+id/textBshitmovietitle1"
@@ -162,7 +162,7 @@
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            android:background="@color/lightpurple_letterboxn"
+            android:background="@color/letterboxn_light_purple"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
 
@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_weight="1"
-            android:backgroundTint="#454288"
+            android:backgroundTint="@color/letterboxn_light_purple"
             tools:text="Author name"
             android:textColor="#FFFFFF"
             android:textSize="12sp"

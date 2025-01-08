@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.letterboxn.common.base.BaseFragment
-import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.databinding.FragmentExploreBinding
 import com.example.letterboxn.presentation.adapters.ExploreCategoriesAdapter
 import com.example.letterboxn.presentation.adapters.MoviePagingAdapter
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class ExploreFragment : BaseFragment<FragmentExploreBinding>(bindingToInflate = FragmentExploreBinding::inflate) {
 
     @Inject
-    lateinit var api: TmdbApi
+    lateinit var api: MovieApi
 
     private val viewmodel: ExploreViewModel by viewModels()
 

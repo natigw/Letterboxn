@@ -40,7 +40,7 @@
         android:maxLines="1"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:textColor="@color/darkpurple_letterboxn"
+        android:textColor="@color/letterboxn_dark_purple"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageMovieExplore"
         app:layout_constraintEnd_toEndOf="parent"

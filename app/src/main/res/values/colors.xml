@@ -2,15 +2,22 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <color name="exactdarkpurple_letterboxn">#19172A</color>
-    <color name="darkpurple_letterboxn">#1F1D36</color>
-    <color name="lightpurple_letterboxn">#454289</color>
-    <color name="lightpurple_50pc_letterboxn">#80454289</color>
-    <color name="chippurple_letterboxn">#9C4A8B</color>
-    <color name="skincolor_letterboxn">#E9A6A6</color>
-    <color name="shimmer_letterboxn">#CC999999</color>
-    <color name="bottommenu_navbar">#111020</color>
+    <color name="white_80pc">#CCFFFFFF</color>
+    <color name="gray">#ABABAB</color>
     <color name="transparent">@android:color/transparent </color>
+
+    <color name="letterboxn_exact_dark_purple">#19172A</color>
+    <color name="letterboxn_dark_purple">#1F1D36</color>
+    <color name="letterboxn_light_purple">#454288</color>
+    <color name="letterboxn_card_purple">#2C2A4E</color>
+    <color name="letterboxn_light_purple_50pc">#80454289</color>
+    <color name="letterboxn_skin_color">#E9A6A6</color>
+    <color name="letterboxn_login">#F44336</color>
+    <color name="letterboxn_register">#407BFF</color>
+
+    <color name="chip_purple">#9C4A8B</color>
+    <color name="shimmer_gray">#CC999999</color>
+    <color name="bottom_nav_bar">#111020</color>
+    <color name="button_disabled">#FFDADADA</color>
 
 </resources>

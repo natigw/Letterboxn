@@ -9,7 +9,9 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseBottomSheetFragment
 import com.example.letterboxn.databinding.BottomsheetfragmentReviewDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ReviewDetailsBottomSheetFragment : BaseBottomSheetFragment<BottomsheetfragmentReviewDetailsBinding>(BottomsheetfragmentReviewDetailsBinding::inflate) {
 
     private val args: ReviewDetailsBottomSheetFragmentArgs by navArgs()
@@ -19,9 +21,9 @@ class ReviewDetailsBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetfrag
             textAuthornameBSh.text = args.reviewItem.authorName
             Glide.with(imageAuthorppBSh)
                 .load("https://image.tmdb.org/t/p/h632" + args.reviewItem.authorImage)
-                .placeholder(R.drawable.usersample)
+                .placeholder(R.drawable.placeholder_user)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .error(R.drawable.usersample)
+                .error(R.drawable.placeholder_user)
                 .into(imageAuthorppBSh)
             textMovietitleBSh.text = args.reviewItem.movieTitle
             binding.imageMovieposterBSh.load("https://image.tmdb.org/t/p/w500" + args.reviewItem.moviePoster) {
@@ -29,9 +31,9 @@ class ReviewDetailsBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetfrag
                 placeholder(R.drawable.custom_poster_shape)
                 error(R.drawable.custom_poster_shape)
             }
-            if (args.reviewItem.movieRating != 0f) {
+            if (args.reviewItem.movieRating != 0.0) {
                 textMovieratingBSh.text = args.reviewItem.movieRating.toString().substring(0, 3)
-                ratingBarMovieBSh.rating = args.reviewItem.movieRating
+                ratingBarMovieBSh.rating = args.reviewItem.movieRating.toFloat() //TODO -> bunu double et classi
             } else {
                 textMovieratingBSh.text = "Rating: N/A"
                 ratingBarMovieBSh.visibility = View.GONE
@@ -40,7 +42,7 @@ class ReviewDetailsBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetfrag
             textReviewdetailsBSh.text = args.reviewItem.review
             val reviewRating = (args.reviewItem.reviewRating).toString().substring(0, 3)
             textReviewratingBSh.text = Html.fromHtml("<b>$reviewRating</b><small>/4</small>")
-            ratingBarReviewBSh.rating = args.reviewItem.reviewRating
+            ratingBarReviewBSh.rating = args.reviewItem.reviewRating.toFloat()
             textCommentcountBSh.text = "${args.reviewItem.commentCount} replies"
         }
     }

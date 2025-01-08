@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkpurple_letterboxn"
+    android:background="@color/letterboxn_dark_purple"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
             android:layout_marginTop="24dp"
             android:clickable="false"
             app:fabCustomSize="38dp"
-            app:backgroundTint="@color/shimmer_letterboxn"
+            app:backgroundTint="@color/shimmer_gray"
             app:layout_constraintStart_toStartOf="@id/guideline9Shimmer"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator.Medium" />
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:src="@drawable/custom_movie_back_poster"
-            android:tint="@color/shimmer_letterboxn"
+            android:tint="@color/shimmer_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -71,7 +71,7 @@
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@+id/imagePosterDetailsShimmer"
             app:layout_constraintTop_toTopOf="@+id/imagePosterDetailsShimmer"
-            android:background="@color/shimmer_letterboxn"/>
+            android:background="@color/shimmer_gray"/>
 
         <TextView
             android:id="@+id/textReleasedateShimmer"
@@ -82,7 +82,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/textMovietitleDetailsShimmer"
             app:layout_constraintStart_toEndOf="@+id/textMovietitleDetailsShimmer"
-            android:background="@color/shimmer_letterboxn" />
+            android:background="@color/shimmer_gray" />
 
         <TextView
             android:id="@+id/textMoviedurationDetailsShimmer"
@@ -93,7 +93,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/textReleasedateShimmer"
             app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
             app:layout_constraintTop_toTopOf="@+id/textReleasedateShimmer"
-            android:background="@color/shimmer_letterboxn"/>
+            android:background="@color/shimmer_gray"/>
 
         <TextView
             android:id="@+id/textMoviedirectorDetailsShimmer"
@@ -105,7 +105,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textMovietitleDetailsShimmer"
             app:layout_constraintTop_toBottomOf="@+id/textMovietitleDetailsShimmer"
-            android:background="@color/shimmer_letterboxn" />
+            android:background="@color/shimmer_gray" />
 
         <TextView
             android:id="@+id/textMovieoverviewmainDetailsShimmer"
@@ -118,7 +118,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
             app:layout_constraintStart_toStartOf="@+id/textMoviedirectorDetailsShimmer"
             app:layout_constraintTop_toBottomOf="@+id/textMoviedirectorDetailsShimmer"
-            android:background="@color/shimmer_letterboxn" />
+            android:background="@color/shimmer_gray" />
 
         <LinearLayout
             android:id="@+id/linearLayoutmainShimmer"
@@ -143,7 +143,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
-                    app:tint="@color/shimmer_letterboxn"
+                    app:tint="@color/shimmer_gray"
                     android:src="@drawable/baseline_eye_24" />
 
                 <ImageView
@@ -152,7 +152,7 @@
                     android:layout_height="18dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    app:tint="@color/shimmer_letterboxn"
+                    app:tint="@color/shimmer_gray"
                     android:src="@drawable/round_favorite_unselected_24" />
 
                 <ImageView
@@ -161,7 +161,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="10dp"
-                    app:tint="@color/shimmer_letterboxn"
+                    app:tint="@color/shimmer_gray"
                     android:src="@drawable/round_view_list_24" />
 
                 <TextView
@@ -172,7 +172,7 @@
                     android:layout_marginStart="2dp"
                     android:textColor="#BFFFFFFF"
                     android:textSize="9sp"
-                    android:background="@color/shimmer_letterboxn"/>
+                    android:background="@color/shimmer_gray"/>
 
                 <TextView
                     android:id="@+id/textMovielikecountDetailsShimmer"
@@ -182,7 +182,7 @@
                     android:layout_marginStart="10dp"
                     android:textColor="#BFFFFFFF"
                     android:textSize="9sp"
-                    android:background="@color/shimmer_letterboxn"/>
+                    android:background="@color/shimmer_gray"/>
 
                 <TextView
                     android:id="@+id/textMoviereviewcountDetailsShimmer"
@@ -192,7 +192,7 @@
                     android:layout_marginStart="10dp"
                     android:textColor="#BFFFFFFF"
                     android:textSize="9sp"
-                    android:background="@color/shimmer_letterboxn"/>
+                    android:background="@color/shimmer_gray"/>
             </GridLayout>
         </LinearLayout>
 
@@ -203,7 +203,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
-            android:backgroundTint="@color/shimmer_letterboxn"
+            android:backgroundTint="@color/shimmer_gray"
             android:paddingLeft="12dp"
             android:paddingTop="2dp"
             android:paddingRight="12dp"
@@ -219,7 +219,7 @@
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_marginTop="-2dp"
-            android:backgroundTint="@color/shimmer_letterboxn"
+            android:backgroundTint="@color/shimmer_gray"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             app:cornerRadius="10dp"
@@ -233,7 +233,7 @@
             android:layout_width="0dp"
             android:layout_height="37dp"
             android:layout_marginTop="-2dp"
-            android:backgroundTint="@color/shimmer_letterboxn"
+            android:backgroundTint="@color/shimmer_gray"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             app:cornerRadius="10dp"
@@ -249,7 +249,7 @@
             app:layout_constraintBottom_toTopOf="@+id/imageView6Shimmer"
             app:layout_constraintStart_toStartOf="@+id/textMovieoverviewmainDetailsShimmer"
             app:layout_constraintTop_toBottomOf="@+id/imagePosterDetailsShimmer"
-            android:background="@color/shimmer_letterboxn"/>
+            android:background="@color/shimmer_gray"/>
 
         <ImageView
             android:id="@+id/imageView6Shimmer"
@@ -257,7 +257,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:adjustViewBounds="true"
-            app:tint="@color/shimmer_letterboxn"
+            app:tint="@color/shimmer_gray"
             app:layout_constraintBottom_toBottomOf="@+id/ratingBarDetailsMovieShimmer"
             app:layout_constraintEnd_toStartOf="@+id/ratingBarDetailsMovieShimmer"
             app:layout_constraintStart_toEndOf="@+id/buttonAddtoMyListShimmer"
@@ -274,7 +274,7 @@
             android:textSize="40sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
             app:layout_constraintTop_toTopOf="@+id/buttonRateorReviewDetailsShimmer"
-            android:background="@color/shimmer_letterboxn" />
+            android:background="@color/shimmer_gray" />
 
         <RatingBar
             android:id="@+id/ratingBarDetailsMovieShimmer"
@@ -287,7 +287,7 @@
             app:layout_constraintEnd_toEndOf="@+id/textRatingvalueDetailsShimmer"
             app:layout_constraintStart_toStartOf="@+id/textRatingvalueDetailsShimmer"
             app:layout_constraintTop_toBottomOf="@+id/textRatingvalueDetailsShimmer"
-            android:progressTint="@color/shimmer_letterboxn"/>
+            android:progressTint="@color/shimmer_gray"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayoutgroupShimmer"
@@ -298,7 +298,7 @@
             app:layout_constraintStart_toStartOf="@id/guideline9Shimmer"
             app:layout_constraintTop_toBottomOf="@+id/buttonAddtoWatchlistShimmer"
             app:tabIndicator="@drawable/custom_tab_indicator"
-            app:tabIndicatorColor="@color/chippurple_letterboxn"
+            app:tabIndicatorColor="@color/chip_purple"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorHeight="38dp"
             app:tabMode="auto"

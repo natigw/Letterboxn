@@ -4,5 +4,5 @@
     <corners android:radius="20dp"/>
     <stroke
         android:width="2dp"
-        android:color="@color/lightpurple_letterboxn"/>
+        android:color="@color/letterboxn_light_purple"/>
 </shape>

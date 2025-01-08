@@ -44,7 +44,7 @@
         android:id="@+id/textRatingSozleCateg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/skincolor_letterboxn"
+        android:textColor="@color/letterboxn_skin_color"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/ratingBarCategoryMovie"
         app:layout_constraintEnd_toEndOf="@+id/ratingBarCategoryMovie"

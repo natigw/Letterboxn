@@ -4,7 +4,7 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.letterboxn.common.base.BaseBottomSheetFragment
-import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.databinding.BottomsheetfragmentWatchlistBinding
 import com.example.letterboxn.domain.model.WatchlistItem
 import com.example.letterboxn.presentation.adapters.BShWatchlistAdapter
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class WatchlistBottomSheetFragment : BaseBottomSheetFragment<BottomsheetfragmentWatchlistBinding>(BottomsheetfragmentWatchlistBinding::inflate) {
 
     @Inject
-    lateinit var api : TmdbApi
+    lateinit var api : MovieApi
 
     val watchlistAdapter = BShWatchlistAdapter(
         onClick = {

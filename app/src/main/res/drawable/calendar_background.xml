@@ -1,5 +1,5 @@
 <!-- res/drawable/calendar_background.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/darkpurple_letterboxn"/>
+    <solid android:color="@color/letterboxn_dark_purple"/>
     <corners android:radius="16dp"/> <!-- Increase the corner radius here -->
 </shape>

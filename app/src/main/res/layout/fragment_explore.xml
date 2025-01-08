@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkpurple_letterboxn"
+    android:background="@color/letterboxn_dark_purple"
     tools:context=".presentation.ui.fragments.explore.ExploreFragment">
 
     <Button
@@ -16,17 +16,17 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="#BABABA"
         android:text="Search"
-        android:textColor="@color/lightpurple_letterboxn"
+        android:textColor="@color/letterboxn_light_purple"
         app:cornerRadius="12dp"
         app:icon="@drawable/round_search_24"
         app:iconGravity="textStart"
         app:iconSize="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView14"
+        app:layout_constraintEnd_toStartOf="@+id/imageCommentRecentReview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView14"
+        android:id="@+id/imageCommentRecentReview"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginEnd="10dp"

@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.text.Html
 import android.view.Gravity
-import android.view.View
 import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
@@ -15,25 +14,27 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.common.utils.nancyToastError
+import com.example.common.utils.nancyToastInfo
+import com.example.common.utils.nancyToastSuccess
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
+import com.example.letterboxn.common.utils.numberFormatterSpaced
+import com.example.letterboxn.common.utils.startShimmer
+import com.example.letterboxn.common.utils.stopShimmer
 import com.example.letterboxn.databinding.FragmentHomeBinding
+import com.example.letterboxn.presentation.adapters.HomePopularListsAdapter
 import com.example.letterboxn.presentation.adapters.HomePopularMoviesAdapter
+import com.example.letterboxn.presentation.adapters.HomeReviewsAdapter
 import com.example.letterboxn.presentation.ui.activities.OnBoardingActivity
 import com.example.letterboxn.presentation.viewmodels.HomeViewModel
-import com.example.letterboxn.common.utils.NancyToast
-import com.example.letterboxn.common.utils.numberFormatterSpaced
-import com.example.letterboxn.data.remote.api.TmdbApi
-import com.example.letterboxn.data.remote.model.popularList.ResultPopularList
-import com.example.letterboxn.presentation.adapters.HomePopularListsAdapter
-import com.example.letterboxn.presentation.adapters.HomeReviewsAdapter
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -43,24 +44,21 @@ import javax.inject.Named
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     @Inject
-    lateinit var api : TmdbApi
-
-    @Inject
     lateinit var firestore: FirebaseFirestore
 
     @Inject
     @Named("UserLoggedIn")
-    lateinit var shprefLoggedin: SharedPreferences
+    lateinit var sharedPrefLoggedIn: SharedPreferences
 
     @Inject
     @Named("UserStatusInApp")
-    lateinit var shprefStatus: SharedPreferences
+    lateinit var sharedPrefStatus: SharedPreferences
 
     @Inject
     @Named("UserProfileImage")
-    lateinit var shprefProfilePicture : SharedPreferences
+    lateinit var sharedPrefProfilePicture : SharedPreferences
 
-    val viewmodel: HomeViewModel by viewModels()
+    private val viewmodel by viewModels<HomeViewModel>()
 
     private val popularAdapter = HomePopularMoviesAdapter(
         onClick = {
@@ -69,7 +67,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             )
         }
     )
-    private val listAdapter = HomePopularListsAdapter {
+    private val popularListAdapter = HomePopularListsAdapter {
         findNavController().navigate(
             HomeFragmentDirections.actionHomeFragmentToPopularListsHomeBottomSheetFragment(it)
         )
@@ -80,12 +78,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         )
     }
 
-    private lateinit var shimmerPopularMovies : ShimmerFrameLayout
-    private lateinit var shimmerPopularLists : ShimmerFrameLayout
-    private lateinit var shimmerHomeReviews : ShimmerFrameLayout
-
     override fun onViewCreatedLight() {
-        startShimmers()
         setUI()
         setAdapters()
         updateAdapters()
@@ -93,85 +86,66 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private fun updateAdapters() {
         lifecycleScope.launch {
-            viewmodel.movies.collect {
+            viewmodel.popularMovies.collect {
                 popularAdapter.updateAdapter(it)
+                stopShimmer(binding.shimmerPopularMoviesHome)
             }
         }
-//        lifecycleScope.launch {
-//            viewmodel.lists.collect {
-//                listAdapter.updateAdapter(it)
-//            }
-//        }
-//        lifecycleScope.launch {
-//            viewmodel.
-//                .collect {
-//                    reviewAdapter.updateAdapter(it)
-//                }
-//        }
         lifecycleScope.launch {
-            val responseList1 = api.getLists(1).results
-            val responseList2 = api.getLists(2).results
-            val responseList3 = api.getLists(3).results
-            val responseList4 = api.getLists(4).results
-            val responseHuman = api.getPeople(1).resultPeople
-
-            val responseList = mutableListOf<ResultPopularList>()
-
-            repeat(10) {
-                responseList.add(responseList1[it])
-                responseList.add(responseList2[it])
-                responseList.add(responseList3[it])
-                responseList.add(responseList4[it])
+            viewmodel.popularLists.collectLatest {
+                popularListAdapter.updateAdapter(it)
+                stopShimmer(binding.shimmerPopularListsHome)
             }
-
-            listAdapter.updateAdapter(responseList, responseHuman)
-            reviewAdapter.updateAdapter(responseList1, responseHuman)
-
-            stopShimmers()
+        }
+        lifecycleScope.launch {
+            viewmodel.recentReviews.collectLatest {
+                reviewAdapter.updateAdapter(it)
+                stopShimmer(binding.shimmerRecentReviewsHome)
+            }
         }
     }
 
     private fun setAdapters() {
-        binding.rvpopularmovies.adapter = popularAdapter
-        binding.rvpopularlists.adapter = listAdapter
-        binding.rvrecentreviews.adapter = reviewAdapter
+        binding.rvPopularMoviesHome.adapter = popularAdapter
+        binding.rvPopularListsHome.adapter = popularListAdapter
+        binding.rvRecentReviewsHome.adapter = reviewAdapter
     }
 
     private fun setUI() {
         val drawerLayout = binding.myDrawerLayout
-        val navigationView = requireActivity().findViewById(R.id.drawernavigationhome) as NavigationView
+        val navigationView: NavigationView = requireActivity().findViewById(R.id.drawerNavigationHome)
 
-        val username = shprefLoggedin.getString("username", null)
-        val useremail = shprefLoggedin.getString("email", null)
-        val status = shprefStatus.getBoolean("status", false)
+        val userName = sharedPrefLoggedIn.getString("username", null)
+        val userEmail = sharedPrefLoggedIn.getString("email", null)
+        val status = sharedPrefStatus.getBoolean("status", false)
         val followerCount = 22   //from api
         val followingCount = 39
         val headerView = navigationView.getHeaderView(0)
         val userProfilePicture = headerView.findViewById<ShapeableImageView>(R.id.imageUserppDrawer)
-        val usernameDrawer = headerView.findViewById<TextView>(R.id.textUsernamedrawer)
-        val useremailDrawer = headerView.findViewById<TextView>(R.id.textUseremaildrawer)
-        val followercountDrawer = headerView.findViewById<Chip>(R.id.chipFollowersdrawer)
-        val followingcountDrawer = headerView.findViewById<Chip>(R.id.chipFollowingsdrawer)
-        usernameDrawer.text = username
-        useremailDrawer.text = useremail
-        followercountDrawer.text = "${numberFormatterSpaced(followerCount.toLong())} Followers"
-        followingcountDrawer.text = "${numberFormatterSpaced(followingCount.toLong())} Followings"
-        binding.textgreeting1.text = Html.fromHtml("Hello, <font color=\"#E9A6A6\">$username</font>!")
+        val userNameDrawer = headerView.findViewById<TextView>(R.id.textUsernamedrawer)
+        val userEmailDrawer = headerView.findViewById<TextView>(R.id.textUseremaildrawer)
+        val followerCountDrawer = headerView.findViewById<Chip>(R.id.chipFollowersdrawer)
+        val followingCountDrawer = headerView.findViewById<Chip>(R.id.chipFollowingsdrawer)
+        userNameDrawer.text = userName
+        userEmailDrawer.text = userEmail
+        followerCountDrawer.text = "${numberFormatterSpaced(followerCount.toLong())} ${getString(R.string.followers)}"
+        followingCountDrawer.text = "${numberFormatterSpaced(followingCount.toLong())} ${getString(R.string.followings)}"
+        binding.textGreetingHome.text = Html.fromHtml("${getString(R.string.greeting_text)}, <font color=\"#E9A6A6\">$userName</font>!")
 
-        Glide.with(binding.imageuserpphome)
+        Glide.with(binding.imageUserProfilePictureHome)
             .load(getProfilePictureUri())
-            .placeholder(R.drawable.usersample)
+            .placeholder(R.drawable.placeholder_user)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .into(binding.imageuserpphome)
+            .into(binding.imageUserProfilePictureHome)
 
         Glide.with(userProfilePicture)
             .load(getProfilePictureUri())
-            .placeholder(R.drawable.usersample)
+            .placeholder(R.drawable.placeholder_user)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(userProfilePicture)
 
-        if (status) binding.imageUserstatusHome.setImageResource(R.drawable.circle_green)
-        else binding.imageUserstatusHome.setImageResource(R.drawable.circle_red)
+        if (status) binding.imageUserStatusHome.setImageResource(R.drawable.circle_green)
+        else binding.imageUserStatusHome.setImageResource(R.drawable.circle_red)
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -210,8 +184,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
                 R.id.nav_logout -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
-                    shprefLoggedin.edit().putBoolean("status", false).apply()
-                    NancyToast.makeText(requireContext(), "You have been logged out!", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
+                    sharedPrefLoggedIn.edit().putBoolean("status", false).apply()
+                    nancyToastInfo(requireContext(), getString(R.string.logout_info_message))
                     navigateToOnBoardActivity()
                     true
                 }
@@ -221,11 +195,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     override fun observeChanges() {
-        binding.morehome.setOnClickListener {
+        binding.toggleDrawerHome.setOnClickListener {
             binding.myDrawerLayout.openDrawer(Gravity.LEFT, true)
         }
 
-        binding.imageuserpphome.setOnClickListener {
+        binding.imageUserProfilePictureHome.setOnClickListener {
             showStatusDialog()
         }
     }
@@ -245,54 +219,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         requireActivity().finish()
     }
 
-    private fun startShimmers() {
-        shimmerPopularMovies = binding.rvpopularmoviesShimmera
-        shimmerPopularLists = binding.rvpopularlistsShimmer
-        shimmerHomeReviews = binding.rvrecentreviewsShimmer
-        shimmerPopularMovies.startShimmer()
-        shimmerPopularMovies.visibility = View.VISIBLE
-        shimmerPopularLists.startShimmer()
-        shimmerPopularLists.visibility = View.VISIBLE
-        shimmerHomeReviews.startShimmer()
-        shimmerHomeReviews.visibility = View.VISIBLE
-    }
-
-    private fun stopShimmers() {
-        shimmerPopularMovies.stopShimmer()
-        shimmerPopularMovies.visibility = View.GONE
-        shimmerPopularLists.stopShimmer()
-        shimmerPopularLists.visibility = View.GONE
-        shimmerHomeReviews.stopShimmer()
-        shimmerHomeReviews.visibility = View.GONE
-    }
-
     private fun showStatusDialog() {
-
         val customTitle = TextView(requireContext()).apply {
-            text = "  Change your status"
-            setPadding(40, 40, 40, 40) // Adjust padding as needed
+            text = getString(R.string.__change_your_status)
+            setPadding(40, 40, 40, 40)
             textSize = 24f
             setTextColor(Color.WHITE)
         }
 
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.CustomAlertDialog)
             .setCustomTitle(customTitle)
-            .setTitle("Change your status")   //.setTitle(resources.getString(R.string.title))
-            .setMessage("If you set the status offline, you won't be able to see your friends status either!")
-            .setNeutralButton("Cancel") { dialog, _ ->
+            .setTitle(getString(R.string.__change_your_status))
+            .setMessage(getString(R.string.change_status_explanation))
+            .setNeutralButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
-                NancyToast.makeText(requireContext(), "Operation cancelled", NancyToast.LENGTH_SHORT, NancyToast.DEFAULT, false).show()
+                nancyToastSuccess(requireContext(), getString(R.string.operation_cancelled))
             }
-            .setNegativeButton("Offline") { _, _ ->
-                binding.imageUserstatusHome.setImageResource(R.drawable.circle_red)
-                NancyToast.makeText(requireContext(), "Status Offline", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
-                shprefStatus.edit().putBoolean("status", false).apply()
+            .setNegativeButton(getString(R.string.offline)) { _, _ ->
+                binding.imageUserStatusHome.setImageResource(R.drawable.circle_red)
+                nancyToastError(requireContext(), getString(R.string.status_offline))
+                sharedPrefStatus.edit().putBoolean("status", false).apply()
 
             }
-            .setPositiveButton("Online") { _, _ ->
-                binding.imageUserstatusHome.setImageResource(R.drawable.circle_green)
-                NancyToast.makeText(requireContext(), "Status Online", NancyToast.LENGTH_SHORT, NancyToast.SUCCESS, false).show()
-                shprefStatus.edit().putBoolean("status", true).apply()
+            .setPositiveButton(getString(R.string.online)) { _, _ ->
+                binding.imageUserStatusHome.setImageResource(R.drawable.circle_green)
+                nancyToastSuccess(requireContext(), getString(R.string.status_online))
+                sharedPrefStatus.edit().putBoolean("status", true).apply()
             }
             .create()
 
@@ -314,13 +266,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun getProfilePictureUri(): Uri {
-        val uriImage = shprefProfilePicture.getString("profile_image_uri", null)
+        val uriImage = sharedPrefProfilePicture.getString("profile_image_uri", null)
         return if (uriImage != null) {
             Uri.parse(uriImage)
         } else {
-            // Return a default drawable URI as fallback
-            Uri.parse("android.resource://${requireActivity().packageName}/${R.drawable.usersample}")
+            // return default drawable uri
+            Uri.parse("android.resource://${requireActivity().packageName}/${R.drawable.placeholder_user}")
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (viewmodel.popularMovies.value.isEmpty()) startShimmer(binding.shimmerPopularMoviesHome)
+        if (viewmodel.popularLists.value.isEmpty()) startShimmer(binding.shimmerPopularListsHome)
+        if (viewmodel.recentReviews.value.isEmpty()) startShimmer(binding.shimmerRecentReviewsHome)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopShimmer(binding.shimmerPopularMoviesHome)
+        stopShimmer(binding.shimmerPopularListsHome)
+        stopShimmer(binding.shimmerRecentReviewsHome)
+    }
 }

@@ -14,7 +14,7 @@
         android:elevation="6dp"
         android:text="category"
         android:textStyle="bold"
-        android:textColor="@color/darkpurple_letterboxn"
+        android:textColor="@color/letterboxn_dark_purple"
         app:chipCornerRadius="10dp"
         app:chipStrokeWidth="1.5dp"
         app:layout_constraintEnd_toEndOf="parent"

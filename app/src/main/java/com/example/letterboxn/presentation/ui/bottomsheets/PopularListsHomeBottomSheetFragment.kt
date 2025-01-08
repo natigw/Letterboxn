@@ -27,11 +27,11 @@ class PopularListsHomeBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetf
             textBshitmovietitle2.text = item.movie2.movieTitle
             textBshitmovietitle3.text = item.movie3.movieTitle
             textBshitmovietitle4.text = item.movie4.movieTitle
-            chipBShitAuthorname.text = item.authorName
-            imageBShitAuthorprofile.load("https://image.tmdb.org/t/p/h632" + item.authorImage) {
+            chipBShitAuthorname.text = item.listAuthorName
+            imageBShitAuthorprofile.load("https://image.tmdb.org/t/p/h632" + item.listAuthorImage) {
                 crossfade(true)
                 placeholder(R.drawable.custom_poster_shape)
-                error(R.drawable.usersample)
+                error(R.drawable.placeholder_user)
             }
 //            imageOnClick(imageBShit1, item.movie1.movieId)
 //            imageOnClick(imageBShit2, item.movie2.movieId)

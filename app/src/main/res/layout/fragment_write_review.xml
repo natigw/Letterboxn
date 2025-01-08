@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkpurple_letterboxn"
+    android:background="@color/letterboxn_dark_purple"
     tools:context=".presentation.ui.fragments.movieDetails.WriteReviewFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -90,9 +90,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/skincolor_letterboxn"
+        android:backgroundTint="@color/letterboxn_skin_color"
         android:text="Publish"
-        android:textColor="@color/darkpurple_letterboxn"
+        android:textColor="@color/letterboxn_dark_purple"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline8" />

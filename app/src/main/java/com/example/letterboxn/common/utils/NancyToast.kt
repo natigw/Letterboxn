@@ -7,21 +7,17 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.DrawableRes
 import androidx.annotation.IntDef
 import com.example.letterboxn.R
 
-class NancyToast
+class NancyToast (context: Context) : Toast(context) {
 
-    (context: Context) : Toast(context) {
     @Retention(AnnotationRetention.SOURCE)
     @IntDef(SUCCESS, WARNING, ERROR, INFO, DEFAULT)
     annotation class LayoutType
 
+    @Retention(AnnotationRetention.SOURCE)
     @IntDef(LENGTH_SHORT, LENGTH_LONG)
-    @Retention(
-        AnnotationRetention.SOURCE
-    )
     annotation class Duration
     companion object {
         const val SUCCESS: Int = 1
@@ -35,79 +31,41 @@ class NancyToast
 
         fun makeText(
             context: Context,
-            message: CharSequence?,
+            message: String?,
             @Duration duration: Int,
-            @LayoutType type: Int,
-            androidIcon : Boolean
+            @LayoutType type: Int
         ): Toast {
             val toast = Toast(context)
             toast.duration = duration
             val layout: View =
-                LayoutInflater.from(context).inflate(com.shashank.sony.fancytoastlib.R.layout.fancytoast_layout, null, false)
-            val l1 = layout.findViewById<TextView>(com.shashank.sony.fancytoastlib.R.id.toast_text)
-            val linearLayout = layout.findViewById<LinearLayout>(com.shashank.sony.fancytoastlib.R.id.toast_type)
-            val img = layout.findViewById<ImageView>(com.shashank.sony.fancytoastlib.R.id.toast_icon)
-            val img1 = layout.findViewById<ImageView>(com.shashank.sony.fancytoastlib.R.id.imageView4)
-            l1.text = message
-            if (androidIcon)
-                img1.setVisibility(View.VISIBLE)
-            else img1.setVisibility(View.GONE)
+                LayoutInflater.from(context).inflate(R.layout.nancy_toast_layout, null, false)
+            val text = layout.findViewById<TextView>(R.id.toast_text)
+            val linearLayout = layout.findViewById<LinearLayout>(R.id.toast_type)
+            val icon = layout.findViewById<ImageView>(R.id.toast_icon)
+            text.text = message
             when (type) {
                 SUCCESS -> {
-                    linearLayout.setBackgroundResource(com.shashank.sony.fancytoastlib.R.drawable.success_shape)
-                    img.setImageResource(R.drawable.round_check_circle_24)
+                    linearLayout.setBackgroundResource(R.drawable.shape_success)
+                    icon.setImageResource(R.drawable.ic_success)
                 }
                 WARNING -> {
-                    linearLayout.setBackgroundResource(com.shashank.sony.fancytoastlib.R.drawable.warning_shape)
-                    img.setImageResource(R.drawable.round_warning_24)
+                    linearLayout.setBackgroundResource(R.drawable.shape_warning)
+                    icon.setImageResource(R.drawable.ic_warning)
                 }
                 ERROR -> {
-                    linearLayout.setBackgroundResource(com.shashank.sony.fancytoastlib.R.drawable.error_shape)
-                    img.setImageResource(R.drawable.round_cancel_24)
+                    linearLayout.setBackgroundResource(R.drawable.shape_error)
+                    icon.setImageResource(R.drawable.ic_cancel)
                 }
                 INFO -> {
-                    linearLayout.setBackgroundResource(com.shashank.sony.fancytoastlib.R.drawable.info_shape)
-                    img.setImageResource(R.drawable.round_info_24)
+                    linearLayout.setBackgroundResource(R.drawable.shape_info)
+                    icon.setImageResource(R.drawable.ic_info)
                 }
                 DEFAULT -> {
-                    linearLayout.setBackgroundResource(com.shashank.sony.fancytoastlib.R.drawable.default_shape)
-                    img.visibility = View.GONE
+                    linearLayout.setBackgroundResource(R.drawable.shape_default)
+                    icon.visibility = View.GONE
                 }
             }
-            toast.setView(layout)
-            return toast
-        }
-
-
-        fun makeText(
-            context: Context,
-            message: CharSequence?,
-            @Duration duration: Int,
-            @LayoutType type: Int,
-            @DrawableRes ImageResource: Int,
-            androidIcon: Boolean
-        ): Toast {
-            val toast = Toast(context)
-            toast.duration = duration
-            val layout: View =
-                LayoutInflater.from(context).inflate(com.shashank.sony.fancytoastlib.R.layout.fancytoast_layout, null, false)
-            val l1 = layout.findViewById<TextView>(com.shashank.sony.fancytoastlib.R.id.toast_text)
-            val linearLayout = layout.findViewById<LinearLayout>(com.shashank.sony.fancytoastlib.R.id.toast_type)
-            val img = layout.findViewById<ImageView>(com.shashank.sony.fancytoastlib.R.id.toast_icon)
-            val img1 = layout.findViewById<ImageView>(com.shashank.sony.fancytoastlib.R.id.imageView4)
-            l1.text = message
-            img.setImageResource(ImageResource)
-            if (androidIcon)
-                img1.setVisibility(View.VISIBLE)
-            else img1.setVisibility(View.GONE)
-            when (type) {
-                SUCCESS -> linearLayout.setBackgroundResource(com.shashank.sony.fancytoastlib.R.drawable.success_shape)
-                WARNING -> linearLayout.setBackgroundResource(com.shashank.sony.fancytoastlib.R.drawable.warning_shape)
-                ERROR -> linearLayout.setBackgroundResource(com.shashank.sony.fancytoastlib.R.drawable.error_shape)
-                INFO -> linearLayout.setBackgroundResource(com.shashank.sony.fancytoastlib.R.drawable.info_shape)
-                DEFAULT -> linearLayout.setBackgroundResource(com.shashank.sony.fancytoastlib.R.drawable.default_shape)
-            }
-            toast.setView(layout)
+            toast.view = layout
             return toast
         }
     }

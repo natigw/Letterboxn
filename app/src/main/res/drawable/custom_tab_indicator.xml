@@ -10,7 +10,7 @@
             android:pathData="M9 0H37C41.9706 0 46 4.02944 46 9C46 13.9706 41.9706 18 37 18H9C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0Z"/>
         <path
             android:pathData="M0 0V18H46V0"
-            android:fillColor="@color/chippurple_letterboxn"/>
+            android:fillColor="@color/chip_purple"/>
     </group>
     <group
         android:translateY="22"> <!-- Adjust this value to control the margin between the oval and the line -->
@@ -18,6 +18,6 @@
         <path
             android:pathData="M11.5 0H34.5"
             android:strokeWidth="2"
-            android:strokeColor="@color/chippurple_letterboxn"/>
+            android:strokeColor="@color/chip_purple"/>
     </group>
 </vector>

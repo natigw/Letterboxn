@@ -56,7 +56,7 @@
         android:rating="0"
         android:numStars="5"
         android:stepSize="0.5"
-        android:progressBackgroundTint="@color/shimmer_letterboxn"
+        android:progressBackgroundTint="@color/shimmer_gray"
         android:progressTint="#FFEB3B"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"

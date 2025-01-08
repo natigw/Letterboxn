@@ -1,14 +1,17 @@
 package com.example.letterboxn.presentation.ui.fragments.auth
 
-import android.graphics.Color.parseColor
 import android.view.View
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.common.utils.nancyToastError
+import com.example.common.utils.nancyToastInfo
+import com.example.common.utils.nancyToastSuccess
+import com.example.common.utils.nancyToastWarning
+import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.databinding.FragmentSignupBinding
-import com.example.letterboxn.common.utils.NancyToast
-import com.example.letterboxn.data.remote.api.TmdbApi
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -22,7 +25,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
     lateinit var firestore: FirebaseFirestore
 
     @Inject
-    lateinit var api : TmdbApi
+    lateinit var api : MovieApi
 
     override fun onViewCreatedLight() {
 
@@ -47,7 +50,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
                     blockSignupButton()
 
                     if (checkIfUserExists(email)) {
-                        NancyToast.makeText(requireContext(), "User already exists!", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+                        nancyToastError(requireContext(), getString(R.string.user_already_exist))
                         resetSignupButton()
                         return@launch
                     }
@@ -56,18 +59,15 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
                         registerUser(username, email, password, entrypin)//, apikey)
                         //createUserInFirebaseAuth(email, password)
                         clearInputFields()
-                        NancyToast.makeText(requireContext(), "Registration successful!", NancyToast.LENGTH_SHORT, NancyToast.SUCCESS, false).show()
+                        nancyToastSuccess(requireContext(), getString(R.string.register_successful))
                         findNavController().popBackStack()
                     } catch (e: Exception) {
-                        NancyToast.makeText(requireContext(), "Registration failed!", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+                        nancyToastError(requireContext(), getString(R.string.register_failed))
                     } finally {
                         resetSignupButton()
                     }
-
                 }
-
             }
-
         }
     }
 
@@ -77,42 +77,42 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
         }
 
         binding.imageGooglelogo.setOnClickListener {
-            NancyToast.makeText(requireContext(), "Google", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
+            nancyToastInfo(requireContext(), getString(R.string.google))
         }
         binding.imageApplelogo.setOnClickListener {
-            NancyToast.makeText(requireContext(), "Apple", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
+            nancyToastInfo(requireContext(), getString(R.string.apple))
         }
         binding.imageFacebooklogo.setOnClickListener {
-            NancyToast.makeText(requireContext(), "Facebook", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
+            nancyToastInfo(requireContext(), getString(R.string.facebook))
         }
     }
 
     private fun checkInputFields(username: String, email: String, password: String, entrypin: String) : Boolean {//, apikey: String): Boolean {
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || entrypin.isEmpty()) {
-            NancyToast.makeText(requireContext(), "Please fill the gaps!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+            nancyToastWarning(requireContext(), getString(R.string.please_fill_all_gaps))
             return false
         }
         if (password.length < 6) {
-            NancyToast.makeText(requireContext(), "Password length should be more than 5!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+            nancyToastWarning(requireContext(), getString(R.string.entry_pin_length_should_more_than_5))
             return false
         }
         if (password.isDigitsOnly()) {
-            NancyToast.makeText(requireContext(), "Password should contain letter(s)!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+            nancyToastWarning(requireContext(), getString(R.string.password_should_contain_letter))
             return false
         }
         if (!entrypin.isDigitsOnly()){
-            NancyToast.makeText(requireContext(), "Entry pin can only be numbers!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+            nancyToastWarning(requireContext(), getString(R.string.entry_pin_should_only_numbers))
             return false
         }
         if (entrypin.length != 4){
-            NancyToast.makeText(requireContext(), "The length of entrypin can only be 4!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+            nancyToastWarning(requireContext(), getString(R.string.entry_pin_length_should_be_4))
             return false
         }
 //        if (apikey.isEmpty()) {
-//            NancyToast.makeText(requireContext(), "Please input a valid API key!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+//        nancyToastWarning(requireContext(), getString(R.string.invalid_api_key))
 //            return false
 //        }
-        //if (apikey.isEmpty() || !validateApiKey(apikey)) NancyToast.makeText(requireContext(), "Please input a valid API key!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+//        if (apikey.isEmpty() || !validateApiKey(apikey)) nancyToastWarning(requireContext(), getString(R.string.invalid_api_key))
         //return validateApiKey(apikey)   //else true for all the statements above
         return true
     }
@@ -122,7 +122,7 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
             progressBarsu.visibility = View.VISIBLE
             buttonSignup.isEnabled = false
             buttonSignup.text = null
-            buttonSignup.setBackgroundColor(parseColor("#FFDADADA"))
+            buttonSignup.setBackgroundColor(requireContext().getColor(R.color.button_disabled))
         }
     }
 
@@ -130,8 +130,8 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(FragmentSignupBinding
         binding.apply {
             progressBarsu.visibility = View.INVISIBLE
             buttonSignup.isEnabled = true
-            buttonSignup.text = "Sign up"
-            buttonSignup.setBackgroundColor(parseColor("#407BFF"))
+            buttonSignup.text = getString(R.string.sign_up)
+            buttonSignup.setBackgroundColor(requireContext().getColor(R.color.letterboxn_register))
         }
     }
 

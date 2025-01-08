@@ -40,9 +40,9 @@ class MovieDetailsReviewsAdapter : BaseAdapter<SampleReviewMoviedetailsBinding>(
 
             Glide.with(imageReviewUserpp)
                 .load("https://image.tmdb.org/t/p/h632" + reviewItem.authorImage)
-                .placeholder(R.drawable.usersample)
+                .placeholder(R.drawable.placeholder_user)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .error(R.drawable.usersample)
+                .error(R.drawable.placeholder_user)
                 .into(imageReviewUserpp)
 
             textReviewreadmore.visibility = if (lines < 5) View.INVISIBLE else View.VISIBLE

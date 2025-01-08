@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        window.navigationBarColor = getColor(R.color.exactdarkpurple_letterboxn)
+        window.navigationBarColor = getColor(R.color.letterboxn_exact_dark_purple)
 
         Handler().postDelayed({
             startActivity(Intent(this, MainActivity::class.java))

@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.letterboxn.common.base.BaseFragment
-import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.databinding.FragmentSearchExploreBinding
 import com.example.letterboxn.domain.model.SearchItem
 import com.example.letterboxn.presentation.adapters.SearchAdapter
@@ -26,7 +26,7 @@ class SearchExploreFragment :
     BaseFragment<FragmentSearchExploreBinding>(FragmentSearchExploreBinding::inflate) {
 
     @Inject
-    lateinit var api: TmdbApi
+    lateinit var api: MovieApi
 
     val viewmodel : SearchViewModel by viewModels()
     private val searchAdapter = SearchAdapter(

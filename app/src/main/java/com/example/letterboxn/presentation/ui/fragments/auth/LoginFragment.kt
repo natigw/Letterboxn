@@ -3,19 +3,21 @@ package com.example.letterboxn.presentation.ui.fragments.auth
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color.parseColor
 import android.net.Uri
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.common.utils.nancyToastError
+import com.example.common.utils.nancyToastInfo
+import com.example.common.utils.nancyToastSuccess
+import com.example.common.utils.nancyToastWarning
 import com.example.letterboxn.R
-import com.example.letterboxn.domain.model.FirestoreUser
 import com.example.letterboxn.common.base.BaseFragment
-import com.example.letterboxn.databinding.FragmentLoginBinding
-import com.example.letterboxn.presentation.ui.activities.MainActivity
-import com.example.letterboxn.common.utils.NancyToast
-import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.api.AuthApi
 import com.example.letterboxn.data.remote.model.authentication.RequestTokenBody
+import com.example.letterboxn.databinding.FragmentLoginBinding
+import com.example.letterboxn.domain.model.FirestoreUser
+import com.example.letterboxn.presentation.ui.activities.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,10 +38,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     @Inject
     @Named("UserLoggedIn")
-    lateinit var shprefLogon : SharedPreferences
+    lateinit var sharedPrefLogon : SharedPreferences
 
     @Inject
-    lateinit var api : TmdbApi
+    lateinit var api : AuthApi
 
     override fun onViewCreatedLight() {
 
@@ -59,7 +61,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 //                        task.getResult(ApiException::class.java)
 //                        navigateToMainActivity()
 //                    } catch (e: ApiException) {
-//                        NancyToast.makeText(requireContext(), "exception error", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+//        nancyToastError(requireContext(), getString(R.string.exception_error))
 //                    }
 //                }
 //            }
@@ -67,7 +69,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 //            // Start the sign-in flow
 //            val signInIntent = gClient.signInIntent
 //            activityResultLauncher.launch(signInIntent)
-
 
         loginButton()
     }
@@ -77,7 +78,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             findNavController().popBackStack()
         }
         binding.textForgotpassword.setOnClickListener {
-            NancyToast.makeText(requireContext(), "[navigating to help page]", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
+            nancyToastInfo(requireContext(), getString(R.string.navigating_help_screen))
         }
         binding.textDonthaveaccount.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
@@ -91,7 +92,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             val password = binding.passwordsi.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
-                NancyToast.makeText(requireContext(), "Please fill the gaps!", NancyToast.LENGTH_SHORT, NancyToast.WARNING,false).show()
+                nancyToastWarning(requireContext(), getString(R.string.please_fill_all_gaps))
                 return@setOnClickListener
             }
 
@@ -109,7 +110,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             progressBarsi.visibility = View.VISIBLE
             buttonLogin.isEnabled = false
             buttonLogin.text = null
-            buttonLogin.setBackgroundColor(parseColor("#FFDADADA"))
+            buttonLogin.setBackgroundColor(requireContext().getColor(R.color.button_disabled))
         }
     }
 
@@ -117,8 +118,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         binding.apply {
             progressBarsi.visibility = View.INVISIBLE
             buttonLogin.isEnabled = true
-            buttonLogin.text = "Sign in"
-            buttonLogin.setBackgroundColor(parseColor("#F44336"))
+            buttonLogin.text = getString(R.string.sign_in)
+            buttonLogin.setBackgroundColor(requireContext().getColor(R.color.letterboxn_login))
         }
     }
 
@@ -135,7 +136,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             if (document.exists()) {
                 val data = document.toObject(FirestoreUser::class.java)
                 if (data != null && password == data.password) {
-                    val editor = shprefLogon.edit()
+                    val editor = sharedPrefLogon.edit()
                     editor.putString("username", data.username)
                     editor.putString("email", data.email)
                     editor.putBoolean("status_loggedin", true)
@@ -143,16 +144,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                     editor.apply()
                     clearInputFields()
                     //authUserInTMDB(data.apikey)
-                    NancyToast.makeText(requireContext(), "Login successful!", NancyToast.LENGTH_SHORT, NancyToast.SUCCESS, false).show()
+                    nancyToastSuccess(requireContext(), getString(R.string.login_successful))
                     navigateToMainActivity()
                 } else {
-                    NancyToast.makeText(requireContext(), "Invalid password!", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+                    nancyToastError(requireContext(), getString(R.string.invalid_password))
                 }
             } else {
-                NancyToast.makeText(requireContext(), "User doesn't exist!", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+                nancyToastError(requireContext(), getString(R.string.user_not_exist))
             }
         } catch (e: Exception) {
-            NancyToast.makeText(requireContext(), "Auth failed!", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+            nancyToastError(requireContext(), getString(R.string.auth_failed))
         }
     }
 
@@ -176,13 +177,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                     apiKey = apikey,
                     sessionId = sessionId.sessionId
                 )
-                val shpref = requireContext().getSharedPreferences("account_id", Context.MODE_PRIVATE)
-                val editor = shpref.edit()
+                //TODO -> shared prefi di kecir
+                val sharedPref = requireContext().getSharedPreferences("account_id", Context.MODE_PRIVATE)
+                val editor = sharedPref.edit()
                 editor.putInt("id", accountId.id)
                 editor.putString("api+session", "api_key=$apikey&session_id=${sessionId.sessionId}")
                 editor.apply()
             } catch (e: Exception) {
-                NancyToast.makeText(requireContext(), "Failed to authenticate with TMDB", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+                nancyToastError(requireContext(), getString(R.string.tmdb_auth_failed))
             }
         }
     }
@@ -194,9 +196,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
 }
 
-
-// //            firebase.LoginWithEmailAndPassword(email, password).addOnSuccessListener {
-// //               findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-// //           }.addOnFailureListener {
-// //               Toast.makeText(requireContext(), "Auth failed!", Toast.LENGTH_SHORT).show()
-// //           }
+//            firebase.LoginWithEmailAndPassword(email, password).addOnSuccessListener {
+//               findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+//           }.addOnFailureListener {
+//               Toast.makeText(requireContext(), "Auth failed!", Toast.LENGTH_SHORT).show()
+//           }

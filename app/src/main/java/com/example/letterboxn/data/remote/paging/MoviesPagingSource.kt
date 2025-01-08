@@ -2,12 +2,12 @@ package com.example.letterboxn.data.remote.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.domain.model.MovieItem
 import javax.inject.Inject
 
 class MoviesPagingSource @Inject constructor(
-    private val api: TmdbApi
+    private val api: MovieApi
 ): PagingSource<Int, MovieItem>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieItem> {

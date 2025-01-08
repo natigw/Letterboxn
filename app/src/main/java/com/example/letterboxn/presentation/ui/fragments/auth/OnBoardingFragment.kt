@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.common.utils.nancyToastError
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.databinding.FragmentOnBoardingBinding
@@ -34,8 +35,8 @@ class OnBoardingFragment : BaseFragment<FragmentOnBoardingBinding>(bindingToInfl
             if (status && username != null) {
                 if (isUserAuthorized(username)) {
                     navigateToMainActivity()
-                } //else
-                    //NancyToast.makeText(requireContext(), "User unauthorized! Please log in.", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+                }
+                //else nancyToastError(requireContext(), "User unauthorized! Please log in.")
             }
         }
 

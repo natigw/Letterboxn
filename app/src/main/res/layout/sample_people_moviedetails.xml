@@ -16,6 +16,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
         android:scaleType="centerCrop"
-        android:background="@color/lightpurple_letterboxn"/>
+        android:background="@color/letterboxn_light_purple"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

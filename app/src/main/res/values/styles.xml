@@ -3,10 +3,10 @@
     <!-- Base application theme -->
     <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your theme here -->
-        <item name="colorPrimary">@color/darkpurple_letterboxn</item>
+        <item name="colorPrimary">@color/letterboxn_dark_purple</item>
         <item name="colorPrimaryVariant">#111020</item>
         <item name="colorOnPrimary">@android:color/white</item>
-        <item name="android:navigationBarColor">@color/bottommenu_navbar</item>
+        <item name="android:navigationBarColor">@color/bottom_nav_bar</item>
     </style>
 
 
@@ -31,7 +31,7 @@
 
     <!--    Custom Alert Dialog-->
     <style name="CustomAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-        <item name="android:background">@color/lightpurple_letterboxn</item>
+        <item name="android:background">@color/letterboxn_light_purple</item>
     </style>
     <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
         <item name="android:textColor">@color/white</item>
@@ -44,7 +44,7 @@
     </style>
 
 
-<!--    &lt;!&ndash;Custom splash screen&ndash;&gt;-->
+    <!--Custom splash screen-->
 <!--    <style name="SplashTheme" parent="Theme.SplashScreen">-->
 <!--        <item name="windowSplashScreenBackground">@drawable/splash_background</item>-->
 <!--&lt;!&ndash;        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_icon</item> &lt;!&ndash; Optional animated icon &ndash;&gt;&ndash;&gt;-->

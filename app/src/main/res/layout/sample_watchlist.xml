@@ -90,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="-2dp"
-        android:progressBackgroundTint="@color/shimmer_letterboxn"
+        android:progressBackgroundTint="@color/shimmer_gray"
         android:progressTint="#FF0000"
         android:scaleX="0.9"
         android:scaleY="0.9"

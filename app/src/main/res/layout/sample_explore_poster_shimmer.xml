@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/custom_poster_shape"
-        app:tint="@color/shimmer_letterboxn"/>
+        app:tint="@color/shimmer_gray"/>
 
     <TextView
         android:id="@+id/textMovienameExploreShimmer"
@@ -31,7 +31,7 @@
         android:maxLines="1"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:textColor="@color/darkpurple_letterboxn"
+        android:textColor="@color/letterboxn_dark_purple"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageMovieExploreShimmer"
         app:layout_constraintEnd_toEndOf="parent"

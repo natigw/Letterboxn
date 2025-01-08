@@ -28,24 +28,27 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.common.utils.nancyToast
+import com.example.common.utils.nancyToastError
+import com.example.common.utils.nancyToastInfo
+import com.example.common.utils.nancyToastSuccess
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
-import com.example.letterboxn.data.remote.api.TmdbApi
-import com.example.letterboxn.databinding.FragmentProfileBinding
-import com.example.letterboxn.presentation.adapters.ProfileRatedAdapter
-import com.example.letterboxn.presentation.ui.activities.OnBoardingActivity
-import com.example.letterboxn.presentation.viewmodels.ProfileViewModel
-import com.example.letterboxn.common.utils.NancyToast
 import com.example.letterboxn.common.utils.numberFormatter
 import com.example.letterboxn.common.utils.numberFormatterSpaced
 import com.example.letterboxn.data.local.database.review.ReviewDao
 import com.example.letterboxn.data.local.database.review.ReviewEntity
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.RequestAddRemoveFavorite
+import com.example.letterboxn.databinding.FragmentProfileBinding
 import com.example.letterboxn.domain.model.MovieItem
 import com.example.letterboxn.domain.model.RatedMovieItem
-import com.example.letterboxn.domain.model.ReviewWithMovieItem
+import com.example.letterboxn.domain.model.home.recentReviews.ReviewWithMovieItem
 import com.example.letterboxn.presentation.adapters.ProfileFavMoviesAdapter
+import com.example.letterboxn.presentation.adapters.ProfileRatedAdapter
 import com.example.letterboxn.presentation.adapters.ProfileReviewsAdapter
+import com.example.letterboxn.presentation.ui.activities.OnBoardingActivity
+import com.example.letterboxn.presentation.viewmodels.ProfileViewModel
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -59,26 +62,26 @@ import javax.inject.Named
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
     @Inject
-    lateinit var api: TmdbApi
+    lateinit var api: MovieApi
 
     @Inject
     lateinit var reviewDao: ReviewDao
 
     @Inject
     @Named("UserLoggedIn")
-    lateinit var shprefLogon : SharedPreferences
+    lateinit var sharedPrefLogon : SharedPreferences
 
     @Inject
     @Named("UserProfileImage")
-    lateinit var shprefProfilePicture : SharedPreferences
+    lateinit var sharedPrefProfilePicture : SharedPreferences
 
     @Inject
     @Named("UserBackPosterImage")
-    lateinit var shprefBackPoster : SharedPreferences
+    lateinit var sharedPrefBackPoster : SharedPreferences
 
     @Inject
     @Named("UserBackPosterIsDefault")
-    lateinit var shprefBackPosterIsDefault : SharedPreferences
+    lateinit var sharedPrefBackPosterIsDefault : SharedPreferences
 
     val viewmodel : ProfileViewModel by viewModels()
 
@@ -112,7 +115,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             Log.d("PhotoPicker", "Selected URI: $uri")
             saveImageUri(uri)
             refreshProfilePicture()
-            NancyToast.makeText(requireContext(), "Profile picture changed!", NancyToast.LENGTH_SHORT, NancyToast.SUCCESS, false).show()
+            nancyToastSuccess(requireContext(), getString(R.string.profile_picture_changed))
         } else {
             Log.d("PhotoPicker", "No media selected")
         }
@@ -127,7 +130,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     private lateinit var shimmerWatched : ShimmerFrameLayout
     private lateinit var shimmerReviewed : ShimmerFrameLayout
 
-    var username : String = "User"
+    var username : String = getString(R.string.user)
 
     val reviewsToDelete = mutableListOf<ReviewEntity>()
 
@@ -152,14 +155,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 //        val shp = requireContext().getSharedPreferences("account_id", Context.MODE_PRIVATE)
 //        val accId = shp.getInt("id", 0)
 //        val advApiKey = shp.getString("api+session", null)
-//        NancyToast.makeText(requireContext(), "accountId is $accId", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
-//        NancyToast.makeText(requireContext(), "api+sess is $advApiKey", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
+//        nancyToastInfo(requireContext(), "accountId is $accId")
+//        nancyToastInfo(requireContext(), "api+sess is $advApiKey")
 
         setAndStartShimmers()
 
-        username = shprefLogon.getString("username", null) ?: "User"
+        username = sharedPrefLogon.getString("username", null) ?: getString(R.string.user)
         binding.textUsernameprofile.text = username
-        binding.textUsersFavFilms.text = "$username's Favorite Films"
+        binding.textUsersFavFilms.text = "$username ${getString(R.string.somebody_s_fav_films)}"
         binding.textUsersrecentwatched.text = "$username's Recent Watched"
         binding.textUsersrecentreviewed.text = "$username's Recent Reviewed"
         val userFollowers = 22  //from api
@@ -300,14 +303,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToFavMoviesBottomSheetFragment())
         }
         binding.buttonSeeallRecents.setOnClickListener {
-            NancyToast.makeText(requireContext(), "[navigating all rated movies page]", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
+            nancyToastInfo(requireContext(), getString(R.string.navigating_rated_movies_screen))
         }
         binding.buttonSeeallReviews.setOnClickListener {
-            NancyToast.makeText(requireContext(), "[navigating all reviews page]", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
+            nancyToastInfo(requireContext(), getString(R.string.navigating_reviews_screen))
         }
         binding.buttonlogout.setOnClickListener {
-            shprefLogon.edit().putBoolean("status", false).apply()
-            NancyToast.makeText(requireContext(), "You have been logged out!", NancyToast.LENGTH_SHORT, NancyToast.INFO, false).show()
+            sharedPrefLogon.edit().putBoolean("status", false).apply()
+            nancyToastInfo(requireContext(), getString(R.string.logout_info_message))
             navigateToOnBoardActivity()
         }
 
@@ -363,15 +366,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 val movieDetails = api.getMovieDetails(movieId = review.movieId) //viewmodel
                 ReviewWithMovieItem(
                     authorName = username,
-                    authorImage = shprefProfilePicture.getString("profile_image_uri", null)
-                        ?: "android.resource://${requireActivity().packageName}/${R.drawable.usersample}",
+                    authorImage = sharedPrefProfilePicture.getString("profile_image_uri", null)
+                        ?: "android.resource://${requireActivity().packageName}/${R.drawable.placeholder_user}",
                     review = review.review,
-                    reviewRating = review.rating,
+                    reviewRating = review.rating.toDouble(),
                     commentCount = 0,
                     movieId = movieDetails.id,
                     movieTitle = movieDetails.title,
                     moviePoster = movieDetails.posterPath,
-                    movieRating = movieDetails.voteAverage.toFloat() / 2,
+                    movieRating = movieDetails.voteAverage / 2,
                     movieReleaseDate = movieDetails.releaseDate
                 )
             }.reversed().toMutableList()
@@ -445,14 +448,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                         reviewsToDelete.add(
                             ReviewEntity(
                             movieId = deletedReview.movieId,
-                            review = deletedReview.review,
+                            review = deletedReview.review ?: "Just perfect!",
                             rating = deletedReview.reviewRating,
                             reviewDate = deletedReview.movieReleaseDate,
-                            reviewId = reviewDao.getReviewId(deletedReview.movieId, review = deletedReview.review)!!)
+                            reviewId = reviewDao.getReviewId(deletedReview.movieId, review = deletedReview.review ?: "Just perfect!")!!)
                         )
                     }
-                    Snackbar.make(binding.rvUsersRecReviewed, "Review deleted", Snackbar.LENGTH_LONG).apply {
-                        setAction("UNDO") {
+                    Snackbar.make(binding.rvUsersRecReviewed, getString(R.string.review_deleted), Snackbar.LENGTH_LONG).apply {
+                        setAction(getString(R.string.undo)) {
                             reviewAdapter.restoreItem(deletedReview, position)
                             binding.rvUsersRecReviewed.scrollToPosition(position)
                             reviewsToDelete.removeLast()
@@ -520,11 +523,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private fun showDeleteConfirmationDialog(position: Int, movieId : Int) {
-        val deleteText = SpannableString("Delete").apply {
+        val deleteText = SpannableString(getString(R.string.delete)).apply {
             setSpan(ForegroundColorSpan(Color.RED), 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
         }
         MaterialAlertDialogBuilder(requireContext()).apply {
-            setMessage("Do you want to remove this movie?")
+            setMessage(getString(R.string.wanna_delete_this_movie))
             setPositiveButton(deleteText) { _, _ ->
                 favAdapter.removeItem(position)
                 binding.textFavcountProfile.text = binding.textFavcountProfile.text.toString().toInt().minus(1).toString()
@@ -536,7 +539,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     ))
                 }
             }
-            setNegativeButton("Cancel", null)
+            setNegativeButton(getString(R.string.cancel), null)
         }.show()
     }
 
@@ -544,15 +547,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
         val currentUri = getProfilePictureUri()
         // Check if the current picture is the default one
-        val isDefaultPicture = currentUri.toString() == "android.resource://${requireActivity().packageName}/${R.drawable.usersample}"
+        val isDefaultPicture = currentUri.toString() == "android.resource://${requireActivity().packageName}/${R.drawable.placeholder_user}"
 
 
-        val dialogTitle = if (isDefaultPicture) "  Set a profile picture" else "  Change or Delete picture"
-        val dialogMessage = if (isDefaultPicture) "Choose a new profile picture from the gallery." else "You can choose a new profile picture from the gallery, or delete to set default!"
+        val dialogTitle = if (isDefaultPicture) getString(R.string.set_a_profile_picture) else getString(R.string.change_or_delete_picture)
+        val dialogMessage = if (isDefaultPicture) getString(R.string.new_picture_from_gallery) else getString(R.string.new_profile_picture_options)
 
         val customTitle = TextView(requireContext()).apply {
             text = dialogTitle
-            setPadding(40, 40, 40, 40) // Adjust padding as needed
+            setPadding(40, 40, 40, 40)
             textSize = 24f
             setTextColor(Color.WHITE)
         }
@@ -560,28 +563,26 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val dialogBuilder = MaterialAlertDialogBuilder(requireContext(), R.style.CustomAlertDialog)
             .setCustomTitle(customTitle)
             .setMessage(dialogMessage)
-            .setNeutralButton("Cancel") { dialog, _ ->
+            .setNeutralButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
-                NancyToast.makeText(requireContext(), "Operation cancelled", NancyToast.LENGTH_SHORT, NancyToast.DEFAULT, false).show()
+                nancyToast(requireContext(), getString(R.string.operation_cancelled))
             }
-            .setPositiveButton("Change") { _, _ ->
+            .setPositiveButton(getString(R.string.change)) { _, _ ->
                 takePhotoOrChooseGalleryDialog()
             }
 
         if (!isDefaultPicture) {
-            dialogBuilder.setNegativeButton("Delete") { _, _ ->
-                // Set default image and clear the URI in SharedPreferences
-                val defaultUri = Uri.parse("android.resource://${requireActivity().packageName}/${R.drawable.usersample}")
+            dialogBuilder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
+                val defaultUri = Uri.parse("android.resource://${requireActivity().packageName}/${R.drawable.placeholder_user}")
                 Glide.with(binding.imageUserppprofile)
                     .load(defaultUri)
-                    .placeholder(R.drawable.usersample)
+                    .placeholder(R.drawable.placeholder_user)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(binding.imageUserppprofile)
-
                 // Clear the profile image URI in SharedPreferences
-                shprefProfilePicture.edit().remove("profile_image_uri").apply()
+                sharedPrefProfilePicture.edit().remove("profile_image_uri").apply()
 
-                NancyToast.makeText(requireContext(), "Profile picture deleted!", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+                nancyToastInfo(requireContext(), getString(R.string.profile_picture_deleted))
             }
         }
 
@@ -607,23 +608,23 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     private fun takePhotoOrChooseGalleryDialog() {
 
         val customTitle = TextView(requireContext()).apply {
-            text = "  Take or Choose a picture"
-            setPadding(40, 40, 40, 40) // Adjust padding as needed
+            text = getString(R.string.take_or_choose_picture)
+            setPadding(40, 40, 40, 40)
             textSize = 24f
             setTextColor(Color.WHITE)
         }
 
         val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.CustomAlertDialog)
             .setCustomTitle(customTitle)
-            .setMessage("You can take a photo right now, or choose one from your gallery.")
-            .setPositiveButton("Choose") { _, _ ->
+            .setMessage(getString(R.string.take_or_choose_explanation))
+            .setPositiveButton(getString(R.string.choose)) { _, _ ->
                 try {
                     pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                 } catch (e: Exception) {
                     Log.e("PhotoPicker", "PHOTOPICKER FAILED!")
-                    NancyToast.makeText(requireContext(), "Something went wrong!", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+                    nancyToastError(requireContext(), getString(R.string.something_went_wrong))
                 }
-            }.setNegativeButton("Take a picture") { _, _ ->
+            }.setNegativeButton(getString(R.string.take_picture)) { _, _ ->
                 handleCameraButtonClick()
             }.create()
 
@@ -646,18 +647,18 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
 
     private fun saveImageUri(uri: Uri) {
-        shprefProfilePicture.edit()
+        sharedPrefProfilePicture.edit()
             .putString("profile_image_uri", uri.toString())
             .apply()
     }
 
     private fun getProfilePictureUri(): Uri {
-        val uriImage = shprefProfilePicture.getString("profile_image_uri", null)
+        val uriImage = sharedPrefProfilePicture.getString("profile_image_uri", null)
         return if (uriImage != null) {
             Uri.parse(uriImage)
         } else {
             // Return a default drawable URI as fallback
-            Uri.parse("android.resource://${requireActivity().packageName}/${R.drawable.usersample}")
+            Uri.parse("android.resource://${requireActivity().packageName}/${R.drawable.placeholder_user}")
         }
     }
 
@@ -665,14 +666,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val uri = getProfilePictureUri()
         Glide.with(binding.imageUserppprofile)
             .load(uri)
-            .placeholder(R.drawable.usersample)
+            .placeholder(R.drawable.placeholder_user)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.imageUserppprofile)
     }
 
     private fun refreshProfileBackPoster() {
-        val isPosterDefault = shprefBackPosterIsDefault.getBoolean("isDefault", false)
-        val backPoster = shprefBackPoster.getString("poster", "android.resource://${requireActivity().packageName}/${R.drawable.profile_default_back3}")
+        val isPosterDefault = sharedPrefBackPosterIsDefault.getBoolean("isDefault", false)
+        val backPoster = sharedPrefBackPoster.getString("poster", "android.resource://${requireActivity().packageName}/${R.drawable.profile_default_back3}")
 
         if (isPosterDefault ) {
             Glide.with(binding.imageBackProfile)
@@ -744,12 +745,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     private fun showPermissionSettingsDialog() {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Permission Required")
-            .setMessage("You have denied camera permission several times. Please allow permission in the app settings to use this feature.")
-            .setPositiveButton("Go to Settings") { _, _ ->
+            .setTitle(getString(R.string.permission_required))
+            .setMessage(getString(R.string.permission_required_explanation))
+            .setPositiveButton(getString(R.string.goto_settings)) { _, _ ->
                 openAppSettings()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
@@ -759,5 +760,4 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         intent.data = uri
         startActivity(intent)
     }
-
 }

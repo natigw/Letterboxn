@@ -1,39 +1,30 @@
 package com.example.letterboxn.testplayground
 
-import android.view.View
 import com.example.letterboxn.common.base.BaseFragment
+import com.example.letterboxn.common.utils.startShimmer
+import com.example.letterboxn.common.utils.stopShimmer
 import com.example.letterboxn.databinding.FragmentShimmerBinding
-import com.facebook.shimmer.ShimmerFrameLayout
+import dagger.hilt.android.AndroidEntryPoint
 
-class ShimmerFragment : BaseFragment<FragmentShimmerBinding>(FragmentShimmerBinding::inflate){
-
-    private lateinit var shimmerFrameLayout: ShimmerFrameLayout
+@AndroidEntryPoint
+class ShimmerFragment : BaseFragment<FragmentShimmerBinding>(FragmentShimmerBinding::inflate) {
 
     override fun onViewCreatedLight() {
-        shimmerFrameLayout = binding.shimmerViewContainer
-        shimmerFrameLayout.startShimmer()
-        shimmerFrameLayout.visibility = View.VISIBLE
-    }
-
-    override fun observeChanges() {
-
+        binding.buttonStartShimmer.setOnClickListener {
+            startShimmer(binding.shimmerView)
+        }
+        binding.buttonStopShimmer.setOnClickListener {
+            stopShimmer(binding.shimmerView)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        shimmerFrameLayout.startShimmer()
-        shimmerFrameLayout.visibility = View.VISIBLE
+        startShimmer(binding.shimmerView)
     }
 
     override fun onPause() {
         super.onPause()
-        shimmerFrameLayout.stopShimmer()
-        shimmerFrameLayout.visibility = View.GONE
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        shimmerFrameLayout.stopShimmer()
-        shimmerFrameLayout.visibility = View.GONE
+        stopShimmer(binding.shimmerView)
     }
 }

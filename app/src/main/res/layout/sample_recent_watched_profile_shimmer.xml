@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraSmall"
-        android:background="@color/shimmer_letterboxn" />
+        android:background="@color/shimmer_gray" />
 
     <RatingBar
         android:id="@+id/ratingBarWatchedProfileShimmer"
@@ -40,5 +40,5 @@
         app:layout_constraintEnd_toEndOf="@+id/imageMovieposterWatchedProfileShimmer"
         app:layout_constraintStart_toStartOf="@+id/imageMovieposterWatchedProfileShimmer"
         app:layout_constraintTop_toBottomOf="@+id/ratingBarWatchedProfileShimmer"
-        android:background="@color/shimmer_letterboxn"/>
+        android:background="@color/shimmer_gray"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

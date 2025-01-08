@@ -9,10 +9,8 @@ import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseAdapter
 import com.example.letterboxn.common.utils.numberFormatter
 import com.example.letterboxn.common.utils.randomInteger
-import com.example.letterboxn.databinding.FragmentProfileBinding
 import com.example.letterboxn.databinding.SampleReviewBinding
-import com.example.letterboxn.domain.model.ReviewWithMovieItem
-import kotlin.random.Random
+import com.example.letterboxn.domain.model.home.recentReviews.ReviewWithMovieItem
 
 class ProfileReviewsAdapter (
     val onClick: (ReviewWithMovieItem) -> Unit
@@ -31,34 +29,33 @@ class ProfileReviewsAdapter (
 
         with(binding) {
             root.startAnimation(AnimationUtils.loadAnimation(root.context, R.anim.recyclerview_animation))
-            textRecentmovietitle.text = reviewItem.movieTitle
-            textRecentMoviereleasedate.text = reviewItem.movieReleaseDate.substring(0, 4)
-            textRecentreviewbyhome.text = Html.fromHtml("Reviewed by <font color=\"#E9A6A6\">${reviewItem.authorName}</font>")
-            textRecentcommentcount.text = numberFormatter(randomNumber.toLong())
-            textReviewratehome.text = (reviewItem.reviewRating).toString().substring(0,3)
+            textMovieTitleRecentReview.text = reviewItem.movieTitle
+            textReleaseDateRecentReview.text = reviewItem.movieReleaseDate.substring(0, 4)
+            textReviewByRecentReview.text = Html.fromHtml("Reviewed by <font color=\"#E9A6A6\">${reviewItem.authorName}</font>")
+            textCommentCountRecentReview.text = numberFormatter(randomNumber.toLong())
+            textRateRecentReview.text = (reviewItem.reviewRating).toString().substring(0,3)
 
-            textRecentReviewmaintext.text = reviewItem.review
-//            if (textRecentmaintext.lineCount < 4) textRecentreadmore.visibility = View.INVISIBLE
-//            textRecentmaintext.maxLines = 4
-////            val overviewLines = postitem.overview.split("\n").size
-////            if (overviewLines < 4) textRecentreadmore.visibility = View.INVISIBLE
-            textRecentReviewmaintext.maxLines = 4
+            textMainTextRecentReview.text = reviewItem.review
+//            if (textMainTextRecentReview.lineCount < 4) textReadMoreRecentReview.visibility = View.INVISIBLE
+//            textMainTextRecentReview.maxLines = 4
+//            val overviewLines = reviewItem.review?.split("\n")?.size
+//            if (overviewLines != null) if (overviewLines < 4) textReadMoreRecentReview.visibility = View.INVISIBLE
+            textMainTextRecentReview.maxLines = 4
 
-            Glide.with(imageRecentUserpp)
+            Glide.with(imageUserPictureRecentReview)
                 .load(reviewItem.authorImage)
-                .placeholder(R.drawable.usersample)
+                .placeholder(R.drawable.placeholder_user)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageRecentUserpp)
-            Glide.with(imageRecentposter)
+                .into(imageUserPictureRecentReview)
+            Glide.with(imagePosterRecentReview)
                 .load("https://image.tmdb.org/t/p/w500" + reviewItem.moviePoster)
                 .placeholder(R.drawable.custom_poster_shape)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageRecentposter)
+                .into(imagePosterRecentReview)
             root.setOnClickListener {
                 onClick(reviewItem)
             }
         }
-
     }
 
     fun deleteItem(position: Int): ReviewWithMovieItem {

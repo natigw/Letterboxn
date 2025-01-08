@@ -7,14 +7,14 @@
     android:layout_height="wrap_content"
     android:gravity="bottom"
     android:padding="16dp"
-    android:background="@color/darkpurple_letterboxn">
+    android:background="@color/letterboxn_dark_purple">
 
     <TextView
         android:id="@+id/textUsernamedrawer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:textColor="@color/skincolor_letterboxn"
+        android:textColor="@color/letterboxn_skin_color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textUseremaildrawer"
@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="@+id/chipFollowersdrawer"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-        tools:srcCompat="@drawable/usersample" />
+        tools:srcCompat="@drawable/placeholder_user" />
 
     <TextView
         android:id="@+id/textUseremaildrawer"
@@ -62,7 +62,7 @@
         app:chipCornerRadius="10dp"
         app:chipEndPadding="10dp"
         app:chipStartPadding="10dp"
-        app:chipStrokeColor="@color/chippurple_letterboxn"
+        app:chipStrokeColor="@color/chip_purple"
         app:chipStrokeWidth="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageUserppDrawer"
@@ -82,7 +82,7 @@
         app:chipCornerRadius="10dp"
         app:chipEndPadding="10dp"
         app:chipStartPadding="10dp"
-        app:chipStrokeColor="@color/chippurple_letterboxn"
+        app:chipStrokeColor="@color/chip_purple"
         app:chipStrokeWidth="2dp"
         app:layout_constraintStart_toEndOf="@+id/chipFollowersdrawer"
         app:layout_constraintTop_toTopOf="@+id/chipFollowersdrawer"

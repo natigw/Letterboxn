@@ -11,7 +11,7 @@
         android:layout_height="99dp"
         android:layout_marginStart="4dp"
         android:adjustViewBounds="true"
-        android:background="@color/lightpurple_letterboxn"
+        android:background="@color/letterboxn_light_purple"
         android:elevation="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Read Reviews >"
-        android:textColor="@color/chippurple_letterboxn"
+        android:textColor="@color/chip_purple"
         android:textSize="9sp"
         app:layout_constraintStart_toStartOf="@+id/imageMovieposterWatchedProfile"
         app:layout_constraintTop_toBottomOf="@+id/ratingBarWatchedProfile" />

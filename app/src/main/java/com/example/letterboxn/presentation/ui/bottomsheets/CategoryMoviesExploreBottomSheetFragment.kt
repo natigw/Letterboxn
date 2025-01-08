@@ -5,7 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.letterboxn.common.base.BaseBottomSheetFragment
-import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.databinding.BottomsheetfragmentCategoryMoviesExploreBinding
 import com.example.letterboxn.domain.model.MoviesByCategoryItem
 import com.example.letterboxn.presentation.adapters.ExploreMoviesByCategoryAdapter
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class CategoryMoviesExploreBottomSheetFragment : BaseBottomSheetFragment<BottomsheetfragmentCategoryMoviesExploreBinding>(BottomsheetfragmentCategoryMoviesExploreBinding::inflate) {
 
     @Inject
-    lateinit var api : TmdbApi
+    lateinit var api : MovieApi
 
     private val args : CategoryMoviesExploreBottomSheetFragmentArgs by navArgs()
 

@@ -1,27 +1,22 @@
 package com.example.letterboxn.data.remote.api
 
-import com.example.letterboxn.data.remote.model.account.accountDetails.AccountDto
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.FavoriteMoviesDto
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.RequestAddRemoveFavorite
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.ResponseAddRemoveFavorite
 import com.example.letterboxn.data.remote.model.account.ratedMovies.RatedMoviesDto
-import com.example.letterboxn.data.remote.model.authentication.IsValidApiKeyResponse
-import com.example.letterboxn.data.remote.model.authentication.RequestTokenBody
-import com.example.letterboxn.data.remote.model.authentication.RequestTokenResponse
-import com.example.letterboxn.data.remote.model.authentication.ResponseSession
-import com.example.letterboxn.data.remote.model.genre.GenreItemDto
-import com.example.letterboxn.data.remote.model.movieCredit.MovieCreditItemDto
-import com.example.letterboxn.data.remote.model.movieDetails.MovieDetailsItemDto
-import com.example.letterboxn.data.remote.model.person.PersonItemDto
-import com.example.letterboxn.data.remote.model.popularList.PopularListItemDto
-import com.example.letterboxn.data.remote.model.popularMovie.PopularMovieItemDto
 import com.example.letterboxn.data.remote.model.account.ratedMovies.rateMovie.RequestAddRating
 import com.example.letterboxn.data.remote.model.account.ratedMovies.rateMovie.ResponseAddRating
 import com.example.letterboxn.data.remote.model.account.ratedMovies.rateMovie.ResponseDeleteRating
 import com.example.letterboxn.data.remote.model.account.watchlist.WatchlistDto
 import com.example.letterboxn.data.remote.model.account.watchlist.addWatchlist.RequestAddRemoveWatchlist
 import com.example.letterboxn.data.remote.model.account.watchlist.addWatchlist.ResponseAddRemoveWatchlist
+import com.example.letterboxn.data.remote.model.genre.GenreItemDto
+import com.example.letterboxn.data.remote.model.movieCredit.MovieCreditItemDto
 import com.example.letterboxn.data.remote.model.movieCredit.personDetails.PersonDetailsDto
+import com.example.letterboxn.data.remote.model.movieDetails.MovieDetailsItemDto
+import com.example.letterboxn.data.remote.model.person.PersonItemDto
+import com.example.letterboxn.data.remote.model.popularList.PopularListItemDto
+import com.example.letterboxn.data.remote.model.popularMovie.PopularMovieItemDto
 import com.example.letterboxn.data.remote.model.review.MovieReviewDto
 import com.example.letterboxn.data.remote.model.review.details.ReviewDetailsDto
 import com.example.letterboxn.data.remote.model.search.multi.MultiSearchItemDto
@@ -37,29 +32,7 @@ const val defaultApiKey = "af7d82efc6ee62c7015bbedd34c8e8bc"
 const val defaultSessionId = "74c418d99438ea27b60170d0f6a4f675012ec084"
 const val defaultAccountId = "21304579"
 
-interface TmdbApi {
-
-    @GET("authentication/token/new")
-    suspend fun getRequestToken(
-        @Query("api_key") apiKey: String
-    ): RequestTokenResponse
-
-    @POST("authentication/session/new")
-    suspend fun postCreateSession(
-        @Query("api_key") apiKey: String,
-        @Body requestTokenBody: RequestTokenBody
-    ): ResponseSession
-
-    @GET("account")
-    suspend fun getAccountDetails(
-        @Query("api_key") apiKey: String,
-        @Query("session_id") sessionId : String
-    ) : AccountDto
-
-    @GET("authentication")
-    suspend fun isValidApiKey(
-        @Query("api_key") apiKey: String
-    ) : IsValidApiKeyResponse
+interface MovieApi {
 
     @GET("movie/popular")
     suspend fun getMovies(
@@ -141,13 +114,13 @@ interface TmdbApi {
 
     @GET("person/popular")
     suspend fun getPeople(
-        @Query("page") page: Int,
+        @Query("page") page: Int = 5,
         @Query("api_key") apiKey: String = defaultApiKey
     ) : PersonItemDto
 
     @GET("tv/popular")
     suspend fun getLists(
-        @Query("page") page: Int=1,
+        @Query("page") page: Int = 1,
         @Query("api_key") apiKey: String = defaultApiKey
     ) : PopularListItemDto
 

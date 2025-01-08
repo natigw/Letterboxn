@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkpurple_letterboxn">
+    android:background="@color/letterboxn_dark_purple">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,10 +40,10 @@
             android:id="@+id/imageUserppprofile"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:background="#454288"
+            android:background="@color/letterboxn_light_purple"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/usersample"
+            android:src="@drawable/placeholder_user"
             app:layout_constraintBottom_toBottomOf="@+id/imageBackProfile"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -122,7 +122,7 @@
             android:id="@+id/textRatedcountProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/skincolor_letterboxn"
+            android:textColor="@color/letterboxn_skin_color"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/textRatedfilmsProfile"
@@ -147,7 +147,7 @@
             android:id="@+id/textFavcountProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/chippurple_letterboxn"
+            android:textColor="@color/chip_purple"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/textFavoritefilmsProfile"
@@ -170,7 +170,7 @@
             android:id="@+id/textListcountProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/skincolor_letterboxn"
+            android:textColor="@color/letterboxn_skin_color"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/textListsProfile"
@@ -196,7 +196,7 @@
             android:id="@+id/textReviewcountProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/chippurple_letterboxn"
+            android:textColor="@color/chip_purple"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/textReviewsProfile"
@@ -360,7 +360,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/textUsersrecentreviewed" >
 
-        <include layout="@layout/sample_review_shimmer" />
+        <include layout="@layout/sample_review_home_shimmer" />
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -383,12 +383,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/darkpurple_letterboxn"
+            android:backgroundTint="@color/letterboxn_dark_purple"
             android:minWidth="0dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="See All"
-            android:textColor="@color/skincolor_letterboxn"
+            android:textColor="@color/letterboxn_skin_color"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@+id/textUsersrecentwatched"
             app:layout_constraintEnd_toEndOf="parent"
@@ -399,12 +399,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/darkpurple_letterboxn"
+            android:backgroundTint="@color/letterboxn_dark_purple"
             android:minWidth="0dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="See All"
-            android:textColor="@color/skincolor_letterboxn"
+            android:textColor="@color/letterboxn_skin_color"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@+id/textUsersrecentreviewed"
             app:layout_constraintEnd_toEndOf="parent"

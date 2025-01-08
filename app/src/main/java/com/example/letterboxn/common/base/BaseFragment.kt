@@ -14,7 +14,7 @@ abstract class BaseFragment <VB : ViewBinding> (private val bindingToInflate : (
 
     abstract fun onViewCreatedLight()
 
-    abstract fun observeChanges()
+    open fun observeChanges() { }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,8 +31,8 @@ abstract class BaseFragment <VB : ViewBinding> (private val bindingToInflate : (
         observeChanges()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

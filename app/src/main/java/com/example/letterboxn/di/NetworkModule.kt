@@ -1,6 +1,8 @@
 package com.example.letterboxn.di
 
-import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.api.AuthApi
+import com.example.letterboxn.data.remote.api.MovieApi
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,18 +27,24 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideMovieApi(client : Retrofit) : TmdbApi {
-        return client.create(TmdbApi::class.java)
+    fun provideMovieApi(client : Retrofit) : MovieApi {
+        return client.create(MovieApi::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideAuthApi(client : Retrofit) : AuthApi {
+        return client.create(AuthApi::class.java)
+    }
 
-//    @Binds
-//    abstract fun bindMovieRepository(impl: MovieRepositoryImpl) : MovieRepository
 
 //    @Singleton
 //    @Provides
 //    fun provideMovieRepository(api : TmdbApi) : MovieRepository {
 //        return MovieRepositoryImpl(api)
 //    }
+
+//    @Binds
+//    abstract fun bindMovieRepository(impl: MovieRepositoryImpl) : MovieRepository
 
 }

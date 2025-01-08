@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseBottomSheetFragment
-import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.databinding.BottomsheetfragmentPersonDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class PersonDetailsBottomSheetFragment : BaseBottomSheetFragment<BottomsheetfragmentPersonDetailsBinding>(BottomsheetfragmentPersonDetailsBinding::inflate) {
 
     @Inject
-    lateinit var api : TmdbApi
+    lateinit var api : MovieApi
 
     val args : PersonDetailsBottomSheetFragmentArgs by navArgs()
 
@@ -29,7 +29,7 @@ class PersonDetailsBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetfrag
             with(binding){
                 Glide.with(imageImagePerson)
                     .load("https://image.tmdb.org/t/p/w500" + personItem.profilePath)
-                    .placeholder(R.drawable.usersample)
+                    .placeholder(R.drawable.placeholder_user)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageImagePerson)
                 textNamePerson.text = personItem.name

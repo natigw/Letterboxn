@@ -8,11 +8,12 @@ import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.navigation.fragment.findNavController
+import com.example.common.utils.nancyToastError
+import com.example.common.utils.nancyToastSuccess
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.databinding.FragmentPinEntryBinding
 import com.example.letterboxn.presentation.ui.activities.OnBoardingActivity
-import com.example.letterboxn.common.utils.NancyToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
@@ -22,18 +23,14 @@ class PinEntryFragment : BaseFragment<FragmentPinEntryBinding>(FragmentPinEntryB
 
     @Inject
     @Named("UserLoggedIn")
-    lateinit var shpref: SharedPreferences
+    lateinit var sharedPrefEntryPin: SharedPreferences
 
     private var correctPin: String? = null
     private var enteredPin = ""
 
     override fun onViewCreatedLight() {
-
-        correctPin = shpref.getString("entrypin", "")
-        if (correctPin == "") {
-            navigateToOnBoardActivity()
-        }
-
+        correctPin = sharedPrefEntryPin.getString("entrypin", "")
+        if (correctPin == "") navigateToOnBoardActivity()
         getPinfromUser()
         checkFingerprintBiometric()
     }
@@ -41,7 +38,6 @@ class PinEntryFragment : BaseFragment<FragmentPinEntryBinding>(FragmentPinEntryB
     override fun observeChanges() {
 
     }
-
 
     private fun getPinfromUser() {
         val pinViews = listOf(
@@ -87,7 +83,7 @@ class PinEntryFragment : BaseFragment<FragmentPinEntryBinding>(FragmentPinEntryB
     private fun checkPin() {
         if (enteredPin == correctPin) navigateToHomeFragment()
         else {
-            NancyToast.makeText(requireContext(), "Incorrect PIN!", NancyToast.LENGTH_SHORT, NancyToast.ERROR, false).show()
+            nancyToastError(requireContext(), getString(R.string.incorrect_pin))
             enteredPin = ""
             binding.pin1.text = ""
             binding.pin2.text = ""
@@ -115,18 +111,21 @@ class PinEntryFragment : BaseFragment<FragmentPinEntryBinding>(FragmentPinEntryB
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
-                    NancyToast.makeText(requireContext(), "Authentication successful!", NancyToast.LENGTH_SHORT, NancyToast.SUCCESS, false).show()
+                    nancyToastSuccess(requireContext(), getString(R.string.auth_successful))
                     navigateToHomeFragment()
                 }
-
             }
         )
 
         // BIOMETRIC DIALOG
-        val promptInfo = PromptInfo.Builder().setTitle("Letterboxn")
-            .setDescription("Use your fingerprint to login ").setNegativeButtonText("Cancel")
+        val promptInfo = PromptInfo.Builder()
+            .setTitle(getString(R.string.letterboxn))
+            .setDescription(getString(R.string.use_fingerprint_login))
+            .setNegativeButtonText(getString(R.string.cancel))
             .build()
-        binding.imageFingerprintEntrypin.setOnClickListener { biometricPrompt.authenticate(promptInfo) }
+        binding.imageFingerprintEntrypin.setOnClickListener {
+            biometricPrompt.authenticate(promptInfo)
+        }
     }
 
     private fun navigateToOnBoardActivity() {

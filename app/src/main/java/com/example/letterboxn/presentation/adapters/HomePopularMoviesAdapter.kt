@@ -9,9 +9,9 @@ import com.example.letterboxn.domain.model.MovieItem
 
 class HomePopularMoviesAdapter (
     val onClick : (MovieItem)->Unit
-    ) : BaseAdapter<SamplePopularFavMoviesBinding>(SamplePopularFavMoviesBinding::inflate){
+) : BaseAdapter<SamplePopularFavMoviesBinding>(SamplePopularFavMoviesBinding::inflate){
 
-    var movies : List<MovieItem> = emptyList()
+    private var movies : List<MovieItem> = emptyList()
 
     override fun getItemCount(): Int {
         return movies.size

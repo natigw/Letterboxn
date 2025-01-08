@@ -3,9 +3,10 @@ package com.example.letterboxn.presentation.ui.bottomsheets
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.common.utils.nancyToastWarning
+import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseBottomSheetFragment
-import com.example.letterboxn.common.utils.NancyToast
-import com.example.letterboxn.data.remote.api.TmdbApi
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.data.remote.model.account.ratedMovies.rateMovie.RequestAddRating
 import com.example.letterboxn.databinding.BottomsheetfragmentRateMovieBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,11 +17,11 @@ import javax.inject.Inject
 class RateMovieBottomSheetFragment : BaseBottomSheetFragment<BottomsheetfragmentRateMovieBinding>(BottomsheetfragmentRateMovieBinding::inflate) {
 
     @Inject
-    lateinit var api : TmdbApi
+    lateinit var api : MovieApi
 
     private val args : RateMovieBottomSheetFragmentArgs by navArgs()
 
-    var requestStatus = false
+    private var requestStatus = false
 
     override fun onViewCreatedLight() {
 
@@ -29,7 +30,7 @@ class RateMovieBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetfragment
         binding.buttonRateMovieDone.setOnClickListener {
             val rating = binding.ratingBarBshRateMovie.rating
             if (rating == 0f) {
-                NancyToast.makeText(requireContext(), "Please rate the movie!", NancyToast.LENGTH_SHORT, NancyToast.WARNING, false).show()
+                nancyToastWarning(requireContext(), getString(R.string.please_rate_movie))
                 return@setOnClickListener
             }
             lifecycleScope.launch {

@@ -24,7 +24,7 @@ class MovieDetailsCastAdapter(
         Glide.with(binding.imagePersonMoviedetails)
             .load("https://image.tmdb.org/t/p/h632" + personItem.profilePath)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .error(R.drawable.usersample)
+            .error(R.drawable.placeholder_user)
             .into(binding.imagePersonMoviedetails)
 
         binding.root.setOnClickListener {

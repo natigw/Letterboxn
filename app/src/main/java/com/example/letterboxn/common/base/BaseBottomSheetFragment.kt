@@ -27,8 +27,8 @@ abstract class BaseBottomSheetFragment <VB : ViewBinding> (private val bindingTo
         onViewCreatedLight()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

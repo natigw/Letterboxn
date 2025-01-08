@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:background="@color/darkpurple_letterboxn">
+    android:background="@color/letterboxn_dark_purple">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageSearchposter"
