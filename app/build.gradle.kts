@@ -70,9 +70,6 @@ dependencies {
     //navigation drawer
     implementation ("com.google.android.material:material:1.12.0")
 
-    //fancytoast
-    implementation ("io.github.shashank02051997:FancyToast:2.0.2")
-
     //hilt
     implementation("com.google.dagger:hilt-android:2.46.1")
     kapt("com.google.dagger:hilt-android-compiler:2.46.1")

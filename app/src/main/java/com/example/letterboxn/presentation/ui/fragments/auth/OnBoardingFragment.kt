@@ -4,12 +4,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.common.utils.nancyToastError
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.databinding.FragmentOnBoardingBinding
 import com.example.letterboxn.presentation.ui.activities.MainActivity
-import com.example.letterboxn.common.utils.NancyToast
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

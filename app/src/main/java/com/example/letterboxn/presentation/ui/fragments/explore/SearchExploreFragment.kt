@@ -22,13 +22,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchExploreFragment :
-    BaseFragment<FragmentSearchExploreBinding>(FragmentSearchExploreBinding::inflate) {
+class SearchExploreFragment : BaseFragment<FragmentSearchExploreBinding>(FragmentSearchExploreBinding::inflate) {
 
     @Inject
     lateinit var api: MovieApi
 
-    val viewmodel : SearchViewModel by viewModels()
+    val viewmodel by viewModels<SearchViewModel>()
     private val searchAdapter = SearchAdapter(
         onClick = {
             findNavController().navigate(SearchExploreFragmentDirections.actionSearchExploreFragmentToDetailsMovieFragment(it))
@@ -44,33 +43,32 @@ class SearchExploreFragment :
         enterPress()
 
         setAdapters()
-        //updateAdapters()
-
-        binding.floatingActionButtonSearch.setOnClickListener {
-            if (binding.editTextSearch.text.isNullOrEmpty()) return@setOnClickListener
-            doSearch()
-        }
-    }
-
-    private fun updateAdapters() {
-        lifecycleScope.launch {
-            viewmodel.results
-                .collect {
-                    searchAdapter.updateAdapter(it, isMultiSearch)
-                }
-        }
+//        updateAdapters()
     }
 
     private fun setAdapters() {
         binding.rvSearchExplore.adapter = searchAdapter
     }
 
-    override fun observeChanges() {
-        binding.imageSearchClear.setOnClickListener {
-            binding.editTextSearch.text.clear()
+    private fun updateAdapters() {
+        lifecycleScope.launch {
+            viewmodel.results.collect {
+                searchAdapter.updateAdapter(it, isMultiSearch)
+            }
         }
+    }
+
+    override fun clickListeners() {
         binding.imageBackToExplore.setOnClickListener {
             findNavController().popBackStack()
+        }
+        binding.floatingActionButtonSearch.setOnClickListener {
+            if (binding.editTextSearch.text.isNullOrEmpty())
+                return@setOnClickListener
+            doSearch()
+        }
+        binding.imageSearchClear.setOnClickListener {
+            binding.editTextSearch.text.clear()
         }
         binding.switchMultiSearch.setOnClickListener {
             isMultiSearch = binding.switchMultiSearch.isChecked
@@ -161,5 +159,4 @@ class SearchExploreFragment :
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.editTextSearch.windowToken, 0)
     }
-
 }

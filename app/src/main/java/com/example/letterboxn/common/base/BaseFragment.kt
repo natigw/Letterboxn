@@ -15,6 +15,7 @@ abstract class BaseFragment <VB : ViewBinding> (private val bindingToInflate : (
     abstract fun onViewCreatedLight()
 
     open fun observeChanges() { }
+    open fun clickListeners() { }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +29,7 @@ abstract class BaseFragment <VB : ViewBinding> (private val bindingToInflate : (
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onViewCreatedLight()
+        clickListeners()
         observeChanges()
     }
 

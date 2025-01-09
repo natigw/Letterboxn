@@ -4,10 +4,10 @@ import android.view.View
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.common.utils.nancyToastError
-import com.example.common.utils.nancyToastInfo
-import com.example.common.utils.nancyToastSuccess
-import com.example.common.utils.nancyToastWarning
+import com.example.letterboxn.common.utils.nancyToastError
+import com.example.letterboxn.common.utils.nancyToastInfo
+import com.example.letterboxn.common.utils.nancyToastSuccess
+import com.example.letterboxn.common.utils.nancyToastWarning
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.data.remote.api.MovieApi

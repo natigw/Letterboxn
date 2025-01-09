@@ -96,5 +96,18 @@
     <string name="start">start</string>
     <string name="stop">stop</string>
     <string name="see_details">See details</string>
+    <string name="category">Category</string>
+    <string name="no_movie_by_this_category">There is no movie found by this category.</string>
+    <string name="no_movie_in_watchlist">There is no movie in watchlist.</string>
+    <string name="my_watchlist">My Watchlist</string>
+    <string name="no_recently_watched_movie">There is no recently watched movie.</string>
+    <string name="no_recently_reviwed_movie">There is no recently reviwed movie.</string>
+    <string name="reviews">Reviews</string>
+    <string name="lists">Lists</string>
+    <string name="favorite_films">Favorite films</string>
+    <string name="rated_films">Rated Films</string>
+    <string name="pro">Pro</string>
+    <string name="log_out">Log out</string>
+    <string name="no_favorite_movie">There is no favorite movie.</string>
 
 </resources>

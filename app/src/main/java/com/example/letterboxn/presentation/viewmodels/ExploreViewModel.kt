@@ -16,28 +16,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExploreViewModel @Inject constructor(
-    private val exploreRepository : ExploreRepository,
-    private val movieRepository : MovieRepository
+    private val exploreRepository : ExploreRepository
 ) : ViewModel() {
 
     val moviesList: LiveData<PagingData<MovieItem>> =
         exploreRepository.getMovies()
             .cachedIn(viewModelScope)
-
-//    val movies = MutableStateFlow<List<MovieItem>>(emptyList())
     val categories = MutableStateFlow<List<CategoryItem>>(emptyList())
 
     init {
-//        getMovies(1)
         getCategories()
     }
-
-//    private fun getMovies(page : Int) {
-//        viewModelScope.launch {
-//            val response = movieRepository.getMovies(page = page)
-//            movies.emit(response)
-//        }
-//    }
 
     private fun getCategories() {
         viewModelScope.launch {

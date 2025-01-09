@@ -14,8 +14,8 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.example.common.utils.nancyToast
-import com.example.common.utils.nancyToastInfo
+import com.example.letterboxn.common.utils.nancyToast
+import com.example.letterboxn.common.utils.nancyToastInfo
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.common.utils.DoubleClickListener

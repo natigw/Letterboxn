@@ -5,8 +5,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.example.common.utils.nancyToastSuccess
-import com.example.common.utils.nancyToastWarning
+import com.example.letterboxn.common.utils.nancyToastSuccess
+import com.example.letterboxn.common.utils.nancyToastWarning
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.data.local.database.review.ReviewDao

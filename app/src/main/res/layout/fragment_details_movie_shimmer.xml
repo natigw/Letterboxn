@@ -88,7 +88,7 @@
             android:id="@+id/textMoviedurationDetailsShimmer"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:textColor="#CCFFFFFF"
+            android:textColor="@color/white_80pc"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/textReleasedateShimmer"
             app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
@@ -357,15 +357,15 @@
             app:layout_constraintStart_toStartOf="@+id/guideline9Shimmer"
             app:layout_constraintTop_toBottomOf="@+id/tablayoutgroupShimmer" />
 
-        <ImageView
-            android:id="@+id/imageView19Shimmer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dividerMovieDetailsShimmer"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/prostaline"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:dividerColor="@color/shimmer_gray"
+            app:layout_constraintTop_toBottomOf="@id/textView27Shimmer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27Shimmer" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvReviewsShimmer"
@@ -378,7 +378,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toStartOf="@+id/guideline10Shimmer"
             app:layout_constraintStart_toStartOf="@+id/guideline9Shimmer"
-            app:layout_constraintTop_toBottomOf="@+id/imageView19Shimmer"
+            app:layout_constraintTop_toBottomOf="@+id/dividerMovieDetailsShimmer"
             tools:listitem="@layout/sample_review_moviedetails" />
 
         <TextView
@@ -388,12 +388,12 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="40dp"
             android:text="There is no review for this movie."
-            android:textColor="#CCFFFFFF"
+            android:textColor="@color/white_80pc"
             android:textStyle="italic"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline9Shimmer"
-            app:layout_constraintTop_toBottomOf="@+id/imageView19Shimmer"
+            app:layout_constraintTop_toBottomOf="@+id/dividerMovieDetailsShimmer"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

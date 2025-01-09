@@ -13,12 +13,12 @@
         tools:context=".presentation.ui.bottomsheets.CategoryMoviesExploreBottomSheetFragment">
 
         <ImageView
-            android:id="@+id/imageView72"
+            android:id="@+id/imageDrawerElementExploreCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:elevation="8dp"
-            app:tint="#CCFFFFFF"
+            app:tint="@color/white_80pc"
             android:src="@drawable/bottomsheet_drawer_element"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,13 +31,13 @@
             android:layout_marginTop="12dp"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:text="Category"
-            android:textColor="#FFFFFF"
+            android:text="@string/category"
+            android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView72" />
+            app:layout_constraintTop_toBottomOf="@+id/imageDrawerElementExploreCategory" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMoviesByCategories"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="50dp"
-            android:text="There is no movie found by this category."
+            android:text="@string/no_movie_by_this_category"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="italic"
@@ -75,5 +75,4 @@
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

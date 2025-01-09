@@ -28,14 +28,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.example.common.utils.nancyToast
-import com.example.common.utils.nancyToastError
-import com.example.common.utils.nancyToastInfo
-import com.example.common.utils.nancyToastSuccess
+import com.example.letterboxn.common.utils.nancyToast
+import com.example.letterboxn.common.utils.nancyToastError
+import com.example.letterboxn.common.utils.nancyToastInfo
+import com.example.letterboxn.common.utils.nancyToastSuccess
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.common.utils.numberFormatter
 import com.example.letterboxn.common.utils.numberFormatterSpaced
+import com.example.letterboxn.common.utils.startShimmer
+import com.example.letterboxn.common.utils.stopShimmer
 import com.example.letterboxn.data.local.database.review.ReviewDao
 import com.example.letterboxn.data.local.database.review.ReviewEntity
 import com.example.letterboxn.data.remote.api.MovieApi
@@ -83,7 +85,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     @Named("UserBackPosterIsDefault")
     lateinit var sharedPrefBackPosterIsDefault : SharedPreferences
 
-    val viewmodel : ProfileViewModel by viewModels()
+    private val viewmodel by viewModels<ProfileViewModel>()
 
     private val favAdapter = ProfileFavMoviesAdapter(
         onClick = {
@@ -126,11 +128,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     private lateinit var takePictureLauncher: ActivityResultLauncher<Void?>
 
-    private lateinit var shimmerFav : ShimmerFrameLayout
-    private lateinit var shimmerWatched : ShimmerFrameLayout
-    private lateinit var shimmerReviewed : ShimmerFrameLayout
-
-    var username : String = getString(R.string.user)
+    private var username: String = getString(R.string.user)
 
     val reviewsToDelete = mutableListOf<ReviewEntity>()
 
@@ -139,13 +137,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         takePictureLauncher =
             registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
                 bitmap?.let {
-                    binding.imageUserppprofile.setImageBitmap(it)
+                    binding.imageUserPictureProfile.setImageBitmap(it)
                 }
             }
     }
 
-    override fun onViewCreatedLight() {
+    override fun onResume() {
+        super.onResume()
+        startShimmer(binding.shimmerFavMoviesProfile)
+        startShimmer(binding.shimmerRecentWatchedProfile)
+        startShimmer(binding.shimmerRecentReviewsProfile)
+    }
 
+    override fun onViewCreatedLight() {
         findNavController().currentBackStackEntry?.savedStateHandle
             ?.getLiveData<Boolean>("changed")
             ?.observe(viewLifecycleOwner) {
@@ -158,19 +162,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 //        nancyToastInfo(requireContext(), "accountId is $accId")
 //        nancyToastInfo(requireContext(), "api+sess is $advApiKey")
 
-        setAndStartShimmers()
-
         username = sharedPrefLogon.getString("username", null) ?: getString(R.string.user)
-        binding.textUsernameprofile.text = username
-        binding.textUsersFavFilms.text = "$username ${getString(R.string.somebody_s_fav_films)}"
-        binding.textUsersrecentwatched.text = "$username's Recent Watched"
-        binding.textUsersrecentreviewed.text = "$username's Recent Reviewed"
+        binding.textUsernameProfile.text = username
+        binding.textUsersFavMoviesTEXT.text = "$username ${getString(R.string.somebody_s_fav_films)}"
+        binding.textUsersRecentWatchedProfileTEXT.text = "$username's Recent Watched"
+        binding.textUsersRecentReviewedProfileTEXT.text = "$username's Recent Reviewed"
         val userFollowers = 22  //from api
         val userFollowings = 39 //from api
-        binding.textCountnFollowersprofile.text = "${numberFormatterSpaced(userFollowers.toLong())} Followers"
-        binding.textCountnFollowingsprofile.text = "${numberFormatterSpaced(userFollowings.toLong())} Followings"
+        binding.textFollowersCountProfile.text = "${numberFormatterSpaced(userFollowers.toLong())} Followers"
+        binding.textFollowingsCountProfile.text = "${numberFormatterSpaced(userFollowings.toLong())} Followings"
         val lists = 4  //from api
-        binding.textListcountProfile.text = numberFormatter(lists.toLong())
+        binding.textListsCountProfile.text = numberFormatter(lists.toLong())
 
 
 //        val deleteIcon = ContextCompat.getDrawable(requireContext(), R.drawable.trash_bin)!!
@@ -294,26 +296,26 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         }
     }
 
-    override fun observeChanges() {
+    override fun clickListeners() {
+        super.clickListeners()
 
-        binding.pickMeButton.setOnClickListener {
+        binding.buttonChangePictureProfile.setOnClickListener {
             showChangeProfileDialog()
         }
-        binding.buttonChangeBackground.setOnClickListener {
+        binding.buttonChangeBackgroundProfile.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToFavMoviesBottomSheetFragment())
         }
-        binding.buttonSeeallRecents.setOnClickListener {
+        binding.buttonSeeAllRecentWatchedProfile.setOnClickListener {
             nancyToastInfo(requireContext(), getString(R.string.navigating_rated_movies_screen))
         }
-        binding.buttonSeeallReviews.setOnClickListener {
+        binding.buttonSeeAllReviewsProfile.setOnClickListener {
             nancyToastInfo(requireContext(), getString(R.string.navigating_reviews_screen))
         }
-        binding.buttonlogout.setOnClickListener {
+        binding.buttonLogoutProfile.setOnClickListener {
             sharedPrefLogon.edit().putBoolean("status", false).apply()
             nancyToastInfo(requireContext(), getString(R.string.logout_info_message))
             navigateToOnBoardActivity()
         }
-
     }
 
     private fun updateAdapters() {
@@ -326,11 +328,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     movieDescription = it.overview
                 )
             }.toMutableList()
-            binding.textFavcountProfile.text = numberFormatter(it.size.toLong())
+            binding.textFavMoviesCountProfile.text = numberFormatter(it.size.toLong())
             binding.textNoFavMoviesProfile.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             favAdapter.updateAdapter(it)
-            shimmerFav.stopShimmer()
-            shimmerFav.visibility = View.GONE
+            stopShimmer(binding.shimmerFavMoviesProfile)
 //            viewmodel.favMovies.collectLatest {
 //                binding.textFavcountProfile.text = numberFormatter(it.size.toLong())
 //                binding.textNoFavMoviesProfile.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
@@ -348,10 +349,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 )
             }
             binding.textNoRecentWatchedProfile.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
-            binding.textRatedcountProfile.text = numberFormatter(it.size.toLong())
+            binding.textRatedMoviesCountProfile.text = numberFormatter(it.size.toLong())
             recentRatedAdapter.updateAdapter(it)
-            shimmerWatched.stopShimmer()
-            shimmerWatched.visibility = View.GONE
+            stopShimmer(binding.shimmerRecentWatchedProfile)
 //            viewmodel.movies.collectLatest {
 //                    binding.textNoRecentWatchedProfile.visibility = if(it.isEmpty()) View.VISIBLE else View.GONE
 //                    binding.textRatedcountProfile.text = numberFormatter(it.size.toLong())
@@ -378,11 +378,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     movieReleaseDate = movieDetails.releaseDate
                 )
             }.reversed().toMutableList()
-            binding.textReviewcountProfile.text = numberFormatter(reviews.size.toLong())
+            binding.textReviewsCountProfile.text = numberFormatter(reviews.size.toLong())
             binding.textNoReviewedProfile.visibility = if (reviews.isEmpty()) View.VISIBLE else View.GONE
             reviewAdapter.updateAdapter(reviewsWithMovieDetails)
-            shimmerReviewed.stopShimmer()
-            shimmerReviewed.visibility = View.GONE
+            stopShimmer(binding.shimmerRecentReviewsProfile)
             swipeToDelete()
 
 //            viewmodel.reviews.collectLatest {
@@ -413,21 +412,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private fun setAdapters() {
-        binding.rvUsersFavMovies.adapter = favAdapter
-        binding.rvUsersRecentRated.adapter = recentRatedAdapter
-        binding.rvUsersRecReviewed.adapter = reviewAdapter
-    }
-
-    private fun setAndStartShimmers() {
-        shimmerFav = binding.rvUsersFavMoviesShimmer
-        shimmerFav.startShimmer()
-        shimmerFav.visibility = View.VISIBLE
-        shimmerWatched = binding.rvUsersRecWatchedShimmer
-        shimmerWatched.startShimmer()
-        shimmerWatched.visibility = View.VISIBLE
-        shimmerReviewed = binding.rvRecentReviewsProfileShimmer
-        shimmerReviewed.startShimmer()
-        shimmerReviewed.visibility = View.VISIBLE
+        binding.rvUsersFavMoviesProfile.adapter = favAdapter
+        binding.rvUsersRecentWatchedProfile.adapter = recentRatedAdapter
+        binding.rvUsersRecReviewedProfile.adapter = reviewAdapter
     }
 
     private fun swipeToDelete() {
@@ -443,7 +430,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val position = viewHolder.adapterPosition
                     val deletedReview = reviewAdapter.deleteItem(position)
-                    binding.textReviewcountProfile.text = binding.textReviewcountProfile.text.toString().toInt().minus(1).toString()
+                    binding.textReviewsCountProfile.text = binding.textReviewsCountProfile.text.toString().toInt().minus(1).toString()
                     runBlocking {
                         reviewsToDelete.add(
                             ReviewEntity(
@@ -454,12 +441,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                             reviewId = reviewDao.getReviewId(deletedReview.movieId, review = deletedReview.review ?: "Just perfect!")!!)
                         )
                     }
-                    Snackbar.make(binding.rvUsersRecReviewed, getString(R.string.review_deleted), Snackbar.LENGTH_LONG).apply {
+                    Snackbar.make(binding.rvUsersRecReviewedProfile, getString(R.string.review_deleted), Snackbar.LENGTH_LONG).apply {
                         setAction(getString(R.string.undo)) {
                             reviewAdapter.restoreItem(deletedReview, position)
-                            binding.rvUsersRecReviewed.scrollToPosition(position)
+                            binding.rvUsersRecReviewedProfile.scrollToPosition(position)
                             reviewsToDelete.removeLast()
-                            binding.textReviewcountProfile.text = binding.textReviewcountProfile.text.toString().toInt().plus(1).toString()
+                            binding.textReviewsCountProfile.text = binding.textReviewsCountProfile.text.toString().toInt().plus(1).toString()
                         }.show()
                     }
                 }
@@ -509,7 +496,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             }
 
             val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-            itemTouchHelper.attachToRecyclerView(binding.rvUsersRecReviewed)
+            itemTouchHelper.attachToRecyclerView(binding.rvUsersRecReviewedProfile)
 
         } catch (e: Exception) {
             Log.e("dao", e.toString())
@@ -530,7 +517,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             setMessage(getString(R.string.wanna_delete_this_movie))
             setPositiveButton(deleteText) { _, _ ->
                 favAdapter.removeItem(position)
-                binding.textFavcountProfile.text = binding.textFavcountProfile.text.toString().toInt().minus(1).toString()
+                binding.textFavMoviesCountProfile.text = binding.textFavMoviesCountProfile.text.toString().toInt().minus(1).toString()
                 lifecycleScope.launch {
                     api.addOrRemoveFavoriteMovie(requestFavorite = RequestAddRemoveFavorite(
                         favorite = false,
@@ -574,11 +561,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         if (!isDefaultPicture) {
             dialogBuilder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
                 val defaultUri = Uri.parse("android.resource://${requireActivity().packageName}/${R.drawable.placeholder_user}")
-                Glide.with(binding.imageUserppprofile)
+                Glide.with(binding.imageUserPictureProfile)
                     .load(defaultUri)
                     .placeholder(R.drawable.placeholder_user)
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(binding.imageUserppprofile)
+                    .into(binding.imageUserPictureProfile)
                 // Clear the profile image URI in SharedPreferences
                 sharedPrefProfilePicture.edit().remove("profile_image_uri").apply()
 
@@ -664,11 +651,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     private fun refreshProfilePicture() {
         val uri = getProfilePictureUri()
-        Glide.with(binding.imageUserppprofile)
+        Glide.with(binding.imageUserPictureProfile)
             .load(uri)
             .placeholder(R.drawable.placeholder_user)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .into(binding.imageUserppprofile)
+            .into(binding.imageUserPictureProfile)
     }
 
     private fun refreshProfileBackPoster() {
@@ -676,18 +663,18 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val backPoster = sharedPrefBackPoster.getString("poster", "android.resource://${requireActivity().packageName}/${R.drawable.profile_default_back3}")
 
         if (isPosterDefault ) {
-            Glide.with(binding.imageBackProfile)
+            Glide.with(binding.imageProfileBackProfile)
                 .load(backPoster?.toInt())
                 .placeholder(R.drawable.custom_poster_shape)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(binding.imageBackProfile)
+                .into(binding.imageProfileBackProfile)
         }
         else {
-            Glide.with(binding.imageBackProfile)
+            Glide.with(binding.imageProfileBackProfile)
                 .load(backPoster)
                 .placeholder(R.drawable.custom_poster_shape)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(binding.imageBackProfile)
+                .into(binding.imageProfileBackProfile)
         }
     }
 
@@ -759,5 +746,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         val uri = Uri.fromParts("package", requireContext().packageName, null)
         intent.data = uri
         startActivity(intent)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopShimmer(binding.shimmerFavMoviesProfile)
+        stopShimmer(binding.shimmerRecentWatchedProfile)
+        stopShimmer(binding.shimmerRecentReviewsProfile)
     }
 }

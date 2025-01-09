@@ -1,4 +1,4 @@
-package com.example.common.utils
+package com.example.letterboxn.common.utils
 
 import android.content.Context
 import com.example.letterboxn.common.utils.NancyToast

@@ -13,14 +13,14 @@
         tools:context=".presentation.ui.fragments.movieDetails.DetailsMovieFragment">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline9"
+            android:id="@+id/guidelineMovieDetails1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.04" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline10"
+            android:id="@+id/guidelineMovieDetails2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -37,7 +37,7 @@
             app:backgroundTint="#E8A5A5"
             app:elevation="6dp"
             app:fabCustomSize="38dp"
-            app:layout_constraintStart_toStartOf="@id/guideline9"
+            app:layout_constraintStart_toStartOf="@id/guidelineMovieDetails1"
             app:layout_constraintTop_toTopOf="parent"
             app:maxImageSize="28dp"
             app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator.Medium" />
@@ -53,7 +53,7 @@
             app:backgroundTint="#E8A5A5"
             app:elevation="6dp"
             app:fabCustomSize="38dp"
-            app:layout_constraintEnd_toEndOf="@id/guideline10"
+            app:layout_constraintEnd_toEndOf="@id/guidelineMovieDetails2"
             app:layout_constraintTop_toTopOf="@+id/floatingActionButtonPosterback"
             app:maxImageSize="26dp"
             app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator.Medium" />
@@ -88,7 +88,7 @@
             android:background="@color/letterboxn_light_purple"
             android:elevation="12dp"
             android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
             app:layout_constraintTop_toBottomOf="@+id/floatingActionButtonPosterback"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
 
@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:textColor="#CCFFFFFF"
+            android:textColor="@color/white_80pc"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/textMovietitleDetails"
             app:layout_constraintStart_toEndOf="@+id/textMovietitleDetails"
@@ -130,11 +130,11 @@
             android:id="@+id/textMoviedurationDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#CCFFFFFF"
+            android:textColor="@color/white_80pc"
             android:textSize="12sp"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/textReleasedate"
-            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineMovieDetails2"
             app:layout_constraintTop_toTopOf="@+id/textReleasedate"
             tools:text="176 min" />
 
@@ -144,9 +144,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="#CCFFFFFF"
+            android:textColor="@color/white_80pc"
             android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineMovieDetails2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textMovietitleDetails"
             app:layout_constraintTop_toBottomOf="@+id/textMovietitleDetails"
@@ -160,10 +160,10 @@
             android:layout_marginBottom="-2dp"
             android:ellipsize="end"
             android:maxLines="6"
-            android:textColor="#CCFFFFFF"
+            android:textColor="@color/white_80pc"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/imagePosterDetails"
-            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineMovieDetails2"
             app:layout_constraintStart_toStartOf="@+id/textMoviedirectorDetails"
             app:layout_constraintTop_toBottomOf="@+id/textMoviedirectorDetails"
             tools:text="In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler." />
@@ -174,7 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
             app:layout_constraintTop_toBottomOf="@+id/buttonAddtoWatchlist">
 
             <com.google.android.material.chip.Chip
@@ -393,7 +393,7 @@
             android:layout_marginEnd="16dp"
             android:textColor="@color/letterboxn_skin_color"
             android:textSize="40sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineMovieDetails2"
             app:layout_constraintTop_toTopOf="@+id/buttonRateorReviewDetails"
             tools:text="4.4" />
 
@@ -429,11 +429,11 @@
             android:id="@+id/textRatingValueDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#CCFFFFFF"
+            android:textColor="@color/white_80pc"
             android:textSize="12sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/textMyRatingDetails"
-            app:layout_constraintEnd_toEndOf="@id/guideline10"
+            app:layout_constraintEnd_toEndOf="@id/guidelineMovieDetails2"
             tools:text="4.3" />
 
         <ImageView
@@ -454,7 +454,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@color/transparent"
-            app:layout_constraintStart_toStartOf="@id/guideline9"
+            app:layout_constraintStart_toStartOf="@id/guidelineMovieDetails1"
             app:layout_constraintTop_toBottomOf="@+id/buttonAddtoWatchlist"
             app:tabIndicator="@drawable/custom_tab_indicator"
             app:tabIndicatorColor="@color/chip_purple"
@@ -486,8 +486,8 @@
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toStartOf="@+id/guideline10"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineMovieDetails2"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
             app:layout_constraintTop_toBottomOf="@+id/tablayoutgroup"
             tools:listitem="@layout/sample_people_moviedetails" />
 
@@ -499,8 +499,8 @@
             android:orientation="horizontal"
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toStartOf="@+id/guideline10"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineMovieDetails2"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
             app:layout_constraintTop_toBottomOf="@+id/tablayoutgroup"
             tools:listitem="@layout/sample_people_moviedetails" />
 
@@ -513,7 +513,7 @@
             android:textColor="#FFFFFF"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
             app:layout_constraintTop_toBottomOf="@+id/tablayoutgroup" />
 
         <Button
@@ -532,15 +532,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView27" />
 
-        <ImageView
-            android:id="@+id/imageView19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dividerMovieDetails"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/prostaline"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:dividerColor="@color/shimmer_gray"
+            app:layout_constraintTop_toBottomOf="@id/textView27"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvReviews"
@@ -551,9 +551,9 @@
             android:layout_marginEnd="-8dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toStartOf="@+id/guideline10"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toBottomOf="@+id/imageView19"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineMovieDetails2"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
+            app:layout_constraintTop_toBottomOf="@+id/dividerMovieDetails"
             tools:listitem="@layout/sample_review_moviedetails" />
 
         <TextView
@@ -563,12 +563,12 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="40dp"
             android:text="There is no review for this movie."
-            android:textColor="#CCFFFFFF"
+            android:textColor="@color/white_80pc"
             android:textStyle="italic"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toBottomOf="@+id/imageView19"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
+            app:layout_constraintTop_toBottomOf="@+id/dividerMovieDetails"
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -577,7 +577,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
             app:layout_constraintTop_toBottomOf="@id/tablayoutgroup">
 
 
@@ -589,7 +589,7 @@
                 android:text="Budget"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/guideline9"
+                app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
                 app:layout_constraintTop_toBottomOf="@+id/tablayoutgroup" />
 
             <TextView
@@ -597,9 +597,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0$"
-                android:textColor="#CCFFFFFF"
+                android:textColor="@color/white_80pc"
                 android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="@+id/guideline9"
+                app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
                 app:layout_constraintTop_toBottomOf="@+id/textBudgetWordDetails" />
 
             <TextView
@@ -610,7 +610,7 @@
                 android:text="Revenue"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/guideline9"
+                app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
                 app:layout_constraintTop_toBottomOf="@+id/textBudgetDetails" />
 
             <TextView
@@ -618,9 +618,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0$"
-                android:textColor="#CCFFFFFF"
+                android:textColor="@color/white_80pc"
                 android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="@+id/guideline9"
+                app:layout_constraintStart_toStartOf="@+id/guidelineMovieDetails1"
                 app:layout_constraintTop_toBottomOf="@+id/textRevenueWordDetails" />
 
 
@@ -640,7 +640,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Action"
-                android:textColor="#CCFFFFFF"
+                android:textColor="@color/white_80pc"
                 app:layout_constraintStart_toStartOf="@+id/textGenreWordDetails"
                 app:layout_constraintTop_toBottomOf="@+id/textGenreWordDetails" />
 
@@ -661,7 +661,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Langs"
-                android:textColor="#CCFFFFFF"
+                android:textColor="@color/white_80pc"
                 app:layout_constraintStart_toStartOf="@+id/textLanguagesWordDetails"
                 app:layout_constraintTop_toBottomOf="@+id/textLanguagesWordDetails" />
 

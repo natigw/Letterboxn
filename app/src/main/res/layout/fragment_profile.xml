@@ -12,21 +12,21 @@
         tools:context=".presentation.ui.fragments.profile.ProfileFragment">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
+            android:id="@+id/guidelineProfile1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.06" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
+            android:id="@+id/guidelineProfile2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.94" />
 
         <ImageView
-            android:id="@+id/imageBackProfile"
+            android:id="@+id/imageProfileBackProfile"
             android:layout_width="0dp"
             android:layout_height="180dp"
             android:adjustViewBounds="true"
@@ -36,286 +36,337 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/buttonLogoutProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/log_out"
+            app:cornerRadius="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineProfile2"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/buttonChangeBackgroundProfile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintEnd_toEndOf="@id/guidelineProfile2"
+            app:layout_constraintTop_toTopOf="@id/buttonLogoutProfile" />
+
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageUserppprofile"
+            android:id="@+id/imageUserPictureProfile"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:background="@color/letterboxn_light_purple"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_user"
-            app:layout_constraintBottom_toBottomOf="@+id/imageBackProfile"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/imageBackProfile"
+            app:layout_constraintBottom_toBottomOf="@+id/imageProfileBackProfile"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineProfile2"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/imageProfileBackProfile"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
 
-        <Button
-            android:id="@+id/buttonlogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Log out"
-            app:cornerRadius="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="parent" />
-
+        <ImageView
+            android:id="@+id/buttonChangePictureProfile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintEnd_toEndOf="@+id/imageUserPictureProfile"
+            app:layout_constraintTop_toTopOf="@+id/imageUserPictureProfile" />
 
         <TextView
-            android:id="@+id/textUsernameprofile"
+            android:id="@+id/textUsernameProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="26sp"
             android:textStyle="bold"
             android:layout_marginTop="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/imageUserppprofile"
-            app:layout_constraintStart_toStartOf="@+id/imageUserppprofile"
-            app:layout_constraintTop_toBottomOf="@id/imageUserppprofile"
+            app:layout_constraintEnd_toEndOf="@+id/imageUserPictureProfile"
+            app:layout_constraintStart_toStartOf="@+id/imageUserPictureProfile"
+            app:layout_constraintTop_toBottomOf="@id/imageUserPictureProfile"
             tools:text="username" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chipUserBadgeprofile"
+            android:id="@+id/chipUserBadgeProfile"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:backgroundTint="#EC2626"
-            android:text="Pro"
+            android:text="@string/pro"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
             android:clickable="false"
             app:chipEndPadding="0dp"
             app:chipStartPadding="0dp"
             app:chipStrokeWidth="0dp"
-            app:layout_constraintStart_toEndOf="@id/textUsernameprofile"
-            app:layout_constraintTop_toTopOf="@id/textUsernameprofile" />
+            app:layout_constraintStart_toEndOf="@id/textUsernameProfile"
+            app:layout_constraintTop_toTopOf="@id/textUsernameProfile" />
 
         <TextView
-            android:id="@+id/textCountnFollowersprofile"
+            android:id="@+id/textFollowersCountProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/textCountnFollowingsprofile"
+            app:layout_constraintEnd_toStartOf="@+id/textFollowingsCountProfile"
             app:layout_constraintHorizontal_bias="0.50"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@id/textUsernameprofile"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@id/textUsernameProfile"
             tools:text="xx Followers" />
 
         <TextView
-            android:id="@+id/textCountnFollowingsprofile"
+            android:id="@+id/textFollowingsCountProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toEndOf="@+id/textCountnFollowersprofile"
-            app:layout_constraintTop_toTopOf="@id/textCountnFollowersprofile"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineProfile2"
+            app:layout_constraintStart_toEndOf="@+id/textFollowersCountProfile"
+            app:layout_constraintTop_toTopOf="@id/textFollowersCountProfile"
             tools:text="xx Followings" />
 
+        <ImageView
+            android:id="@+id/imageUnderlineFollowers"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="2dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="@+id/textFollowersCountProfile"
+            app:layout_constraintStart_toStartOf="@+id/textFollowersCountProfile"
+            app:layout_constraintTop_toBottomOf="@+id/textFollowersCountProfile"
+            app:srcCompat="@drawable/underline_follower" />
+
+        <ImageView
+            android:id="@+id/imageUnderlineFollowings"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="2dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="@+id/textFollowingsCountProfile"
+            app:layout_constraintStart_toStartOf="@+id/textFollowingsCountProfile"
+            app:layout_constraintTop_toBottomOf="@+id/textFollowingsCountProfile"
+            app:srcCompat="@drawable/underline_follower" />
 
         <TextView
-            android:id="@+id/textRatedcountProfile"
+            android:id="@+id/textRatedMoviesCountProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/letterboxn_skin_color"
             android:textSize="32sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/textRatedfilmsProfile"
-            app:layout_constraintEnd_toEndOf="@id/textRatedfilmsProfile"
-            app:layout_constraintStart_toStartOf="@id/textRatedfilmsProfile"
+            app:layout_constraintBottom_toTopOf="@id/textRatedMoviesProfileTEXT"
+            app:layout_constraintEnd_toEndOf="@id/textRatedMoviesProfileTEXT"
+            app:layout_constraintStart_toStartOf="@id/textRatedMoviesProfileTEXT"
             tools:text="455" />
 
         <TextView
-            android:id="@+id/textRatedfilmsProfile"
+            android:id="@+id/textRatedMoviesProfileTEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="Rated Films"
+            android:text="@string/rated_films"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/textFavoritefilmsProfile"
+            app:layout_constraintEnd_toStartOf="@+id/textFavMoviesProfileTEXT"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
             app:layout_constraintTop_toBottomOf="@id/imageUnderlineFollowers" />
 
         <TextView
-            android:id="@+id/textFavcountProfile"
+            android:id="@+id/textFavMoviesCountProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/chip_purple"
             android:textSize="32sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/textFavoritefilmsProfile"
-            app:layout_constraintEnd_toEndOf="@id/textFavoritefilmsProfile"
-            app:layout_constraintStart_toStartOf="@id/textFavoritefilmsProfile"
+            app:layout_constraintBottom_toTopOf="@id/textFavMoviesProfileTEXT"
+            app:layout_constraintEnd_toEndOf="@id/textFavMoviesProfileTEXT"
+            app:layout_constraintStart_toStartOf="@id/textFavMoviesProfileTEXT"
             tools:text="33" />
 
         <TextView
-            android:id="@+id/textFavoritefilmsProfile"
+            android:id="@+id/textFavMoviesProfileTEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Favorite films"
+            android:text="@string/favorite_films"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/textListsProfile"
+            app:layout_constraintEnd_toStartOf="@+id/textListsProfileTEXT"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textRatedfilmsProfile"
-            app:layout_constraintTop_toTopOf="@id/textRatedfilmsProfile" />
+            app:layout_constraintStart_toEndOf="@+id/textRatedMoviesProfileTEXT"
+            app:layout_constraintTop_toTopOf="@id/textRatedMoviesProfileTEXT" />
 
         <TextView
-            android:id="@+id/textListcountProfile"
+            android:id="@+id/textListsCountProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/letterboxn_skin_color"
             android:textSize="32sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/textListsProfile"
-            app:layout_constraintEnd_toEndOf="@id/textListsProfile"
-            app:layout_constraintStart_toStartOf="@id/textListsProfile"
+            app:layout_constraintBottom_toTopOf="@id/textListsProfileTEXT"
+            app:layout_constraintEnd_toEndOf="@id/textListsProfileTEXT"
+            app:layout_constraintStart_toStartOf="@id/textListsProfileTEXT"
             tools:text="4" />
 
         <TextView
-            android:id="@+id/textListsProfile"
+            android:id="@+id/textListsProfileTEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Lists"
+            android:text="@string/lists"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/textReviewsProfile"
+            app:layout_constraintEnd_toStartOf="@+id/textReviewsProfileTEXT"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textFavoritefilmsProfile"
-            app:layout_constraintTop_toTopOf="@id/textRatedfilmsProfile" />
+            app:layout_constraintStart_toEndOf="@+id/textFavMoviesProfileTEXT"
+            app:layout_constraintTop_toTopOf="@id/textRatedMoviesProfileTEXT" />
 
         <TextView
-            android:id="@+id/textReviewcountProfile"
+            android:id="@+id/textReviewsCountProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/chip_purple"
             android:textSize="32sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/textReviewsProfile"
-            app:layout_constraintEnd_toEndOf="@id/textReviewsProfile"
-            app:layout_constraintStart_toStartOf="@id/textReviewsProfile"
+            app:layout_constraintBottom_toTopOf="@id/textReviewsProfileTEXT"
+            app:layout_constraintEnd_toEndOf="@id/textReviewsProfileTEXT"
+            app:layout_constraintStart_toStartOf="@id/textReviewsProfileTEXT"
             tools:text="30" />
 
         <TextView
-            android:id="@+id/textReviewsProfile"
+            android:id="@+id/textReviewsProfileTEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Reviews"
+            android:text="@string/reviews"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineProfile2"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textListsProfile"
-            app:layout_constraintTop_toTopOf="@id/textRatedfilmsProfile" />
+            app:layout_constraintStart_toEndOf="@+id/textListsProfileTEXT"
+            app:layout_constraintTop_toTopOf="@id/textRatedMoviesProfileTEXT" />
 
         <TextView
-            android:id="@+id/textUsersFavFilms"
+            android:id="@+id/textUsersFavMoviesTEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textRatedfilmsProfile"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineProfile2"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/textRatedMoviesProfileTEXT"
             tools:text="Kyran's Favorite Films" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/rvUsersFavMoviesShimmer"
+            android:id="@+id/shimmerFavMoviesProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineProfile2"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersFavFilms">
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersFavMoviesTEXT">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal" >
 
-                <include layout="@layout/sample_popular_movies_shimmer" />
-                <include layout="@layout/sample_popular_movies_shimmer" />
-                <include layout="@layout/sample_popular_movies_shimmer" />
-                <include layout="@layout/sample_popular_movies_shimmer" />
-                <include layout="@layout/sample_popular_movies_shimmer" />
-                <include layout="@layout/sample_popular_movies_shimmer" />
-                <include layout="@layout/sample_popular_movies_shimmer" />
-                <include layout="@layout/sample_popular_movies_shimmer" />
+                <include layout="@layout/sample_popular_movie_shimmer" />
+                <include layout="@layout/sample_popular_movie_shimmer" />
+                <include layout="@layout/sample_popular_movie_shimmer" />
+                <include layout="@layout/sample_popular_movie_shimmer" />
+                <include layout="@layout/sample_popular_movie_shimmer" />
+                <include layout="@layout/sample_popular_movie_shimmer" />
+                <include layout="@layout/sample_popular_movie_shimmer" />
+                <include layout="@layout/sample_popular_movie_shimmer" />
 
             </LinearLayout>
-
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvUsersFavMovies"
+            android:id="@+id/rvUsersFavMoviesProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineProfile2"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersFavFilms"
-            tools:listitem="@layout/sample_popular_fav_movies" />
-
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="148dp"
-            android:src="@drawable/prostaline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersFavFilms" />
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersFavMoviesTEXT"
+            tools:listitem="@layout/sample_popular_fav_movie" />
 
         <TextView
-            android:id="@+id/textUsersrecentwatched"
+            android:id="@+id/textNoFavMoviesProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/no_favorite_movie"
+            android:textColor="@color/white_80pc"
+            android:textStyle="italic"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/dividerProfile"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersFavMoviesTEXT" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dividerProfile"
+            android:layout_width="0dp"
+            android:layout_height="1.5dp"
+            app:dividerColor="@color/shimmer_gray"
+            app:layout_constraintTop_toBottomOf="@id/shimmerFavMoviesProfile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textUsersRecentWatchedProfileTEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/imageView8"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/dividerProfile"
             tools:text="Kyran's Recent Watched" />
 
-        <TextView
-            android:id="@+id/textUsersrecentreviewed"
+        <Button
+            android:id="@+id/buttonSeeAllRecentWatchedProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="164dp"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentwatched"
-            tools:text="Kyran's Recent Reviewed" />
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/letterboxn_dark_purple"
+            android:minWidth="0dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/see_all"
+            android:textColor="@color/letterboxn_skin_color"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textUsersRecentWatchedProfileTEXT"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textUsersRecentWatchedProfileTEXT" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/rvUsersRecWatchedShimmer"
+            android:id="@+id/shimmerRecentWatchedProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentwatched">
+            app:layout_constraintTop_toBottomOf="@+id/textUsersRecentWatchedProfileTEXT">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -330,13 +381,11 @@
                 <include layout="@layout/sample_recent_watched_profile_shimmer"/>
                 <include layout="@layout/sample_recent_watched_profile_shimmer"/>
 
-
             </LinearLayout>
-
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvUsersRecentRated"
+            android:id="@+id/rvUsersRecentWatchedProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
@@ -346,25 +395,64 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentwatched"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersRecentWatchedProfileTEXT"
             tools:itemCount="5"
             tools:listitem="@layout/sample_recent_watched_profile" />
 
+        <TextView
+            android:id="@+id/textNoRecentWatchedProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/no_recently_watched_movie"
+            android:textColor="@color/white_80pc"
+            android:textStyle="italic"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/textUsersRecentReviewedProfileTEXT"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersRecentWatchedProfileTEXT" />
+
+        <TextView
+            android:id="@+id/textUsersRecentReviewedProfileTEXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/shimmerRecentWatchedProfile"
+            tools:text="Kyran's Recent Reviewed" />
+
+        <Button
+            android:id="@+id/buttonSeeAllReviewsProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/letterboxn_dark_purple"
+            android:minWidth="0dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/see_all"
+            android:textColor="@color/letterboxn_skin_color"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textUsersRecentReviewedProfileTEXT"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textUsersRecentReviewedProfileTEXT" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/rvRecentReviewsProfileShimmer"
+            android:id="@+id/shimmerRecentReviewsProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentreviewed" >
+            app:layout_constraintEnd_toStartOf="@+id/guidelineProfile2"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersRecentReviewedProfileTEXT" >
 
         <include layout="@layout/sample_review_home_shimmer" />
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvUsersRecReviewed"
+            android:id="@+id/rvUsersRecReviewedProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -372,110 +460,11 @@
             android:layout_marginEnd="-8dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentreviewed"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineProfile2"
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersRecentReviewedProfileTEXT"
             tools:itemCount="10"
             tools:listitem="@layout/sample_review" />
-
-        <Button
-            android:id="@+id/buttonSeeallRecents"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/letterboxn_dark_purple"
-            android:minWidth="0dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="See All"
-            android:textColor="@color/letterboxn_skin_color"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textUsersrecentwatched"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textUsersrecentwatched" />
-
-        <Button
-            android:id="@+id/buttonSeeallReviews"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/letterboxn_dark_purple"
-            android:minWidth="0dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="See All"
-            android:textColor="@color/letterboxn_skin_color"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textUsersrecentreviewed"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textUsersrecentreviewed" />
-
-        <ImageView
-            android:id="@+id/buttonChangeBackground"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/editicon"
-            app:layout_constraintEnd_toEndOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="@id/buttonlogout" />
-
-        <ImageView
-            android:id="@+id/pickMeButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/editicon"
-            app:layout_constraintEnd_toEndOf="@+id/imageUserppprofile"
-            app:layout_constraintTop_toTopOf="@+id/imageUserppprofile" />
-
-        <ImageView
-            android:id="@+id/imageUnderlineFollowers"
-            android:layout_width="64dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="2dp"
-            android:adjustViewBounds="true"
-            app:layout_constraintEnd_toEndOf="@+id/textCountnFollowersprofile"
-            app:layout_constraintStart_toStartOf="@+id/textCountnFollowersprofile"
-            app:layout_constraintTop_toBottomOf="@+id/textCountnFollowersprofile"
-            app:srcCompat="@drawable/underline_follower" />
-
-        <ImageView
-            android:id="@+id/imageUnderlineFollowings"
-            android:layout_width="64dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="2dp"
-            android:adjustViewBounds="true"
-            app:layout_constraintEnd_toEndOf="@+id/textCountnFollowingsprofile"
-            app:layout_constraintStart_toStartOf="@+id/textCountnFollowingsprofile"
-            app:layout_constraintTop_toBottomOf="@+id/textCountnFollowingsprofile"
-            app:srcCompat="@drawable/underline_follower" />
-
-        <TextView
-            android:id="@+id/textNoFavMoviesProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="There is no favorite movie."
-            android:textColor="#CCFFFFFF"
-            android:textStyle="italic"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/imageView8"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersFavFilms" />
-
-        <TextView
-            android:id="@+id/textNoRecentWatchedProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="There is no recently watched movie."
-            android:textColor="#CCFFFFFF"
-            android:textStyle="italic"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/textUsersrecentreviewed"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentwatched" />
 
         <TextView
             android:id="@+id/textNoReviewedProfile"
@@ -483,13 +472,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="50dp"
-            android:text="There is no recently reviwed movie."
-            android:textColor="#CCFFFFFF"
+            android:text="@string/no_recently_reviwed_movie"
+            android:textColor="@color/white_80pc"
             android:textStyle="italic"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textUsersrecentreviewed" />
+            app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
+            app:layout_constraintTop_toBottomOf="@+id/textUsersRecentReviewedProfileTEXT" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

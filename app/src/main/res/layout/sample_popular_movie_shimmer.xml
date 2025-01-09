@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imageMoviePopularMoviesShimmer"
+        android:id="@+id/imagePopularMovieShimmer"
         android:layout_width="80dp"
         android:layout_height="120dp"
         android:layout_marginVertical="16dp"

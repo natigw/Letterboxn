@@ -3,7 +3,7 @@ package com.example.letterboxn.presentation.ui.bottomsheets
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.common.utils.nancyToastWarning
+import com.example.letterboxn.common.utils.nancyToastWarning
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseBottomSheetFragment
 import com.example.letterboxn.data.remote.api.MovieApi

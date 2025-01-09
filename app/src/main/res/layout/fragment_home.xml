@@ -108,19 +108,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
-                    <include layout="@layout/sample_popular_movies_shimmer" />
+                    <include layout="@layout/sample_popular_movie_shimmer" />
 
-                    <include layout="@layout/sample_popular_movies_shimmer" />
+                    <include layout="@layout/sample_popular_movie_shimmer" />
 
-                    <include layout="@layout/sample_popular_movies_shimmer" />
+                    <include layout="@layout/sample_popular_movie_shimmer" />
 
-                    <include layout="@layout/sample_popular_movies_shimmer" />
+                    <include layout="@layout/sample_popular_movie_shimmer" />
 
-                    <include layout="@layout/sample_popular_movies_shimmer" />
+                    <include layout="@layout/sample_popular_movie_shimmer" />
 
-                    <include layout="@layout/sample_popular_movies_shimmer" />
+                    <include layout="@layout/sample_popular_movie_shimmer" />
 
-                    <include layout="@layout/sample_popular_movies_shimmer" />
+                    <include layout="@layout/sample_popular_movie_shimmer" />
 
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
@@ -135,7 +135,7 @@
                 app:layout_constraintStart_toStartOf="@+id/guidelineHome1"
                 app:layout_constraintTop_toBottomOf="@+id/textPopularMoviesHomeTEXT"
                 tools:itemCount="10"
-                tools:listitem="@layout/sample_popular_fav_movies" />
+                tools:listitem="@layout/sample_popular_fav_movie" />
 
             <TextView
                 android:id="@+id/textPopularListsHomeTEXT"
