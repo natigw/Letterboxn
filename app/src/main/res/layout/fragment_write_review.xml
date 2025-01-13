@@ -14,7 +14,7 @@
         android:layout_marginStart="-4dp"
         android:layout_marginTop="20dp"
         android:clickable="true"
-        android:src="@drawable/round_arrow_back_24"
+        android:src="@drawable/ic_back_arrow"
         app:backgroundTint="#E8A5A5"
         app:elevation="4dp"
         app:fabCustomSize="36dp"

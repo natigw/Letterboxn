@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/letterboxn_dark_purple"
+    tools:context=".presentation.ui.fragments.auth.WelcomeFragment">
+
+    <ImageView
+        android:id="@+id/imageBackWelcome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/background_welcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageLetterboxLogoWelcome"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-4dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/logo_letterboxn"
+        app:layout_constraintBottom_toTopOf="@+id/textLetterboxnWelcomeTEXT"
+        app:layout_constraintEnd_toEndOf="@+id/textLetterboxnWelcomeTEXT"
+        app:layout_constraintStart_toStartOf="@+id/textLetterboxnWelcomeTEXT" />
+
+    <TextView
+        android:id="@+id/textLetterboxnWelcomeTEXT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="@string/letterboxn"
+        android:textColor="@color/white"
+        android:textSize="42sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageBackWelcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textInfoWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_bold"
+        android:text="@string/info_welcome"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/buttonGetStartedWelcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLetterboxnWelcomeTEXT" />
+
+    <Button
+        android:id="@+id/buttonGetStartedWelcome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="#882DFF"
+        android:fontFamily="@font/inter_bold"
+        android:minHeight="60dp"
+        android:text="@string/get_started"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/eventify_large_button_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textInfoWelcome"
+        app:layout_constraintStart_toStartOf="@+id/textInfoWelcome" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

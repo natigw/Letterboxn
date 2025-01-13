@@ -11,7 +11,7 @@
     <string name="exception_error">exception error</string>
     <string name="not_assigned">N/A</string>
     <string name="use_fingerprint_login">Use your fingerprint to login</string>
-    <string name="already_have_an_account">Don\'t have an account? <font color='#882DFF'>SignUp</font></string>
+    <string name="have_no_account_register">Don\'t have an account? <font color='#882DFF'>Register</font></string>
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
     <string name="login_successful">Login successful!</string>
@@ -19,11 +19,15 @@
     <string name="register_failed">Registration failed!</string>
     <string name="invalid_password">Invalid password!</string>
     <string name="incorrect_pin">Incorrect PIN!</string>
-    <string name="entry_pin_length_should_more_than_5">Password length should be more than 5!</string>
-    <string name="password_should_contain_letter">Password should contain letter(s)!</string>
-    <string name="entry_pin_should_only_numbers">Entry pin can only be numbers!</string>
     <string name="entry_pin_length_should_be_4">The length of entry pin can only be 4!</string>
-    <string name="invalid_api_key">Please input a valid API key!</string>
+    <string name="entry_pin_should_only_numbers">Entry pin can only be numbers!</string>
+    <string name="password_should_contain_lowercase">Password should contain lowercase letter(s)!</string>
+    <string name="password_should_contain_uppercase">Password should contain uppercase letter(s)!</string>
+    <string name="password_should_contain_digit">Password should contain digit(s)!</string>
+    <string name="password_should_contain_special_character">Password should contain special character(s)!</string>
+    <string name="min_password_length_is_8">Minimum password length is 8!</string>
+    <string name="please_fill_all_fields">Please fill the fields!</string>
+    <string name="fill_all_input_fields">Please fill the input fields!</string>
     <string name="user_already_exist">User already exists!</string>
     <string name="user_not_exist">User doesn\'t exist!</string>
     <string name="auth_successful">Authentication successful!</string>
@@ -33,6 +37,7 @@
     <string name="change_status_explanation">If you set the status offline, you won\'t be able to see your friends status either!</string>
     <string name="undo">Undo</string>
     <string name="cancel">Cancel</string>
+    <string name="dismiss">Dismiss</string>
     <string name="delete">Delete</string>
     <string name="change">Change</string>
     <string name="choose">Choose</string>
@@ -107,7 +112,22 @@
     <string name="favorite_films">Favorite films</string>
     <string name="rated_films">Rated Films</string>
     <string name="pro">Pro</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
     <string name="log_out">Log out</string>
     <string name="no_favorite_movie">There is no favorite movie.</string>
-
+    <string name="connection_lost">Connection Lost</string>
+    <string name="password">password</string>
+    <string name="email">email</string>
+    <string name="username">username</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="please_enter_valid_email">Please enter a valid e-mail address!</string>
+    <string name="please_enter_username">Please enter a username!</string>
+    <string name="please_enter_email">Please enter the email!</string>
+    <string name="please_enter_password">Please enter the password!</string>
+    <string name="please_enter_comment">Please write a comment!</string>
+    <string name="enter_your_pin">Enter your PIN</string>
+    <string name="entry_pin">entry pin</string>
+    <string name="info_welcome">“Track films you’ve\nwatched. Save those you\nwant to see. Tell your\nfriends what’s good.”</string>
+    <string name="get_started">Get started</string>
 </resources>

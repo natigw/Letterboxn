@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.example.letterboxn.presentation.ui.fragments.auth.OnBoardingFragment"
+        android:name="com.example.letterboxn.presentation.ui.fragments.auth.WelcomeFragment"
         android:label="fragment_on_boarding"
-        tools:layout="@layout/fragment_on_boarding" >
+        tools:layout="@layout/fragment_welcome" >
         <action
             android:id="@+id/action_onBoardingFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        tools:layout="@layout/fragment_signup"
-        android:name="com.example.letterboxn.presentation.ui.fragments.auth.SignupFragment"
+        tools:layout="@layout/fragment_register"
+        android:name="com.example.letterboxn.presentation.ui.fragments.auth.RegisterFragment"
         android:label="SignupFragment" />
 </navigation>

@@ -4,12 +4,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseAdapter
-import com.example.letterboxn.databinding.SamplePopularFavMoviesBinding
+import com.example.letterboxn.databinding.SamplePopularFavMovieBinding
 import com.example.letterboxn.domain.model.MovieItem
 
 class HomePopularMoviesAdapter (
     val onClick : (MovieItem)->Unit
-) : BaseAdapter<SamplePopularFavMoviesBinding>(SamplePopularFavMoviesBinding::inflate){
+) : BaseAdapter<SamplePopularFavMovieBinding>(SamplePopularFavMovieBinding::inflate){
 
     private var movies : List<MovieItem> = emptyList()
 
@@ -17,7 +17,7 @@ class HomePopularMoviesAdapter (
         return movies.size
     }
 
-    override fun onBindLight(binding: SamplePopularFavMoviesBinding, position: Int) {
+    override fun onBindLight(binding: SamplePopularFavMovieBinding, position: Int) {
         val movie = movies[position]
         Glide.with(binding.imageMoviePopularFav)
             .load("https://image.tmdb.org/t/p/w500" + movie.moviePoster)

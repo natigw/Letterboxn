@@ -33,11 +33,15 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(FragmentExploreBind
         updateAdapters()
     }
 
-    override fun observeChanges() {
+    override fun clickListeners() {
+        super.clickListeners()
         binding.buttonsearch.setOnClickListener {
             findNavController().navigate(ExploreFragmentDirections.actionExploreFragmentToSearchExploreFragment())
         }
+    }
 
+    override fun observeChanges() {
+        super.observeChanges()
         viewmodel.moviesList.observe(viewLifecycleOwner) {
             movieAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }

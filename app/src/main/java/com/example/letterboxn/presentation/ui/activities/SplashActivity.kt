@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         window.navigationBarColor = getColor(R.color.letterboxn_exact_dark_purple)
 
         Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, OnBoardingActivity::class.java))
             finish()
         }, 1200)
     }

@@ -14,12 +14,20 @@ class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository
 ) : ViewModel() {
 
-    val results = MutableStateFlow<List<SearchItem>>(emptyList())
+    val searchResults = MutableStateFlow<List<SearchItem>>(emptyList())
+    val multiSearchResults = MutableStateFlow<List<SearchItem>>(emptyList())
 
-    fun searchMovies(movieName : String) {
+    fun searchMovies(movieToSearch : String) {
         viewModelScope.launch {
-            val response = searchRepository.searchMovies(movieName)
-            results.emit(response)
+            val responseSearch = searchRepository.searchMovies(movieToSearch)
+            searchResults.emit(responseSearch)
+        }
+    }
+
+    fun searchMoviesMulti(movieToSearch: String) {
+        viewModelScope.launch {
+            val responseMultiSearch = searchRepository.searchMoviesMulti(movieToSearch)
+            multiSearchResults.emit(responseMultiSearch)
         }
     }
 }

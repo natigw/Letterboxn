@@ -2,12 +2,12 @@ package com.example.letterboxn.presentation.ui.fragments.movieDetails
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.res.Resources
 import android.graphics.Color
 import android.text.Html
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,6 +19,7 @@ import com.example.letterboxn.common.utils.nancyToastInfo
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.common.utils.DoubleClickListener
+import com.example.letterboxn.common.utils.dpToPx
 import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.data.remote.model.movieCredit.Cast
 import com.example.letterboxn.data.remote.model.movieCredit.Crew
@@ -28,12 +29,15 @@ import com.example.letterboxn.presentation.adapters.MovieDetailsCrewAdapter
 import com.example.letterboxn.presentation.adapters.MovieDetailsReviewsAdapter
 import com.example.letterboxn.common.utils.numberFormatter
 import com.example.letterboxn.common.utils.randomInteger
+import com.example.letterboxn.common.utils.startShimmer
+import com.example.letterboxn.common.utils.stopShimmer
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.ResultFavoriteMovie
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.RequestAddRemoveFavorite
 import com.example.letterboxn.data.remote.model.account.ratedMovies.ResultRatedMovie
 import com.example.letterboxn.data.remote.model.account.watchlist.ResultWatchlist
 import com.example.letterboxn.data.remote.model.account.watchlist.addWatchlist.RequestAddRemoveWatchlist
 import com.example.letterboxn.domain.model.ReviewWithoutMovieItem
+import com.example.letterboxn.presentation.viewmodels.MovieDetailsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
@@ -43,6 +47,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentDetailsMovieBinding::inflate) {
+
+    private val viewmodel by viewModels<MovieDetailsViewModel>()
 
     @Inject
     lateinit var api: MovieApi
@@ -374,9 +380,6 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
         }
 
     }
-    private fun dpToPx(dp: Float): Float {
-        return dp * Resources.getSystem().displayMetrics.density
-    }
 
     private fun addToList(movieId: Int) {
         findNavController().navigate(
@@ -385,7 +388,6 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
     }
 
     private fun deleteFromList(movieId : Int) {
-
         val customTitle = TextView(requireContext()).apply {
             text = getString(R.string.are_you_sure_to_remove)
             setPadding(40, 40, 40, 40)
@@ -433,4 +435,15 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
         binding.rvCrew.adapter = crewAdapter
         binding.rvReviews.adapter = reviewAdapter
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        if (viewmodel..value.isEmpty())
+//            startShimmer(binding.detailsShimmer)
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        stopShimmer(binding.detailsShimmer)
+//    }
 }

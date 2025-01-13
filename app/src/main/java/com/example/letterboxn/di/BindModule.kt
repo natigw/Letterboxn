@@ -1,9 +1,11 @@
 package com.example.letterboxn.di
 
+import com.example.letterboxn.data.remote.repository.AuthRepositoryImpl
 import com.example.letterboxn.data.remote.repository.ExploreRepositoryImpl
 import com.example.letterboxn.data.remote.repository.MovieRepositoryImpl
 import com.example.letterboxn.data.remote.repository.ReviewRepositoryImpl
 import com.example.letterboxn.data.remote.repository.SearchRepositoryImpl
+import com.example.letterboxn.domain.repository.AuthRepository
 import com.example.letterboxn.domain.repository.ExploreRepository
 import com.example.letterboxn.domain.repository.MovieRepository
 import com.example.letterboxn.domain.repository.ReviewRepository
@@ -16,6 +18,9 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 @Module
 abstract class BindModule {
+
+    @Binds
+    abstract fun bindAuthRepository(impl: AuthRepositoryImpl) : AuthRepository
 
     @Binds
     abstract fun bindMovieRepository(impl: MovieRepositoryImpl) : MovieRepository

@@ -12,25 +12,26 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.letterboxn.common.base.BaseFragment
-import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.databinding.FragmentSearchExploreBinding
 import com.example.letterboxn.domain.model.SearchItem
 import com.example.letterboxn.presentation.adapters.SearchAdapter
 import com.example.letterboxn.presentation.viewmodels.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchExploreFragment : BaseFragment<FragmentSearchExploreBinding>(FragmentSearchExploreBinding::inflate) {
+class SearchExploreFragment :
+    BaseFragment<FragmentSearchExploreBinding>(FragmentSearchExploreBinding::inflate) {
 
-    @Inject
-    lateinit var api: MovieApi
-
-    val viewmodel by viewModels<SearchViewModel>()
+    private val viewmodel by viewModels<SearchViewModel>()
     private val searchAdapter = SearchAdapter(
         onClick = {
-            findNavController().navigate(SearchExploreFragmentDirections.actionSearchExploreFragmentToDetailsMovieFragment(it))
+            findNavController().navigate(
+                SearchExploreFragmentDirections.actionSearchExploreFragmentToDetailsMovieFragment(
+                    it
+                )
+            )
         }
     )
 
@@ -52,8 +53,15 @@ class SearchExploreFragment : BaseFragment<FragmentSearchExploreBinding>(Fragmen
 
     private fun updateAdapters() {
         lifecycleScope.launch {
-            viewmodel.results.collect {
-                searchAdapter.updateAdapter(it, isMultiSearch)
+            if (isMultiSearch){
+                viewmodel.multiSearchResults.collect {
+                    searchAdapter.updateAdapter(it, true)
+                }
+            }
+            else {
+                viewmodel.searchResults.collect {
+                    searchAdapter.updateAdapter(it, false)
+                }
             }
         }
     }
@@ -65,7 +73,8 @@ class SearchExploreFragment : BaseFragment<FragmentSearchExploreBinding>(Fragmen
         binding.floatingActionButtonSearch.setOnClickListener {
             if (binding.editTextSearch.text.isNullOrEmpty())
                 return@setOnClickListener
-            doSearch()
+            val movieToSearch = binding.editTextSearch.text.toString().trim()
+            doSearch(movieToSearch)
         }
         binding.imageSearchClear.setOnClickListener {
             binding.editTextSearch.text.clear()
@@ -75,49 +84,22 @@ class SearchExploreFragment : BaseFragment<FragmentSearchExploreBinding>(Fragmen
         }
     }
 
-    private fun doSearch() {
+    private fun doSearch(movieToSearch: String) {
         binding.textSearchresults.visibility = View.VISIBLE
         hideKeyboardAuto()
-        val movieToSearch = binding.editTextSearch.text.toString()
         if (isMultiSearch) {
             lifecycleScope.launch {
-                try {
-                    val responseMultiSearch = api.multiSearchMovies(movieToSearch).results.map {
-                        SearchItem(
-                            movieId = it.id,
-                            movieTitle = it.title,
-                            moviePoster = it.posterPath,
-                            movieRating = it.voteAverage.toFloat(),
-                            movieReleaseDate = it.releaseDate,
-                            mediaType = it.mediaType
-                        )
-                    }
-                    binding.textNoResults.visibility = if (responseMultiSearch.isEmpty()) View.VISIBLE else View.GONE
-                    searchAdapter.updateAdapter(responseMultiSearch,true)
-                }
-                catch (e: Exception) {
-                    Log.e("api", e.toString())
+                viewmodel.multiSearchResults.collectLatest {
+                    binding.textNoResults.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+                    searchAdapter.updateAdapter(it, true)
                 }
             }
-        }
-        else {
-            try {
-                lifecycleScope.launch {
-                    val responseSearch = api.searchMovies(movieToSearch).results.map {
-                        SearchItem(
-                            movieId = it.id,
-                            movieTitle = it.title,
-                            moviePoster = it.posterPath,
-                            movieRating = it.voteAverage.toFloat(),
-                            movieReleaseDate = it.releaseDate,
-                            mediaType = "movie"
-                        )
-                    }
-                    binding.textNoResults.visibility = if (responseSearch.isEmpty()) View.VISIBLE else View.GONE
-                    searchAdapter.updateAdapter(responseSearch,false)
+        } else {
+            lifecycleScope.launch {
+                viewmodel.searchResults.collectLatest {
+                    binding.textNoResults.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+                    searchAdapter.updateAdapter(it, true)
                 }
-            } catch (e: Exception) {
-                Log.e("api", e.toString())
             }
         }
     }
@@ -140,7 +122,7 @@ class SearchExploreFragment : BaseFragment<FragmentSearchExploreBinding>(Fragmen
             if (actionId == EditorInfo.IME_ACTION_DONE || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
                 binding.textSearchresults.visibility = View.VISIBLE
                 hideKeyboardAuto()
-                doSearch()
+//                doSearch() //TODO -> bunu duzelt
                 true
             } else {
                 false

@@ -43,21 +43,6 @@ import javax.inject.Named
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
-    @Inject
-    lateinit var firestore: FirebaseFirestore
-
-    @Inject
-    @Named("UserLoggedIn")
-    lateinit var sharedPrefLoggedIn: SharedPreferences
-
-    @Inject
-    @Named("UserStatusInApp")
-    lateinit var sharedPrefStatus: SharedPreferences
-
-    @Inject
-    @Named("UserProfileImage")
-    lateinit var sharedPrefProfilePicture : SharedPreferences
-
     private val viewmodel by viewModels<HomeViewModel>()
 
     private val popularAdapter = HomePopularMoviesAdapter(
@@ -115,22 +100,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val drawerLayout = binding.myDrawerLayout
         val navigationView: NavigationView = requireActivity().findViewById(R.id.drawerNavigationHome)
 
-        val userName = sharedPrefLoggedIn.getString("username", null)
-        val userEmail = sharedPrefLoggedIn.getString("email", null)
-        val status = sharedPrefStatus.getBoolean("status", false)
-        val followerCount = 22   //from api
-        val followingCount = 39
         val headerView = navigationView.getHeaderView(0)
         val userProfilePicture = headerView.findViewById<ShapeableImageView>(R.id.imageUserppDrawer)
         val userNameDrawer = headerView.findViewById<TextView>(R.id.textUsernamedrawer)
         val userEmailDrawer = headerView.findViewById<TextView>(R.id.textUseremaildrawer)
         val followerCountDrawer = headerView.findViewById<Chip>(R.id.chipFollowersdrawer)
         val followingCountDrawer = headerView.findViewById<Chip>(R.id.chipFollowingsdrawer)
-        userNameDrawer.text = userName
-        userEmailDrawer.text = userEmail
-        followerCountDrawer.text = "${numberFormatterSpaced(followerCount.toLong())} ${getString(R.string.followers)}"
-        followingCountDrawer.text = "${numberFormatterSpaced(followingCount.toLong())} ${getString(R.string.followings)}"
-        binding.textGreetingHome.text = Html.fromHtml("${getString(R.string.greeting_text)}, <font color=\"#E9A6A6\">$userName</font>!")
+        userNameDrawer.text = viewmodel.userName
+        userEmailDrawer.text = viewmodel.userEmail
+        followerCountDrawer.text = "${numberFormatterSpaced(viewmodel.followerCount.toLong())} ${getString(R.string.followers)}"
+        followingCountDrawer.text = "${numberFormatterSpaced(viewmodel.followingCount.toLong())} ${getString(R.string.followings)}"
+        binding.textGreetingHome.text = Html.fromHtml("${getString(R.string.greeting_text)}, <font color=\"#E9A6A6\">$viewmodel.userName</font>!")
 
         Glide.with(binding.imageUserProfilePictureHome)
             .load(getProfilePictureUri())
@@ -144,7 +124,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(userProfilePicture)
 
-        if (status) binding.imageUserStatusHome.setImageResource(R.drawable.circle_green)
+        if (viewmodel.status) binding.imageUserStatusHome.setImageResource(R.drawable.circle_green)
         else binding.imageUserStatusHome.setImageResource(R.drawable.circle_red)
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
@@ -184,7 +164,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
                 R.id.nav_logout -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
-                    sharedPrefLoggedIn.edit().putBoolean("status", false).apply()
+                    viewmodel.sharedPrefLoggedIn.edit().putBoolean("status", false).apply()
                     nancyToastInfo(requireContext(), getString(R.string.logout_info_message))
                     navigateToOnBoardActivity()
                     true
@@ -194,22 +174,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
-    override fun observeChanges() {
+    override fun clickListeners() {
+        super.clickListeners()
         binding.toggleDrawerHome.setOnClickListener {
             binding.myDrawerLayout.openDrawer(Gravity.LEFT, true)
         }
-
         binding.imageUserProfilePictureHome.setOnClickListener {
             showStatusDialog()
-        }
-    }
-
-    private suspend fun checkIfUserExists(email: String): Boolean {
-        return try {
-            val documentSnapshot = firestore.collection("users").document(email).get().await()
-            documentSnapshot.exists()
-        } catch (e: Exception) {
-            false
         }
     }
 
@@ -238,13 +209,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             .setNegativeButton(getString(R.string.offline)) { _, _ ->
                 binding.imageUserStatusHome.setImageResource(R.drawable.circle_red)
                 nancyToastError(requireContext(), getString(R.string.status_offline))
-                sharedPrefStatus.edit().putBoolean("status", false).apply()
+                viewmodel.sharedPrefStatus.edit().putBoolean("status", false).apply()
 
             }
             .setPositiveButton(getString(R.string.online)) { _, _ ->
                 binding.imageUserStatusHome.setImageResource(R.drawable.circle_green)
                 nancyToastSuccess(requireContext(), getString(R.string.status_online))
-                sharedPrefStatus.edit().putBoolean("status", true).apply()
+                viewmodel.sharedPrefStatus.edit().putBoolean("status", true).apply()
             }
             .create()
 
@@ -266,7 +237,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun getProfilePictureUri(): Uri {
-        val uriImage = sharedPrefProfilePicture.getString("profile_image_uri", null)
+        val uriImage = viewmodel.sharedPrefProfilePicture.getString("profile_image_uri", null)
         return if (uriImage != null) {
             Uri.parse(uriImage)
         } else {

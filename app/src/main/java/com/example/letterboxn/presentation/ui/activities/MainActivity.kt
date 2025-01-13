@@ -1,29 +1,23 @@
 package com.example.letterboxn.presentation.ui.activities
 
-import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import androidx.core.view.isGone
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.letterboxn.R
+import com.example.letterboxn.common.base.BaseActivity
 import com.example.letterboxn.common.utils.NetworkConnection
 import com.example.letterboxn.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var networkConnection: NetworkConnection
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    override fun onCreateLight() {
         networkConnection = NetworkConnection(applicationContext)
 
         networkConnection.isConnected.observe(this) { isConnected ->
@@ -44,16 +38,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showConnectionLostMessage() {
-        Snackbar.make(findViewById(android.R.id.content), "Connection Lost", Snackbar.LENGTH_INDEFINITE).apply {
-            setAction("Dismiss") {
+        Snackbar.make(findViewById(android.R.id.content), getString(R.string.connection_lost), Snackbar.LENGTH_INDEFINITE).apply {
+            setAction(getString(R.string.dismiss)) {
                 dismiss()
             }.show()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        networkConnection.unregister()
     }
 
     private fun setUpBottomNavigation() {
@@ -73,4 +62,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        networkConnection.unregister()
+    }
 }
