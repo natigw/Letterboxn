@@ -2,7 +2,6 @@ package com.example.letterboxn.presentation.ui.fragments.home
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.text.Html
@@ -14,11 +13,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.letterboxn.R
+import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.common.utils.nancyToastError
 import com.example.letterboxn.common.utils.nancyToastInfo
 import com.example.letterboxn.common.utils.nancyToastSuccess
-import com.example.letterboxn.R
-import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.common.utils.numberFormatterSpaced
 import com.example.letterboxn.common.utils.startShimmer
 import com.example.letterboxn.common.utils.stopShimmer
@@ -32,13 +31,9 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
-import javax.inject.Named
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
@@ -63,6 +58,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         )
     }
 
+    private var username: String? = null
+    private var email: String? = null
+
     override fun onViewCreatedLight() {
         setUI()
         setAdapters()
@@ -70,19 +68,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun updateAdapters() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewmodel.popularMovies.collect {
                 popularAdapter.updateAdapter(it)
                 stopShimmer(binding.shimmerPopularMoviesHome)
             }
         }
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewmodel.popularLists.collectLatest {
                 popularListAdapter.updateAdapter(it)
                 stopShimmer(binding.shimmerPopularListsHome)
             }
         }
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewmodel.recentReviews.collectLatest {
                 reviewAdapter.updateAdapter(it)
                 stopShimmer(binding.shimmerRecentReviewsHome)
@@ -97,6 +95,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     }
 
     private fun setUI() {
+
+        username = viewmodel.userName ?: getString(R.string.user)
+        email = viewmodel.userEmail
+
         val drawerLayout = binding.myDrawerLayout
         val navigationView: NavigationView = requireActivity().findViewById(R.id.drawerNavigationHome)
 
@@ -106,11 +108,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val userEmailDrawer = headerView.findViewById<TextView>(R.id.textUseremaildrawer)
         val followerCountDrawer = headerView.findViewById<Chip>(R.id.chipFollowersdrawer)
         val followingCountDrawer = headerView.findViewById<Chip>(R.id.chipFollowingsdrawer)
-        userNameDrawer.text = viewmodel.userName
-        userEmailDrawer.text = viewmodel.userEmail
+        userNameDrawer.text = username
+        userEmailDrawer.text = email
         followerCountDrawer.text = "${numberFormatterSpaced(viewmodel.followerCount.toLong())} ${getString(R.string.followers)}"
         followingCountDrawer.text = "${numberFormatterSpaced(viewmodel.followingCount.toLong())} ${getString(R.string.followings)}"
-        binding.textGreetingHome.text = Html.fromHtml("${getString(R.string.greeting_text)}, <font color=\"#E9A6A6\">$viewmodel.userName</font>!")
+        binding.textGreetingHome.text = Html.fromHtml("${getString(R.string.greeting_text)}, <font color=\"#E9A6A6\">$username</font>!")
 
         Glide.with(binding.imageUserProfilePictureHome)
             .load(getProfilePictureUri())

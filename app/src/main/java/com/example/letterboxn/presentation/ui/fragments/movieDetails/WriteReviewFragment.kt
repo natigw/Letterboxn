@@ -41,7 +41,7 @@ class WriteReviewFragment :
 
     override fun onViewCreatedLight() {
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             try {
                 if (findMovieById(args.movieId) != null) {  //found
                     isFav = true
@@ -52,7 +52,7 @@ class WriteReviewFragment :
             }
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             val movieItem = api.getMovieDetails(movieId = args.movieId)
             with(binding) {
                 Glide.with(imagePosterReview)
@@ -98,7 +98,7 @@ class WriteReviewFragment :
                 nancyToastWarning(requireContext(), getString(R.string.review_cannot_be_empty))
                 return@setOnClickListener
             }
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 api.addOrRemoveFavoriteMovie(
                     requestFavorite = RequestAddRemoveFavorite(
                         favorite = isFav,  //if true add, else remove fav
@@ -107,7 +107,7 @@ class WriteReviewFragment :
                     )
                 )
             }
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 api.addRateMovie(
                     movieId = args.movieId,
                     requestRateMovie = RequestAddRating(
@@ -115,7 +115,7 @@ class WriteReviewFragment :
                     )
                 )
             }
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 reviewDao.addReview(
                     ReviewEntity(
                         movieId = args.movieId,

@@ -33,7 +33,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
                 if (!checkInputFields(username, email, password, entryPin)) return@setOnClickListener
 
-                lifecycleScope.launch {
+                viewLifecycleOwner.lifecycleScope.launch {
                     blockRegisterButton()
 
                     if (viewmodel.checkIfUserExists(email)) {

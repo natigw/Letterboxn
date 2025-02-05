@@ -33,7 +33,7 @@ class RateMovieBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetfragment
                 nancyToastWarning(requireContext(), getString(R.string.please_rate_movie))
                 return@setOnClickListener
             }
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 val request = api.addRateMovie(
                     movieId = args.movieId,
                     requestRateMovie = RequestAddRating(value = rating)

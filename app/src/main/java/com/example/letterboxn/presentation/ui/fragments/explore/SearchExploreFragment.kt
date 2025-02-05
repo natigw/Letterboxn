@@ -3,7 +3,6 @@ package com.example.letterboxn.presentation.ui.fragments.explore
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -13,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.databinding.FragmentSearchExploreBinding
-import com.example.letterboxn.domain.model.SearchItem
 import com.example.letterboxn.presentation.adapters.SearchAdapter
 import com.example.letterboxn.presentation.viewmodels.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +50,7 @@ class SearchExploreFragment :
     }
 
     private fun updateAdapters() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             if (isMultiSearch){
                 viewmodel.multiSearchResults.collect {
                     searchAdapter.updateAdapter(it, true)
@@ -88,14 +86,14 @@ class SearchExploreFragment :
         binding.textSearchresults.visibility = View.VISIBLE
         hideKeyboardAuto()
         if (isMultiSearch) {
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 viewmodel.multiSearchResults.collectLatest {
                     binding.textNoResults.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
                     searchAdapter.updateAdapter(it, true)
                 }
             }
         } else {
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 viewmodel.searchResults.collectLatest {
                     binding.textNoResults.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
                     searchAdapter.updateAdapter(it, true)

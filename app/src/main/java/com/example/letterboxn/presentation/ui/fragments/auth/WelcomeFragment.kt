@@ -19,7 +19,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(FragmentWelcomeBind
     private val viewmodel by viewModels<WelcomeViewModel>()
 
     override fun onViewCreatedLight() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             if (viewmodel.status && viewmodel.username != null) {
                 if (isUserAuthorized(viewmodel.username!!)) {
                     navigateToMainActivity()

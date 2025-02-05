@@ -30,7 +30,7 @@ class CategoryMoviesExploreBottomSheetFragment : BaseBottomSheetFragment<Bottoms
     override fun onViewCreatedLight() {
 
         binding.textCategoryTitleBSh.text = args.categoryItem.categoryName
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             val response = api.getMovies(page = 2).results
             val moviesGroupedByGenre = response
                 .flatMap { movie -> movie.genreIds.map { genreId -> genreId to movie } }

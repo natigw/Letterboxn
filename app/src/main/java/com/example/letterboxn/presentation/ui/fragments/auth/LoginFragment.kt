@@ -52,7 +52,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 return@setOnClickListener
             }
 
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 blockLoginButton()
                 authenticateUser(email, password)
                 resetLoginButton()

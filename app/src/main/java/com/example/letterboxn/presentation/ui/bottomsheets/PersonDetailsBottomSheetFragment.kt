@@ -19,11 +19,11 @@ class PersonDetailsBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetfrag
     @Inject
     lateinit var api : MovieApi
 
-    val args : PersonDetailsBottomSheetFragmentArgs by navArgs()
+    private val args : PersonDetailsBottomSheetFragmentArgs by navArgs()
 
     override fun onViewCreatedLight() {
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             val personItem = api.getPersonDetails(personId = args.personId)
 
             with(binding){

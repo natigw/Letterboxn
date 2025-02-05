@@ -29,7 +29,7 @@ class FavPostersBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetfragmen
     lateinit var sharedPrefBackPosterIsDefault: SharedPreferences
 
     override fun onViewCreatedLight() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val movies = api.getFavoriteMovies().results
                 binding.rvFavMovies.adapter = BShFavMoviesAdapter(

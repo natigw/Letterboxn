@@ -106,7 +106,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
 
         var castResponse = emptyList<Cast>()
         var crewResponse = emptyList<Crew>()
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             val movieItem = api.getMovieDetails(movieId = args.movieId)
             castResponse = api.getMovieCredits(movieItem.id).cast
             crewResponse = api.getMovieCredits(movieItem.id).crew
@@ -139,7 +139,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
                         rvCrew.visibility = View.GONE
                         rvCast.visibility = View.GONE
                         LinearGroupDetails.visibility = View.VISIBLE
-                        lifecycleScope.launch {
+                        viewLifecycleOwner.lifecycleScope.launch {
                             val details = api.getMovieDetails(args.movieId)
                             val genres = details.genres.map { it.name }
                             val concatenatedGenres = genres.joinToString(separator = "\n")
@@ -160,7 +160,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
 
         })
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             val movieItem = api.getMovieDetails(movieId = args.movieId)
             movieTitle = movieItem.title
             movieId = movieItem.id
@@ -295,7 +295,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
             Snackbar.make(requireView(), getString(R.string.movie_removed_from_favorites), Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.undo)) {
                     //cancel the rest of process
-                    lifecycleScope.launch {
+                    viewLifecycleOwner.lifecycleScope.launch {
                         api.addOrRemoveFavoriteMovie(
                             requestFavorite = RequestAddRemoveFavorite(
                                 favorite = true,
@@ -308,7 +308,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
                         Snackbar.make(requireView(), getString(R.string.movie_added_to_favorites), Snackbar.LENGTH_SHORT).show()
                     }
                 }.show()
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 api.addOrRemoveFavoriteMovie(
                     requestFavorite = RequestAddRemoveFavorite(
                         favorite = false,
@@ -322,7 +322,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
         binding.imagePosterDetails.setOnClickListener(object : DoubleClickListener() {
             override fun onDoubleClick() {
                 if (!isFav) {
-                    lifecycleScope.launch {
+                    viewLifecycleOwner.lifecycleScope.launch {
                         api.addOrRemoveFavoriteMovie(
                             requestFavorite = RequestAddRemoveFavorite(
                                 favorite = true,
@@ -349,7 +349,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
         }
 
         binding.buttonAddtoWatchlist.setOnClickListener { view ->
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 api.addOrRemoveWatchlist(requestWatchlist = RequestAddRemoveWatchlist(
                     mediaId = movieId,
                     mediaType = "movie",
@@ -403,7 +403,7 @@ class DetailsMovieFragment : BaseFragment<FragmentDetailsMovieBinding>(FragmentD
                 nancyToast(requireContext(), getString(R.string.operation_cancelled))
             }
             .setPositiveButton(getString(R.string.delete)) { _, _ ->
-                lifecycleScope.launch {
+                viewLifecycleOwner.lifecycleScope.launch {
                     api.deleteRateMovie(movieId = movieId)
                     Snackbar.make(requireView(), getString(R.string.movie_removed_from_watched_list), Snackbar.LENGTH_SHORT).show()
                     binding.buttonAddtoMyList.text = getString(R.string.add_to_watched_list)

@@ -3,7 +3,6 @@ package com.example.letterboxn.presentation.ui.fragments.profile
 import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Canvas
 import android.graphics.Color
@@ -28,19 +27,17 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.letterboxn.R
+import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.common.utils.nancyToast
 import com.example.letterboxn.common.utils.nancyToastError
 import com.example.letterboxn.common.utils.nancyToastInfo
 import com.example.letterboxn.common.utils.nancyToastSuccess
-import com.example.letterboxn.R
-import com.example.letterboxn.common.base.BaseFragment
 import com.example.letterboxn.common.utils.numberFormatter
 import com.example.letterboxn.common.utils.numberFormatterSpaced
 import com.example.letterboxn.common.utils.startShimmer
 import com.example.letterboxn.common.utils.stopShimmer
-import com.example.letterboxn.data.local.database.review.ReviewDao
 import com.example.letterboxn.data.local.database.review.ReviewEntity
-import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.RequestAddRemoveFavorite
 import com.example.letterboxn.databinding.FragmentProfileBinding
 import com.example.letterboxn.domain.model.MovieItem
@@ -51,39 +48,14 @@ import com.example.letterboxn.presentation.adapters.ProfileRatedAdapter
 import com.example.letterboxn.presentation.adapters.ProfileReviewsAdapter
 import com.example.letterboxn.presentation.ui.activities.OnBoardingActivity
 import com.example.letterboxn.presentation.viewmodels.ProfileViewModel
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
-import javax.inject.Named
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
-
-    @Inject
-    lateinit var api: MovieApi
-
-    @Inject
-    lateinit var reviewDao: ReviewDao
-
-    @Inject
-    @Named("UserLoggedIn")
-    lateinit var sharedPrefLogon : SharedPreferences
-
-    @Inject
-    @Named("UserProfileImage")
-    lateinit var sharedPrefProfilePicture : SharedPreferences
-
-    @Inject
-    @Named("UserBackPosterImage")
-    lateinit var sharedPrefBackPoster : SharedPreferences
-
-    @Inject
-    @Named("UserBackPosterIsDefault")
-    lateinit var sharedPrefBackPosterIsDefault : SharedPreferences
 
     private val viewmodel by viewModels<ProfileViewModel>()
 
@@ -128,7 +100,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     private lateinit var takePictureLauncher: ActivityResultLauncher<Void?>
 
-    private var username: String = getString(R.string.user)
+    private lateinit var username: String
 
     val reviewsToDelete = mutableListOf<ReviewEntity>()
 
@@ -162,9 +134,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 //        nancyToastInfo(requireContext(), "accountId is $accId")
 //        nancyToastInfo(requireContext(), "api+sess is $advApiKey")
 
-        username = sharedPrefLogon.getString("username", null) ?: getString(R.string.user)
+        username = viewmodel.sharedPrefLogon.getString("username", null) ?: getString(R.string.user)
         binding.textUsernameProfile.text = username
-        binding.textUsersFavMoviesTEXT.text = "$username ${getString(R.string.somebody_s_fav_films)}"
+        binding.textUsersFavMoviesTEXT.text = buildString {
+        append(username)
+        append(" ")
+        append(getString(R.string.somebody_s_fav_films))
+    }
         binding.textUsersRecentWatchedProfileTEXT.text = "$username's Recent Watched"
         binding.textUsersRecentReviewedProfileTEXT.text = "$username's Recent Reviewed"
         val userFollowers = 22  //from api
@@ -178,7 +154,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 //        val deleteIcon = ContextCompat.getDrawable(requireContext(), R.drawable.trash_bin)!!
 //        val background = ColorDrawable(Color.RED)
 //
-//        lifecycleScope.launch {
+//        viewLifecycleOwner.lifecycleScope.launch {
 //            try {
 //                val reviews = reviewDao.getAllReviews().reversed()
 //                binding.textReviewcountProfile.text = numberFormatter(reviews.size.toLong())
@@ -290,8 +266,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     override fun onPause() {
         super.onPause()
         reviewsToDelete.forEach {
-            lifecycleScope.launch {
-                reviewDao.deleteReview(it)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewmodel.reviewDao.deleteReview(it)
             }
         }
     }
@@ -312,15 +288,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             nancyToastInfo(requireContext(), getString(R.string.navigating_reviews_screen))
         }
         binding.buttonLogoutProfile.setOnClickListener {
-            sharedPrefLogon.edit().putBoolean("status", false).apply()
+            viewmodel.sharedPrefLogon.edit().putBoolean("status", false).apply()
             nancyToastInfo(requireContext(), getString(R.string.logout_info_message))
             navigateToOnBoardActivity()
         }
     }
 
     private fun updateAdapters() {
-        lifecycleScope.launch {
-            val it = api.getFavoriteMovies().results.map {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val it = viewmodel.api.getFavoriteMovies().results.map {
                 MovieItem(
                     movieId = it.id,
                     movieTitle = it.title,
@@ -340,8 +316,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 //                shimmerFav.visibility = View.GONE
 //            }
         }
-        lifecycleScope.launch {
-            val it = api.getRatedMoviesAccount().results.map {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val it = viewmodel.api.getRatedMoviesAccount().results.map {
                 RatedMovieItem(
                     movieId = it.id,
                     moviePoster = it.posterPath,
@@ -360,13 +336,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 //                    shimmerWatched.visibility = View.GONE
 //            }
         }
-        lifecycleScope.launch {
-            val reviews = reviewDao.getAllReviews()
+        viewLifecycleOwner.lifecycleScope.launch {
+            val reviews = viewmodel.reviewDao.getAllReviews()
             val reviewsWithMovieDetails = reviews.map { review ->
-                val movieDetails = api.getMovieDetails(movieId = review.movieId) //viewmodel
+                val movieDetails = viewmodel.api.getMovieDetails(movieId = review.movieId) //viewmodel
                 ReviewWithMovieItem(
                     authorName = username,
-                    authorImage = sharedPrefProfilePicture.getString("profile_image_uri", null)
+                    authorImage = viewmodel.sharedPrefProfilePicture.getString("profile_image_uri", null)
                         ?: "android.resource://${requireActivity().packageName}/${R.drawable.placeholder_user}",
                     review = review.review,
                     reviewRating = review.rating.toDouble(),
@@ -438,7 +414,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                             review = deletedReview.review ?: "Just perfect!",
                             rating = deletedReview.reviewRating,
                             reviewDate = deletedReview.movieReleaseDate,
-                            reviewId = reviewDao.getReviewId(deletedReview.movieId, review = deletedReview.review ?: "Just perfect!")!!)
+                            reviewId = viewmodel.reviewDao.getReviewId(deletedReview.movieId, review = deletedReview.review ?: "Just perfect!")!!)
                         )
                     }
                     Snackbar.make(binding.rvUsersRecReviewedProfile, getString(R.string.review_deleted), Snackbar.LENGTH_LONG).apply {
@@ -518,8 +494,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             setPositiveButton(deleteText) { _, _ ->
                 favAdapter.removeItem(position)
                 binding.textFavMoviesCountProfile.text = binding.textFavMoviesCountProfile.text.toString().toInt().minus(1).toString()
-                lifecycleScope.launch {
-                    api.addOrRemoveFavoriteMovie(requestFavorite = RequestAddRemoveFavorite(
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewmodel.api.addOrRemoveFavoriteMovie(requestFavorite = RequestAddRemoveFavorite(
                         favorite = false,
                         mediaId = movieId,
                         mediaType = "movie"
@@ -567,7 +543,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(binding.imageUserPictureProfile)
                 // Clear the profile image URI in SharedPreferences
-                sharedPrefProfilePicture.edit().remove("profile_image_uri").apply()
+                viewmodel.sharedPrefProfilePicture.edit().remove("profile_image_uri").apply()
 
                 nancyToastInfo(requireContext(), getString(R.string.profile_picture_deleted))
             }
@@ -634,13 +610,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
 
     private fun saveImageUri(uri: Uri) {
-        sharedPrefProfilePicture.edit()
+        viewmodel.sharedPrefProfilePicture.edit()
             .putString("profile_image_uri", uri.toString())
             .apply()
     }
 
     private fun getProfilePictureUri(): Uri {
-        val uriImage = sharedPrefProfilePicture.getString("profile_image_uri", null)
+        val uriImage = viewmodel.sharedPrefProfilePicture.getString("profile_image_uri", null)
         return if (uriImage != null) {
             Uri.parse(uriImage)
         } else {
@@ -659,8 +635,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private fun refreshProfileBackPoster() {
-        val isPosterDefault = sharedPrefBackPosterIsDefault.getBoolean("isDefault", false)
-        val backPoster = sharedPrefBackPoster.getString("poster", "android.resource://${requireActivity().packageName}/${R.drawable.profile_default_back3}")
+        val isPosterDefault = viewmodel.sharedPrefBackPosterIsDefault.getBoolean("isDefault", false)
+        val backPoster = viewmodel.sharedPrefBackPoster.getString("poster", "android.resource://${requireActivity().packageName}/${R.drawable.profile_default_back3}")
 
         if (isPosterDefault ) {
             Glide.with(binding.imageProfileBackProfile)

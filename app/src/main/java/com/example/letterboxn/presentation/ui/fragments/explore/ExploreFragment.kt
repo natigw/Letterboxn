@@ -53,7 +53,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>(FragmentExploreBind
     }
 
     private fun updateAdapters() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewmodel.categories.collect {
                 categoryAdapter.updateAdapter(it)
             }

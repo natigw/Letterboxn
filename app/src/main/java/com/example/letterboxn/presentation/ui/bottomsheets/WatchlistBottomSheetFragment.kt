@@ -18,14 +18,14 @@ class WatchlistBottomSheetFragment : BaseBottomSheetFragment<Bottomsheetfragment
     @Inject
     lateinit var api : MovieApi
 
-    val watchlistAdapter = BShWatchlistAdapter(
+    private val watchlistAdapter = BShWatchlistAdapter(
         onClick = {
             findNavController().navigate(WatchlistBottomSheetFragmentDirections.actionWatchlistBottomSheetFragmentToDetailsMovieFragment(it.movieId))
         }
     )
 
     override fun onViewCreatedLight() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             val movies = api.getWatchlist().results.map {
                 WatchlistItem(
                     movieId = it.id,

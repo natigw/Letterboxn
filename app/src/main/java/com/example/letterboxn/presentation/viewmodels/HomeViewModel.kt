@@ -3,7 +3,6 @@ package com.example.letterboxn.presentation.viewmodels
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide.init
 import com.example.letterboxn.domain.model.MovieItem
 import com.example.letterboxn.domain.model.home.popularLists.PopularListItem
 import com.example.letterboxn.domain.model.home.recentReviews.ReviewWithMovieItem
