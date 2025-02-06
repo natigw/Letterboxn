@@ -1,16 +1,18 @@
 package com.example.letterboxn.presentation.ui.fragments.auth
 
-import android.view.View
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
+import com.example.letterboxn.common.utils.blockButton
+import com.example.letterboxn.common.utils.hideKeyboard
 import com.example.letterboxn.common.utils.isValidEmail
 import com.example.letterboxn.common.utils.nancyToastError
 import com.example.letterboxn.common.utils.nancyToastInfo
 import com.example.letterboxn.common.utils.nancyToastSuccess
+import com.example.letterboxn.common.utils.resetButton
 import com.example.letterboxn.common.utils.validateInputFieldEmpty
 import com.example.letterboxn.common.utils.validateInputFieldMeet
 import com.example.letterboxn.databinding.FragmentRegisterBinding
@@ -34,11 +36,26 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 if (!checkInputFields(username, email, password, entryPin)) return@setOnClickListener
 
                 viewLifecycleOwner.lifecycleScope.launch {
-                    blockRegisterButton()
+                    blockButton(
+                        context = requireContext(),
+                        progressBar = progressBarRegister,
+                        button = buttonRegister
+                    )
+                    binding.textInputLayoutUsernameRegister.clearFocus()
+                    binding.textInputLayoutEmailRegister.clearFocus()
+                    binding.textInputLayoutPasswordRegister.clearFocus()
+                    binding.textInputLayoutEntryPinRegister.clearFocus()
+                    hideKeyboard(binding.root)
 
                     if (viewmodel.checkIfUserExists(email)) {
                         nancyToastError(requireContext(), getString(R.string.user_already_exist))
-                        resetRegisterButton()
+                        resetButton(
+                            context = requireContext(),
+                            progressBar = progressBarRegister,
+                            button = buttonRegister,
+                            buttonColor = R.color.letterboxn_register,
+                            buttonText = getString(R.string.register)
+                        )
                         return@launch
                     }
 
@@ -51,7 +68,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     } catch (e: Exception) {
                         nancyToastError(requireContext(), getString(R.string.register_failed))
                     } finally {
-                        resetRegisterButton()
+                        resetButton(
+                            context = requireContext(),
+                            progressBar = progressBarRegister,
+                            button = buttonRegister,
+                            buttonColor = R.color.letterboxn_register,
+                            buttonText = getString(R.string.register)
+                        )
                     }
                 }
             }
@@ -111,24 +134,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         if (!isUsernameFilled || !isEmailValid || passwordErrors.isNotEmpty() || pinErrors.isNotEmpty()) return false
 
         return true
-    }
-
-    private fun blockRegisterButton() {
-        binding.progressBarRegister.visibility = View.VISIBLE
-        binding.buttonRegister.apply {
-            isEnabled = false
-            text = null
-            setBackgroundColor(requireContext().getColor(R.color.button_disabled))
-        }
-    }
-
-    private fun resetRegisterButton() {
-        binding.progressBarRegister.visibility = View.INVISIBLE
-        binding.buttonRegister.apply {
-            isEnabled = true
-            text = getString(R.string.register)
-            setBackgroundColor(requireContext().getColor(R.color.letterboxn_register))
-        }
     }
 
     private fun clearInputFields() {

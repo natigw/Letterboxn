@@ -11,7 +11,6 @@ import com.example.letterboxn.presentation.ui.activities.MainActivity
 import com.example.letterboxn.presentation.viewmodels.WelcomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
 @AndroidEntryPoint
 class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(FragmentWelcomeBinding::inflate){
@@ -20,11 +19,8 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(FragmentWelcomeBind
 
     override fun onViewCreatedLight() {
         viewLifecycleOwner.lifecycleScope.launch {
-            if (viewmodel.status && viewmodel.username != null) {
-                if (isUserAuthorized(viewmodel.username!!)) {
-                    navigateToMainActivity()
-                }
-                //else nancyToastError(requireContext(), "User unauthorized! Please log in.")
+            if (viewmodel.status && viewmodel.email != null) {
+                navigateToMainActivity()
             }
         }
     }
@@ -33,15 +29,6 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(FragmentWelcomeBind
         super.clickListeners()
         binding.buttonGetStartedWelcome.setOnClickListener {
             findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
-        }
-    }
-
-    private suspend fun isUserAuthorized(email: String): Boolean {
-        return try {
-            val documentSnapshot = viewmodel.firestore.collection("users").document(email).get().await()
-            documentSnapshot.exists()
-        } catch (e: Exception) {
-            false
         }
     }
 

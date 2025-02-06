@@ -1,21 +1,21 @@
 package com.example.letterboxn.presentation.ui.fragments.movieDetails
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.example.letterboxn.common.utils.nancyToastSuccess
-import com.example.letterboxn.common.utils.nancyToastWarning
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
-import com.example.letterboxn.data.local.database.review.ReviewDao
+import com.example.letterboxn.common.utils.nancyToastSuccess
+import com.example.letterboxn.common.utils.nancyToastWarning
 import com.example.letterboxn.data.local.database.review.ReviewEntity
-import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.ResultFavoriteMovie
 import com.example.letterboxn.data.remote.model.account.favoriteMovies.favMovie.RequestAddRemoveFavorite
 import com.example.letterboxn.data.remote.model.account.ratedMovies.rateMovie.RequestAddRating
 import com.example.letterboxn.databinding.FragmentWriteReviewBinding
+import com.example.letterboxn.presentation.viewmodels.WriteReviewViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,19 +23,12 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class WriteReviewFragment :
-    BaseFragment<FragmentWriteReviewBinding>(FragmentWriteReviewBinding::inflate) {
-
-    @Inject
-    lateinit var api: MovieApi
-
-    @Inject
-    lateinit var reviewDao: ReviewDao
-
-    private val args: WriteReviewFragmentArgs by navArgs()
+class WriteReviewFragment : BaseFragment<FragmentWriteReviewBinding>(FragmentWriteReviewBinding::inflate) {
+    
+    private val viewmodel by viewModels<WriteReviewViewModel>()
+    private val args by navArgs<WriteReviewFragmentArgs>()
 
     private var isFav = false
 
@@ -53,11 +46,12 @@ class WriteReviewFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            val movieItem = api.getMovieDetails(movieId = args.movieId)
+            val movieItem = viewmodel.api.getMovieDetails(movieId = args.movieId)
             with(binding) {
                 Glide.with(imagePosterReview)
                     .load("https://image.tmdb.org/t/p/w780" + movieItem.posterPath)
                     .placeholder(R.drawable.custom_poster_shape)
+                    .error(R.drawable.round_error_outline_24)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imagePosterReview)
                 textMovienameReview.text = movieItem.title
@@ -99,7 +93,7 @@ class WriteReviewFragment :
                 return@setOnClickListener
             }
             viewLifecycleOwner.lifecycleScope.launch {
-                api.addOrRemoveFavoriteMovie(
+                viewmodel.api.addOrRemoveFavoriteMovie(
                     requestFavorite = RequestAddRemoveFavorite(
                         favorite = isFav,  //if true add, else remove fav
                         mediaId = args.movieId,
@@ -108,7 +102,7 @@ class WriteReviewFragment :
                 )
             }
             viewLifecycleOwner.lifecycleScope.launch {
-                api.addRateMovie(
+                viewmodel.api.addRateMovie(
                     movieId = args.movieId,
                     requestRateMovie = RequestAddRating(
                         value = binding.ratingBarDetailsReview.rating
@@ -116,7 +110,7 @@ class WriteReviewFragment :
                 )
             }
             viewLifecycleOwner.lifecycleScope.launch {
-                reviewDao.addReview(
+                viewmodel.reviewDao.addReview(
                     ReviewEntity(
                         movieId = args.movieId,
                         review = binding.editTextReview.text.toString(),
@@ -133,7 +127,7 @@ class WriteReviewFragment :
     }
 
     private suspend fun findMovieById(movieId: Int): ResultFavoriteMovie? {
-        val response = api.getFavoriteMovies()
+        val response = viewmodel.api.getFavoriteMovies()
         return response.results.find { it.id == movieId }
     }
 

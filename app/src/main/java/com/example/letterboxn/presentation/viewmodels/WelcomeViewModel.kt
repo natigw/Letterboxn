@@ -14,7 +14,7 @@ class WelcomeViewModel @Inject constructor(
     val firestore: FirebaseFirestore
 ): ViewModel() {
 
-    val status = sharedPref.getBoolean("status_loggedin", false)
-    val username = sharedPref.getString("username", null)
+    val status = sharedPref.getBoolean("status_logged_in", false)
+    val email = sharedPref.getString("email", null)
 
 }

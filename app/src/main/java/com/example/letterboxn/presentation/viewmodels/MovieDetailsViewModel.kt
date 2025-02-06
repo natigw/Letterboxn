@@ -2,6 +2,7 @@ package com.example.letterboxn.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.domain.repository.ReviewRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,6 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
+    val api: MovieApi,
     private val reviewRepository : ReviewRepository
 ) : ViewModel(){
 

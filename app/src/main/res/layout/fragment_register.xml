@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/letterboxn_background_secondary"
     tools:context=".presentation.ui.fragments.auth.RegisterFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,28 +16,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="@dimen/eventify_guideline_left_large" />
+            app:layout_constraintGuide_percent="@dimen/letterboxn_guideline_left_large" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineRegister2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="@dimen/eventify_guideline_right_large" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRegister3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.03" />
+            app:layout_constraintGuide_percent="@dimen/letterboxn_guideline_right_large" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineRegister4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.35" />
+            app:layout_constraintGuide_percent="0.32" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonBackRegister"
@@ -44,13 +38,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="-16dp"
-            android:layout_marginTop="-16dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/letterboxn_background_secondary"
             app:icon="@drawable/ic_back_arrow"
             app:iconSize="28dp"
             app:iconTint="@color/dark_gray"
             app:layout_constraintStart_toStartOf="@+id/guidelineRegister1"
-            app:layout_constraintTop_toTopOf="@+id/guidelineRegister3" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageBackRegister"
@@ -61,7 +55,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guidelineRegister4"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRegister2"
             app:layout_constraintStart_toStartOf="@+id/guidelineRegister1"
-            app:layout_constraintTop_toTopOf="@+id/guidelineRegister3" />
+            app:layout_constraintTop_toTopOf="@+id/buttonBackRegister" />
 
         <ImageView
             android:id="@+id/imageGoogleLogoRegister"
@@ -104,14 +98,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:paddingStart="4dp"
-            android:shadowColor="@color/gray_login"
-            android:shadowDx="-12"
-            android:shadowDy="12"
-            android:shadowRadius="8"
+            android:fontFamily="@font/inter_bold"
             android:text="@string/register"
-            android:textSize="32sp"
-            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="34sp"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRegister2"
             app:layout_constraintStart_toStartOf="@+id/guidelineRegister1"
             app:layout_constraintTop_toBottomOf="@+id/imageGoogleLogoRegister" />
@@ -121,11 +111,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:boxCornerRadiusBottomEnd="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusBottomStart="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusTopEnd="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusTopStart="@dimen/eventify_input_field_corner_radius"
-            app:boxStrokeColor="@color/letterboxn_register"
+            app:boxCornerRadiusBottomEnd="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/letterboxn_input_field_corner_radius"
+            app:boxStrokeColor="@color/input_field_stroke_color_register"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:cursorColor="@color/letterboxn_register"
             app:hintTextColor="@color/letterboxn_register"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRegister2"
             app:layout_constraintStart_toStartOf="@+id/guidelineRegister1"
@@ -135,8 +128,9 @@
                 android:id="@+id/textInputUsernameRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_regular"
                 android:hint="@string/username"
+                android:inputType="textPersonName"
+                android:fontFamily="@font/inter_regular"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,11 +139,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:boxCornerRadiusBottomEnd="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusBottomStart="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusTopEnd="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusTopStart="@dimen/eventify_input_field_corner_radius"
-            app:boxStrokeColor="@color/letterboxn_register"
+            app:boxCornerRadiusBottomEnd="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/letterboxn_input_field_corner_radius"
+            app:boxStrokeColor="@color/input_field_stroke_color_register"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:cursorColor="@color/letterboxn_register"
             app:hintTextColor="@color/letterboxn_register"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRegister2"
             app:layout_constraintStart_toStartOf="@+id/guidelineRegister1"
@@ -159,9 +156,9 @@
                 android:id="@+id/textInputEmailRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_regular"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
+                android:fontFamily="@font/inter_regular"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -170,13 +167,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:boxCornerRadiusBottomEnd="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusBottomStart="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusTopEnd="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusTopStart="@dimen/eventify_input_field_corner_radius"
-            app:boxStrokeColor="@color/letterboxn_register"
-            app:endIconMode="password_toggle"
+            app:boxCornerRadiusBottomEnd="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/letterboxn_input_field_corner_radius"
+            app:boxStrokeColor="@color/input_field_stroke_color_register"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:cursorColor="@color/letterboxn_register"
             app:hintTextColor="@color/letterboxn_register"
+            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRegister2"
             app:layout_constraintStart_toStartOf="@+id/guidelineRegister1"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmailRegister">
@@ -185,9 +185,9 @@
                 android:id="@+id/textInputPasswordRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_regular"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:fontFamily="@font/inter_regular"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -196,15 +196,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:boxCornerRadiusBottomEnd="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusBottomStart="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusTopEnd="@dimen/eventify_input_field_corner_radius"
-            app:boxCornerRadiusTopStart="@dimen/eventify_input_field_corner_radius"
-            app:boxStrokeColor="@color/letterboxn_register"
-            app:endIconMode="password_toggle"
+            app:boxCornerRadiusBottomEnd="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusBottomStart="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusTopEnd="@dimen/letterboxn_input_field_corner_radius"
+            app:boxCornerRadiusTopStart="@dimen/letterboxn_input_field_corner_radius"
+            app:boxStrokeColor="@color/input_field_stroke_color_register"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
             app:helperText="*this pin will be used later"
             app:helperTextTextColor="#407BFE"
             app:hintTextColor="@color/letterboxn_register"
+            app:cursorColor="@color/letterboxn_register"
+            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRegister2"
             app:layout_constraintStart_toStartOf="@+id/guidelineRegister1"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPasswordRegister">
@@ -213,9 +216,9 @@
                 android:id="@+id/textInputEntryPinRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_regular"
                 android:hint="@string/entry_pin"
                 android:inputType="numberPassword"
+                android:fontFamily="@font/inter_regular"
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -224,14 +227,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="32dp"
-            android:allowClickWhenDisabled="true"
-            android:enabled="true"
             android:backgroundTint="@color/letterboxn_register"
+            android:enabled="true"
             android:fontFamily="@font/inter_bold"
             android:minHeight="60dp"
             android:text="@string/register"
             android:textSize="24sp"
-            app:cornerRadius="@dimen/eventify_large_button_corner_radius"
+            app:cornerRadius="@dimen/letterboxn_large_button_corner_radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/guidelineRegister2"
             app:layout_constraintStart_toStartOf="@+id/guidelineRegister1"
@@ -242,6 +244,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:indeterminateTint="@color/gray_dark"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/buttonRegister"
             app:layout_constraintEnd_toEndOf="@+id/buttonRegister"

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/letterboxn_dark_purple"
     tools:context=".presentation.ui.fragments.auth.WelcomeFragment">
 
     <ImageView
@@ -68,7 +67,7 @@
         android:text="@string/get_started"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:cornerRadius="@dimen/eventify_large_button_corner_radius"
+        app:cornerRadius="@dimen/letterboxn_large_button_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textInfoWelcome"
         app:layout_constraintStart_toStartOf="@+id/textInfoWelcome" />

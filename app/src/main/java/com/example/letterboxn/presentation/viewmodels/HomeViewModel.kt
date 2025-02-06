@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(
 
     val userName = sharedPrefLoggedIn.getString("username", null)
     val userEmail = sharedPrefLoggedIn.getString("email", null)
-    val status = sharedPrefStatus.getBoolean("status", false)
+    val status = sharedPrefLoggedIn.getBoolean("status_logged_in", false)
     val followerCount = 22   //from api
     val followingCount = 39
 

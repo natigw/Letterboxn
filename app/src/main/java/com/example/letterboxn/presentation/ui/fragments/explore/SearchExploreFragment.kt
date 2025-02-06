@@ -19,8 +19,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchExploreFragment :
-    BaseFragment<FragmentSearchExploreBinding>(FragmentSearchExploreBinding::inflate) {
+class SearchExploreFragment : BaseFragment<FragmentSearchExploreBinding>(FragmentSearchExploreBinding::inflate) {
 
     private val viewmodel by viewModels<SearchViewModel>()
     private val searchAdapter = SearchAdapter(

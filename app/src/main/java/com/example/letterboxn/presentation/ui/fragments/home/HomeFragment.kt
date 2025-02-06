@@ -34,6 +34,7 @@ import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
@@ -62,9 +63,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private var email: String? = null
 
     override fun onViewCreatedLight() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            if (isUserAuthorized(viewmodel.userEmail!!).not()) {
+                viewmodel.sharedPrefLoggedIn.edit().putBoolean("status_logged_in", false).apply()
+                nancyToastError(requireContext(), "User unauthorized! Please log in.")
+                navigateToOnBoardActivity()
+            }
+        }
+
         setUI()
         setAdapters()
         updateAdapters()
+    }
+
+    private suspend fun isUserAuthorized(email: String): Boolean {
+        return try {
+            val documentSnapshot = viewmodel.firestore.collection("users").document(email).get().await()
+            documentSnapshot.exists()
+        } catch (e: Exception) {
+            false
+        }
     }
 
     private fun updateAdapters() {
@@ -166,7 +184,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
                 R.id.nav_logout -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
-                    viewmodel.sharedPrefLoggedIn.edit().putBoolean("status", false).apply()
+                    viewmodel.sharedPrefLoggedIn.edit().putBoolean("status_logged_in", false).apply()
                     nancyToastInfo(requireContext(), getString(R.string.logout_info_message))
                     navigateToOnBoardActivity()
                     true
@@ -211,13 +229,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             .setNegativeButton(getString(R.string.offline)) { _, _ ->
                 binding.imageUserStatusHome.setImageResource(R.drawable.circle_red)
                 nancyToastError(requireContext(), getString(R.string.status_offline))
-                viewmodel.sharedPrefStatus.edit().putBoolean("status", false).apply()
+                viewmodel.sharedPrefStatus.edit().putBoolean("active_status", false).apply()
 
             }
             .setPositiveButton(getString(R.string.online)) { _, _ ->
                 binding.imageUserStatusHome.setImageResource(R.drawable.circle_green)
                 nancyToastSuccess(requireContext(), getString(R.string.status_online))
-                viewmodel.sharedPrefStatus.edit().putBoolean("status", true).apply()
+                viewmodel.sharedPrefStatus.edit().putBoolean("active_status", true).apply()
             }
             .create()
 

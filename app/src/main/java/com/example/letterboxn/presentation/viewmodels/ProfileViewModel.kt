@@ -3,7 +3,6 @@ package com.example.letterboxn.presentation.viewmodels
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide.init
 import com.example.letterboxn.data.local.database.review.ReviewDao
 import com.example.letterboxn.data.remote.api.MovieApi
 import com.example.letterboxn.domain.model.MovieDetailsForReviewItem
@@ -22,7 +21,7 @@ import javax.inject.Named
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     @Named("UserLoggedIn")
-    val sharedPrefLogon: SharedPreferences,
+    val sharedPrefLoggedIn: SharedPreferences,
     @Named("UserProfileImage")
     val sharedPrefProfilePicture: SharedPreferences,
     @Named("UserBackPosterImage")

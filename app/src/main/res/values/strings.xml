@@ -11,9 +11,7 @@
     <string name="exception_error">exception error</string>
     <string name="not_assigned">N/A</string>
     <string name="use_fingerprint_login">Use your fingerprint to login</string>
-    <string name="have_no_account_register">Don\'t have an account? <font color='#882DFF'>Register</font></string>
-    <string name="sign_in">Sign in</string>
-    <string name="sign_up">Sign up</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="login_successful">Login successful!</string>
     <string name="register_successful">Registration successful!</string>
     <string name="register_failed">Registration failed!</string>

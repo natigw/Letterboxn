@@ -1,16 +1,18 @@
 package com.example.letterboxn.presentation.ui.fragments.auth
 
 import android.content.Intent
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.letterboxn.R
 import com.example.letterboxn.common.base.BaseFragment
+import com.example.letterboxn.common.utils.blockButton
+import com.example.letterboxn.common.utils.hideKeyboard
 import com.example.letterboxn.common.utils.isValidEmail
 import com.example.letterboxn.common.utils.nancyToastError
 import com.example.letterboxn.common.utils.nancyToastInfo
 import com.example.letterboxn.common.utils.nancyToastSuccess
+import com.example.letterboxn.common.utils.resetButton
 import com.example.letterboxn.common.utils.validateInputFieldEmpty
 import com.example.letterboxn.common.utils.validateInputFieldMeet
 import com.example.letterboxn.databinding.FragmentLoginBinding
@@ -35,12 +37,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         binding.buttonBackLogin.setOnClickListener {
             findNavController().popBackStack()
         }
-        binding.textForgotPasswordLogin.setOnClickListener {
+        binding.buttonForgotPasswordLogin.setOnClickListener {
             nancyToastInfo(requireContext(), getString(R.string.navigating_help_screen))
         }
-        binding.textDontHaveAccountLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+        binding.buttonRegisterLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+
         binding.buttonLogin.setOnClickListener {
             val email = binding.textInputEmailLogin.text.toString().trim()
             val password = binding.textInputPasswordLogin.text.toString().trim()
@@ -53,28 +56,23 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             }
 
             viewLifecycleOwner.lifecycleScope.launch {
-                blockLoginButton()
+                blockButton(
+                    context = requireContext(),
+                    progressBar = binding.progressBarLogin,
+                    button = binding.buttonLogin
+                )
+                binding.textInputLayoutEmailLogin.clearFocus()
+                binding.textInputLayoutPasswordLogin.clearFocus()
+                hideKeyboard(binding.root)
                 authenticateUser(email, password)
-                resetLoginButton()
+                resetButton(
+                    context = requireContext(),
+                    progressBar = binding.progressBarLogin,
+                    button = binding.buttonLogin,
+                    buttonText = getString(R.string.login),
+                    buttonColor = R.color.letterboxn_login
+                )
             }
-        }
-    }
-
-    private fun blockLoginButton() {
-        binding.progressBarLogin.visibility = View.VISIBLE
-        binding.buttonLogin.apply {
-            isEnabled = false
-            text = null
-            setBackgroundColor(requireContext().getColor(R.color.button_disabled))
-        }
-    }
-
-    private fun resetLoginButton() {
-        binding.progressBarLogin.visibility = View.INVISIBLE
-        binding.buttonLogin.apply {
-            isEnabled = true
-            text = getString(R.string.login)
-            setBackgroundColor(requireContext().getColor(R.color.letterboxn_login))
         }
     }
 
@@ -94,7 +92,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                     val editor = viewmodel.sharedPrefLogon.edit()
                     editor.putString("username", data.username)
                     editor.putString("email", data.email)
-                    editor.putBoolean("status_loggedin", true)
+                    editor.putBoolean("status_logged_in", true)
                     editor.putString("entrypin", data.entrypin)
                     editor.apply()
                     clearInputFields()

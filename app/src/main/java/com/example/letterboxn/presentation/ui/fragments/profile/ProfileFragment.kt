@@ -134,7 +134,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 //        nancyToastInfo(requireContext(), "accountId is $accId")
 //        nancyToastInfo(requireContext(), "api+sess is $advApiKey")
 
-        username = viewmodel.sharedPrefLogon.getString("username", null) ?: getString(R.string.user)
+        username = viewmodel.sharedPrefLoggedIn.getString("username", null) ?: getString(R.string.user)
         binding.textUsernameProfile.text = username
         binding.textUsersFavMoviesTEXT.text = buildString {
         append(username)
@@ -288,7 +288,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             nancyToastInfo(requireContext(), getString(R.string.navigating_reviews_screen))
         }
         binding.buttonLogoutProfile.setOnClickListener {
-            viewmodel.sharedPrefLogon.edit().putBoolean("status", false).apply()
+            viewmodel.sharedPrefLoggedIn.edit().putBoolean("status_logged_in", false).apply()
             nancyToastInfo(requireContext(), getString(R.string.logout_info_message))
             navigateToOnBoardActivity()
         }

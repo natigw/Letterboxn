@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="eventify_large_button_corner_radius">14dp</dimen>
-    <dimen name="eventify_input_field_corner_radius">14dp</dimen>
+    <dimen name="letterboxn_large_button_corner_radius">14dp</dimen>
+    <dimen name="letterboxn_input_field_corner_radius">14dp</dimen>
 
-    <dimen name="eventify_guideline_left">0.05</dimen>
-    <dimen name="eventify_guideline_right">0.95</dimen>
-    <dimen name="eventify_guideline_left_mid">0.06</dimen>
-    <dimen name="eventify_guideline_right_mid">0.94</dimen>
-    <dimen name="eventify_guideline_left_large">0.08</dimen>
-    <dimen name="eventify_guideline_right_large">0.92</dimen>
+    <dimen name="letterboxn_guideline_left_small">0.025</dimen>
+    <dimen name="letterboxn_guideline_right_small">0.975</dimen>
+    <dimen name="letterboxn_guideline_left">0.05</dimen>
+    <dimen name="letterboxn_guideline_right">0.95</dimen>
+    <dimen name="letterboxn_guideline_left_mid">0.06</dimen>
+    <dimen name="letterboxn_guideline_right_mid">0.94</dimen>
+    <dimen name="letterboxn_guideline_left_large">0.08</dimen>
+    <dimen name="letterboxn_guideline_right_large">0.92</dimen>
 </resources>
