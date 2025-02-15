@@ -1,5 +1,6 @@
 [versions]
 androidx-macro-benchmark = "1.2.2"
+gradle = "7.0.4"
 kotlinGradlePlugin = "1.6.10"
 my-library = "1.4"
 agp = "8.5.0"
@@ -14,11 +15,14 @@ material = "1.12.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.7.7"
+navigationSafeArgsGradlePlugin = "2.8.7"
 navigationUiKtx = "2.7.7"
 retrofit = "2.9.0"
 
 [libraries]
 androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidx-macro-benchmark" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationSafeArgsGradlePlugin" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
 my-library = { group = "com.myapplication", name = "mylibrary", version.ref = "my-library" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
