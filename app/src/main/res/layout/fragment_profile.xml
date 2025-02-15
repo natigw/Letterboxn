@@ -36,13 +36,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonLogoutProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:fontFamily="@font/inter_bold"
             android:text="@string/log_out"
-            app:cornerRadius="16dp"
+            android:textSize="16sp"
+            app:cornerRadius="@dimen/letterboxn_large_button_corner_radius"
             app:layout_constraintEnd_toStartOf="@+id/guidelineProfile2"
             app:layout_constraintStart_toStartOf="@+id/guidelineProfile1"
             app:layout_constraintTop_toTopOf="parent" />

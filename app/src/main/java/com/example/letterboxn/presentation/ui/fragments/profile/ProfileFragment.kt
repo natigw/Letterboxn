@@ -96,13 +96,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private val cameraPermissionRequestCode = 100
-    private val maxDeniedCount = 3
+    private val maxDeniedCount = 2
 
     private lateinit var takePictureLauncher: ActivityResultLauncher<Void?>
 
+
     private lateinit var username: String
 
-    val reviewsToDelete = mutableListOf<ReviewEntity>()
+    private val reviewsToDelete = mutableListOf<ReviewEntity>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -683,7 +684,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 resetDeniedCount()
             } else {
                 incrementDeniedCount()
-                if (getDeniedCount() >= maxDeniedCount) {
+                if (getDeniedCount() > maxDeniedCount) {
                     showPermissionSettingsDialog()
                 }
             }
